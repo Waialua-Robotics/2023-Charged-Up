@@ -59,6 +59,8 @@ public final class Constants {
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
+        public static final int maxHeight = 100;
+        public static final int minHeight = 0;
 
         /* soft limits */
         public static final int forwardSoftLimit = 100; 
