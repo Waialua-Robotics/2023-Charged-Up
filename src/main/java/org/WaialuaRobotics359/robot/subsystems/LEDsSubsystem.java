@@ -37,8 +37,6 @@ public class LEDsSubsystem extends SubsystemBase {
         m_candle.setLEDs(0, 0, 255);
     }
 
-
-
-    
+  
 }
    

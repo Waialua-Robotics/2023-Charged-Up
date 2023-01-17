@@ -1,6 +1,7 @@
 package org.WaialuaRobotics359.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.pathplanner.lib.auto.PIDConstants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,6 +23,87 @@ public final class Constants {
     public static final class LEDs {
         public static final int CANdleID = 0; //TODO: This must be tuned to robot
 
+    }
+
+    public static final class Slide {
+        public static final int slideMotorID = 0;
+        public static final TalonFXConfiguration config = new TalonFXConfiguration();
+        public static final Boolean slideMotorInvert = false;
+        public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
+
+        public static final int threshold = 15;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double slideKP = 0.1; 
+        public static final double slideKI = 0.0;
+        public static final double slideKD = 0.0;
+        public static final double slideKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+    }
+
+    public static final class Elevator {
+        public static final int rElevatorID = 1;
+        public static final int lElevatorID = 2;
+        public static final TalonFXConfiguration config = new TalonFXConfiguration();
+        public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+
+        public static final int threshold = 15;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double slideKP = 0.1; 
+        public static final double slideKI = 0.0;
+        public static final double slideKD = 0.0;
+        public static final double slideKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+    }
+
+    public static final class Wrist {
+        public static final int wristID = 3;
+        public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
+        public static final Boolean wristMotorInvert = false;
+        public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
+
+        public static final int threshold = 15;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double slideKP = 0.1; 
+        public static final double slideKI = 0.0;
+        public static final double slideKD = 0.0;
+        public static final double slideKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
     }
 
     public static final class Swerve {
@@ -146,6 +228,8 @@ public final class Constants {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
     }
+
+
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
         public static final double kMaxSpeedMetersPerSecond = 3;
