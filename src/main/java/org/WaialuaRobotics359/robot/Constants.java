@@ -53,17 +53,17 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final int rElevatorID = 1;
-        public static final int lElevatorID = 2;
+        public static final int rElevatorID = 42;
+        public static final int lElevatorID = 12;
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
-        public static final int maxHeight = 100;
+        public static final int maxHeight = 100000;
         public static final int minHeight = 0;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 100; 
+        public static final int forwardSoftLimit = 100000; 
         public static final int reverseSoftLimit = 0;
 
         /* current limiting */

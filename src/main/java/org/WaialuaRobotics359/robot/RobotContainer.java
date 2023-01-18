@@ -6,8 +6,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import java.sql.Driver;
 
 import org.WaialuaRobotics359.robot.autos.*;
 import org.WaialuaRobotics359.robot.commands.*;
@@ -25,36 +28,39 @@ public class RobotContainer {
     private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
-    private final int translationAxis = XboxController.Axis.kLeftY.value;
-    private final int strafeAxis = XboxController.Axis.kLeftX.value;
-    private final int rotationAxis = XboxController.Axis.kRightX.value;
+    //#FIXME //private final int translationAxis = XboxController.Axis.kLeftY.value;
+    //#FIXME //private final int strafeAxis = XboxController.Axis.kLeftX.value;
+    //#FIXME //private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
+   //#FIXME // private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    //#FIXME //private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    //#FIXME //private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
 
     /* Operator Controls */
     private final int elevatorAxis = XboxController.Axis.kLeftY.value;
 
     /* Operator Buttons */
+    private final JoystickButton ElevatorHigh = new JoystickButton(operator, XboxController.Button.kA.value);
 
     /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
+    //#FIXME //private final Swerve s_Swerve = new Swerve();
     private final Elevator s_Elevator = new Elevator();
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
 
     /*The autonomous routines*/
 
-    private final Command m_twomAuto = new twomAuto(s_Swerve);
-    private final Command m_SwerveBuilderAuto = new swerveBuilderAuto(s_Swerve);
+    //#FIXME //private final Command m_twomAuto = new twomAuto(s_Swerve);
+    //#FIXME //private final Command m_SwerveBuilderAuto = new swerveBuilderAuto(s_Swerve);
 
     /*chooser for autonomous commands*/
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    //#FIXME //SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
+    //#FIXME 
+      public RobotContainer() {
+        /* 
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
             s_Swerve, 
@@ -63,26 +69,28 @@ public class RobotContainer {
             () -> -driver.getRawAxis(rotationAxis), 
             () -> robotCentric.getAsBoolean()
             )
-        );
+        );  
+        */
 
-        s_Elevator.setDefaultCommand(
-            new ManualElevator(s_Elevator,
-            () -> operator.getRawAxis(elevatorAxis)
-            )
+        CommandScheduler.getInstance().setDefaultCommand(s_Elevator,
+            new ManualElevator(
+                s_Elevator,
+                () -> operator.getRawAxis(elevatorAxis)
+                )
         );
 
         // Configure the button bindings
         configureButtonBindings();
 
         // Add commands to the autonomous command chooser
-        m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
-        m_chooser.addOption("twomAuto", m_twomAuto);
+        //#FIXME //m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
+        //#FIXME //m_chooser.addOption("twomAuto", m_twomAuto);
 
         // Put the chooser on the dashboard
-        Shuffleboard.getTab("Autonomous").add(m_chooser);
+        //#FIXME //Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         // Populate the autonomous event map
-        setEventMap();
+        //#FIXME //setEventMap();
     }
 
     /**
@@ -93,8 +101,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+       //#FIXME // zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        //#FIXME //ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+        ElevatorHigh.onTrue(new SetPositionElevator(s_Elevator, 80000));
 
     }
 
@@ -108,8 +117,8 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand() {
+    //public Command getAutonomousCommand() {
         // selected auto will run
-        return m_chooser.getSelected();
-    }
+       //#FIXME // return m_chooser.getSelected();
+   // }
 }
