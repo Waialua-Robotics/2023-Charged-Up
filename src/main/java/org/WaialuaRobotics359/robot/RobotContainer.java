@@ -22,6 +22,7 @@ import org.WaialuaRobotics359.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
+    private final Joystick operator = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -33,8 +34,14 @@ public class RobotContainer {
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
 
+    /* Operator Controls */
+    private final int elevatorAxis = XboxController.Axis.kLeftY.value;
+
+    /* Operator Buttons */
+
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
+    private final Elevator s_Elevator = new Elevator();
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
 
     /*The autonomous routines*/
@@ -55,6 +62,12 @@ public class RobotContainer {
             () -> -driver.getRawAxis(strafeAxis), 
             () -> -driver.getRawAxis(rotationAxis), 
             () -> robotCentric.getAsBoolean()
+            )
+        );
+
+        s_Elevator.setDefaultCommand(
+            new ManualElevator(s_Elevator,
+            () -> operator.getRawAxis(elevatorAxis)
             )
         );
 
