@@ -6,7 +6,9 @@ import org.WaialuaRobotics359.robot.Robot;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-public class Slide {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
 
     private int desiredPosition;
@@ -18,6 +20,11 @@ public class Slide {
         mSlideMotor.configAllSettings(Robot.ctreConfigs.slideFXConfig);
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
+    }
+
+    public boolean isValidPosition(int position) {
+        boolean valid = position >= Constants.Slide.minHeight && position <= Constants.Slide.maxHeight;
+        return valid;
     }
 
     public void setPosition(int position) {
@@ -33,8 +40,16 @@ public class Slide {
         return (encoder > (desiredPosition - Constants.Slide.threshold)) && (encoder < (desiredPosition + Constants.Slide.threshold));
     }
 
-    public void periodic() {
+    public void setSlidePosition() {
         mSlideMotor.set(TalonFXControlMode.Position, desiredPosition);
     }
-    
+
+    public void incrementTargetPosition(int increment) {
+        int Current = getPosition();
+        int newDesired = Current + increment;
+        if (isValidPosition(newDesired)) {
+            desiredPosition = newDesired; 
+        }
+    }
+  
 }

@@ -9,7 +9,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-public class Wrist {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
     private int desiredPosition;
     public Wrist(int wristID) {
@@ -36,9 +38,19 @@ public class Wrist {
         return (encoder > (desiredPosition - Constants.Wrist.threshold)) && (encoder < (desiredPosition + Constants.Wrist.threshold));
     }
 
-  public void periodic() {
+    public void SetWristPosition() {
         mWristMotor.set(TalonFXControlMode.Position, desiredPosition);
     }
 
-
+    public void incrementTargetPosition(int increment) {
+        int Current = getPosition();
+        int newDesired = Current + increment;
+        if (isValidPosition(newDesired)) {
+            desiredPosition = newDesired; 
+        }
+    }
+    public boolean isValidPosition(int position) {
+        boolean valid = position >= Constants.Wrist.minHeight && position <= Constants.Wrist.maxHeight;
+        return valid;
+    }
 }

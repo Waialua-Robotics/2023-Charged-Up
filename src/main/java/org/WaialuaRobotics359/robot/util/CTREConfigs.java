@@ -20,6 +20,8 @@ public final class CTREConfigs {
     public TalonFXConfiguration elevatorFXConfig;
     /* Wrist */
     public TalonFXConfiguration wristFXConfig;
+    /* Intake */
+    public TalonFXConfiguration intakeFXConfig;
 
     public CTREConfigs(){
         /* Swerve */
@@ -32,6 +34,8 @@ public final class CTREConfigs {
         elevatorFXConfig = new TalonFXConfiguration();
         /* Wrist */
         wristFXConfig = new TalonFXConfiguration();
+        /* Intake */
+        intakeFXConfig = new TalonFXConfiguration();
 
         /* Swerve Angle Motor Configurations */
             SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
@@ -114,10 +118,10 @@ public final class CTREConfigs {
             wristFXConfig.reverseSoftLimitEnable = true;
             wristFXConfig.reverseSoftLimitThreshold = Constants.Wrist.reverseSoftLimit;
 
-            wristFXConfig.slot0.kP = Constants.Wrist.slideKP;
-            wristFXConfig.slot0.kI = Constants.Wrist.slideKD;
-            wristFXConfig.slot0.kD = Constants.Wrist.slideKI;
-            wristFXConfig.slot0.kF = Constants.Wrist.slideKF;        
+            wristFXConfig.slot0.kP = Constants.Wrist.wristKP;
+            wristFXConfig.slot0.kI = Constants.Wrist.wristKD;
+            wristFXConfig.slot0.kD = Constants.Wrist.wristKI;
+            wristFXConfig.slot0.kF = Constants.Wrist.wristKF;        
             wristFXConfig.supplyCurrLimit = wristSupplyLimit;
             wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
             wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;            

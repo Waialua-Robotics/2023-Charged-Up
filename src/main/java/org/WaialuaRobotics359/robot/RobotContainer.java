@@ -39,13 +39,22 @@ public class RobotContainer {
 
     /* Operator Controls */
     private final int elevatorAxis = XboxController.Axis.kLeftY.value;
+    private final int SlideAxis = XboxController.Axis.kLeftX.value;
+    private final int WristAxis = XboxController.Axis.kRightY.value;
+    private final int IntakeAxis = XboxController.Axis.kRightTrigger.value;
+    private final int IntakeAxisN = XboxController.Axis.kLeftTrigger.value;
 
     /* Operator Buttons */
     private final JoystickButton ElevatorHigh = new JoystickButton(operator, XboxController.Button.kA.value);
-
+    private final JoystickButton SlideHigh = new JoystickButton(operator, XboxController.Button.kB.value);
+    private final JoystickButton WristHigh = new JoystickButton(operator, XboxController.Button.kX.value);
     /* Subsystems */
     //#FIXME //private final Swerve s_Swerve = new Swerve();
     private final Elevator s_Elevator = new Elevator();
+    private final Slide s_Slide = new Slide(Constants.Slide.slideMotorID);
+    private final Wrist s_Wrist = new Wrist(Constants.Wrist.wristID);
+    private final Intake s_Intake = new Intake(Constants.Intake.intakeID);
+
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
 
     /*The autonomous routines*/
@@ -79,6 +88,31 @@ public class RobotContainer {
                 )
         );
 
+        CommandScheduler.getInstance().setDefaultCommand(s_Slide,
+        new ManualSlide(
+            s_Slide,
+            () -> operator.getRawAxis(SlideAxis)
+            )
+    
+        );
+
+        CommandScheduler.getInstance().setDefaultCommand(s_Wrist,
+        new ManualWrist(
+            s_Wrist,
+            () -> operator.getRawAxis(WristAxis)
+            )
+    
+        );
+
+        CommandScheduler.getInstance().setDefaultCommand(s_Intake,
+        new ManualIntake(
+            s_Intake,
+            () -> operator.getRawAxis(IntakeAxis),
+            () -> operator.getRawAxis(IntakeAxisN)
+            )
+    
+        );
+
         // Configure the button bindings
         configureButtonBindings();
 
@@ -103,7 +137,9 @@ public class RobotContainer {
         /* Driver Buttons */
        //#FIXME // zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         //#FIXME //ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-        ElevatorHigh.onTrue(new SetPositionElevator(s_Elevator, 80000));
+        ElevatorHigh.onTrue(new SetPositionElevator(s_Elevator, 8000));
+        SlideHigh.onTrue(new SetPositionSlide(s_Slide, 8000));
+        WristHigh.onTrue(new SetPositionWrist(s_Wrist, 8000));
 
     }
 

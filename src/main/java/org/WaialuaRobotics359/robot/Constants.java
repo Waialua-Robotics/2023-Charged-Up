@@ -26,15 +26,17 @@ public final class Constants {
     }
 
     public static final class Slide {
-        public static final int slideMotorID = 0;
+        public static final int slideMotorID = 32;
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final Boolean slideMotorInvert = false;
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
+        public static final int maxHeight = 100000;
+        public static final int minHeight = 0;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 100; 
+        public static final int forwardSoftLimit = 100000; 
         public static final int reverseSoftLimit = 0;
 
         /* current limiting */
@@ -82,15 +84,16 @@ public final class Constants {
     }
 
     public static final class Wrist {
-        public static final int wristID = 3;
+        public static final int wristID = 33;
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean wristMotorInvert = false;
         public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
-
+        public static final int maxHeight = 100000;
+        public static final int minHeight = 0;
         /* soft limits */
-        public static final int forwardSoftLimit = 100; 
+        public static final int forwardSoftLimit = 100000; 
         public static final int reverseSoftLimit = 0;
 
         /* current limiting */
@@ -100,10 +103,38 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double slideKP = 0.1; 
-        public static final double slideKI = 0.0;
-        public static final double slideKD = 0.0;
-        public static final double slideKF = 0.0;
+        public static final double wristKP = 0.1; 
+        public static final double wristKI = 0.0;
+        public static final double wristKD = 0.0;
+        public static final double wristKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+    }
+
+    public static final class Intake {
+        public static final int intakeID = 56;
+        public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
+        public static final Boolean intakeMotorInvert = false;
+        public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
+
+        public static final int threshold = 15;
+        public static final int maxHeight = 100000;
+        public static final int minHeight = 0;
+        /* soft limits */
+        public static final int forwardSoftLimit = 100000; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double intakeKP = 0.1; 
+        public static final double intakeKI = 0.0;
+        public static final double intakeKD = 0.0;
+        public static final double intakeKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
     }
