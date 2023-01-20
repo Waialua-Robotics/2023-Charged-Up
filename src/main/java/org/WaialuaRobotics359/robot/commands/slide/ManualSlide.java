@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.slide;
 
 import java.util.function.DoubleSupplier;
 
@@ -21,33 +21,26 @@ public class ManualSlide extends CommandBase {
         addRequirements(s_Slide);
     }
 
-    public void initialize(){
-
-    }
+    public void initialize() {}
 
     @Override
-    public void execute(){
-
+    public void execute() {
         //joystick control 
-        double joystickValue = MathUtil.applyDeadband(SlideAxis.getAsDouble(), Constants.stickDeadband);
+        double joystickValue = MathUtil.applyDeadband(SlideAxis.getAsDouble(), Constants.OI.deadband);
         if (Math.abs(joystickValue) > 0){
-            
-        s_Slide.incrementTargetPosition((int) (joystickValue * positionIncrement));
-        s_Slide.setSlidePosition();
-
+            s_Slide.setDesiredPosition( (int) (s_Slide.getDesiredPosition() + (joystickValue * positionIncrement)) );
         }
+        
+        s_Slide.goToPosition();
     }
+    
     @Override
-    public boolean isFinished(){
+    public boolean isFinished() {
         return false;
     }
 
-    public void end(){
+    public void end() {}
 
-    }
-
-    public void interrupted(){
-
-    }
+    public void interrupted() {}
     
 }

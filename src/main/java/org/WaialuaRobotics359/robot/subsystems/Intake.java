@@ -5,18 +5,15 @@ import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Intake extends SubsystemBase {
     private TalonFX mIntakeMotor;
-    public Intake(int intakeID) {
-        mIntakeMotor = new TalonFX(intakeID);
+    public Intake() {
+        mIntakeMotor = new TalonFX(Constants.Intake.intakeID);
 
         mIntakeMotor.configFactoryDefault();
         mIntakeMotor.configAllSettings(Robot.ctreConfigs.intakeFXConfig);
@@ -24,8 +21,16 @@ public class Intake extends SubsystemBase {
         mIntakeMotor.setNeutralMode(Constants.Intake.intakeNeutralMode);
     }
 
-    public void intakeChomp(double value) {
-        mIntakeMotor.set(ControlMode.PercentOutput, value);
+    public void intake() {
+        mIntakeMotor.set(ControlMode.PercentOutput, Constants.Intake.speed);
+    }
+
+    public void outake() {
+        mIntakeMotor.set(ControlMode.PercentOutput, -Constants.Intake.speed);
+    }
+
+    public void stop() {
+        mIntakeMotor.set(ControlMode.PercentOutput, 0);
     }
 
 }

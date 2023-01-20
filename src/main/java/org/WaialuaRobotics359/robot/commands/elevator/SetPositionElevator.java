@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.elevator;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Elevator;
@@ -17,16 +17,12 @@ public class SetPositionElevator extends CommandBase {
         addRequirements(s_Elevator);
     }
 
-    public void initialize(){
-
-    }
+    public void initialize() {}
 
     @Override
     public void execute(){
-    
-    s_Elevator.setPosition(position);
-    s_Elevator.setElevatorPosition();
-
+        s_Elevator.setDesiredPosition(position);
+        s_Elevator.goToPosition();
     }
     
     public boolean isFinished(){

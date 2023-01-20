@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.wrist;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Wrist;
@@ -24,8 +24,8 @@ public class SetPositionWrist extends CommandBase {
     @Override
     public void execute(){
     
-    s_Wrist.setPosition(position);
-    s_Wrist.SetWristPosition();
+        s_Wrist.setDesiredPosition(position);
+        s_Wrist.goToPosition();
 
     }
     

@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.wrist;
 
 import java.util.function.DoubleSupplier;
 
@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ManualWrist extends CommandBase {
     private Wrist s_Wrist;
     private DoubleSupplier WristAxis;
+    private DoubleSupplier WristAxisN;
     
     private int positionIncrement = 10000;
 
-    public ManualWrist(Wrist s_Wrist, DoubleSupplier WristAxis) {
+    public ManualWrist(Wrist s_Wrist, DoubleSupplier WristAxis, DoubleSupplier WristAxisN) {
         this.s_Wrist = s_Wrist;
         this.WristAxis = WristAxis;
+        this.WristAxisN = WristAxisN;
         addRequirements(s_Wrist);
     }
 
@@ -29,13 +31,17 @@ public class ManualWrist extends CommandBase {
     public void execute(){
 
         //joystick control 
-        double joystickValue = MathUtil.applyDeadband(WristAxis.getAsDouble(), Constants.stickDeadband);
-        if (Math.abs(joystickValue) > 0){
-            
-        s_Wrist.incrementTargetPosition((int) (joystickValue * positionIncrement));
-        s_Wrist.SetWristPosition();
+        double rTriggerValue = MathUtil.applyDeadband(WristAxis.getAsDouble(), Constants.OI.deadband);
+        double lTriggerValue = MathUtil.applyDeadband(WristAxisN.getAsDouble(), Constants.OI.deadband);
 
+        if (Math.abs(rTriggerValue) > 0) {
+            s_Wrist.setDesiredPosition( (int) (s_Wrist.getDesiredPosition() + (rTriggerValue * positionIncrement)) );
+        } else if (Math.abs(lTriggerValue) > 0) {
+            s_Wrist.setDesiredPosition( (int) (s_Wrist.getDesiredPosition() + (-lTriggerValue * positionIncrement)) );
         }
+
+        s_Wrist.goToPosition();
+
     }
     @Override
     public boolean isFinished(){

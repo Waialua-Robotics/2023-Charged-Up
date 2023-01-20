@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.HashMap;
@@ -17,8 +18,25 @@ import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
     public static HashMap<String, Command> eventMap = new HashMap<String, Command>();
+
+    public static final class OI {
+        public static final int driverPort = 0;
+        public static final int operatorPort = 1;
+
+        public static final int elevatorAxis = XboxController.Axis.kLeftY.value;
+        public static final int slideAxis = XboxController.Axis.kLeftX.value;
+        public static final int wristAxis = XboxController.Axis.kRightTrigger.value;
+        public static final int WristAxisN = XboxController.Axis.kLeftTrigger.value;
+
+        public static final int ElevatorHigh = XboxController.Button.kA.value;
+        public static final int slideHigh = XboxController.Button.kB.value;
+        public static final int wristHigh = XboxController.Button.kX.value;
+        public static final int intake = XboxController.Button.kRightBumper.value;
+        public static final int outake = XboxController.Button.kLeftBumper.value;
+
+        public static final double deadband = 0.1;
+    }
 
     public static final class LEDs {
         public static final int CANdleID = 0; //TODO: This must be tuned to robot
@@ -32,8 +50,11 @@ public final class Constants {
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
-        public static final int maxHeight = 100000;
-        public static final int minHeight = 0;
+
+        public static final int LowPosition = 10;
+        public static final int MidPosition = 200;
+        public static final int HighPosition = 500;
+        public static final int FeederPosition = 10000;
 
         /* soft limits */
         public static final int forwardSoftLimit = 100000; 
@@ -61,6 +82,12 @@ public final class Constants {
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
+        
+        public static final int LowPosition = 10;
+        public static final int MidPosition = 200;
+        public static final int HighPosition = 500;
+        public static final int FeederPosition = 10000;
+
         public static final int maxHeight = 100000;
         public static final int minHeight = 0;
 
@@ -90,8 +117,12 @@ public final class Constants {
         public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
 
         public static final int threshold = 15;
-        public static final int maxHeight = 100000;
-        public static final int minHeight = 0;
+
+        public static final int LowPosition = 10;
+        public static final int MidPosition = 200;
+        public static final int HighPosition = 500;
+        public static final int FeederPosition = 10000;
+
         /* soft limits */
         public static final int forwardSoftLimit = 100000; 
         public static final int reverseSoftLimit = 0;
@@ -112,31 +143,18 @@ public final class Constants {
     }
 
     public static final class Intake {
-        public static final int intakeID = 56;
+        public static final int intakeID = 22;
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean intakeMotorInvert = false;
         public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
-        public static final int threshold = 15;
-        public static final int maxHeight = 100000;
-        public static final int minHeight = 0;
-        /* soft limits */
-        public static final int forwardSoftLimit = 100000; 
-        public static final int reverseSoftLimit = 0;
+        public static final double speed = 0.5;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
         public static final int peakCurrentLimit = 40;
         public static final double peakCurrentDuration = 0.1;
         public static final boolean enableCurrentLimit = true;
-
-        /* PID */
-        public static final double intakeKP = 0.1; 
-        public static final double intakeKI = 0.0;
-        public static final double intakeKD = 0.0;
-        public static final double intakeKF = 0.0;
-        public static final double openLoopRamp = 0.25;
-        public static final double closedLoopRamp = 0.0;
     }
 
     public static final class Swerve {

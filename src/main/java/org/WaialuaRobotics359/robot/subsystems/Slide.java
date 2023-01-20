@@ -13,8 +13,8 @@ public class Slide extends SubsystemBase{
 
     private int desiredPosition;
 
-    public Slide (int slideID) {
-        mSlideMotor = new TalonFX(slideID);
+    public Slide () {
+        mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
 
         mSlideMotor.configFactoryDefault();
         mSlideMotor.configAllSettings(Robot.ctreConfigs.slideFXConfig);
@@ -22,17 +22,16 @@ public class Slide extends SubsystemBase{
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
     }
 
-    public boolean isValidPosition(int position) {
-        boolean valid = position >= Constants.Slide.minHeight && position <= Constants.Slide.maxHeight;
-        return valid;
+    public void setDesiredPosition(int position) {
+        desiredPosition = fitToRange(position);
     }
 
-    public void setPosition(int position) {
-        desiredPosition = position;
-    }
-
-    public int getPosition() {
+    public int getDesiredPosition() {
         return desiredPosition;
+    }
+
+    public void goToPosition() {
+        mSlideMotor.set(TalonFXControlMode.Position, desiredPosition);
     }
 
     public boolean inRange() {
@@ -40,16 +39,9 @@ public class Slide extends SubsystemBase{
         return (encoder > (desiredPosition - Constants.Slide.threshold)) && (encoder < (desiredPosition + Constants.Slide.threshold));
     }
 
-    public void setSlidePosition() {
-        mSlideMotor.set(TalonFXControlMode.Position, desiredPosition);
+    private int fitToRange(int position) {
+        desiredPosition = Math.min(position, Constants.Slide.forwardSoftLimit);
+        desiredPosition = Math.max(desiredPosition, Constants.Slide.reverseSoftLimit);
+        return desiredPosition;
     }
-
-    public void incrementTargetPosition(int increment) {
-        int Current = getPosition();
-        int newDesired = Current + increment;
-        if (isValidPosition(newDesired)) {
-            desiredPosition = newDesired; 
-        }
-    }
-  
 }

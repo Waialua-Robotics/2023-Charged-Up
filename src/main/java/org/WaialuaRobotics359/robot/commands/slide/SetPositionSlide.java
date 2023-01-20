@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.slide;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Slide;
@@ -24,8 +24,8 @@ public class SetPositionSlide extends CommandBase {
     @Override
     public void execute(){
     
-    s_Slide.setPosition(position);
-    s_Slide.setSlidePosition();
+        s_Slide.setDesiredPosition(position);
+        s_Slide.goToPosition();
 
     }
     

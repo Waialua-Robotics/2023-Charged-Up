@@ -2,13 +2,13 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
-import org.WaialuaRobotics359.robot.commands.ManualElevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -30,44 +30,16 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorL.setInverted(TalonFXInvertType.OpposeMaster);
     }
 
-    public void setElevatorPosition () {
-        mElevatorMotorR.set(TalonFXControlMode.Position, desiredPosition);
+    public void setDesiredPosition(int position) {
+        desiredPosition = fitToRange(position);
     }
 
-    public boolean isValidPosition(int position) {
-        boolean valid = position >= Constants.Elevator.minHeight && position <= Constants.Elevator.maxHeight;
-        return valid;
-    }
-
-    public void incrementTargetPosition(int increment) {
-        int Current = getPosition();
-        int newDesired = Current + increment;
-        if (isValidPosition(newDesired)) {
-            desiredPosition = newDesired; 
-        }
-    }
-
-    public void setPosition(int position) {
-        desiredPosition = Math.min(position, Constants.Elevator.maxHeight);
-        desiredPosition = Math.max(desiredPosition, Constants.Elevator.minHeight);
-
-        mElevatorMotorR.set(TalonFXControlMode.Position, desiredPosition);
-    }
-
-    public void setEncodeerPosition(int position) {
-        mElevatorMotorR.setSelectedSensorPosition(position);
-    }
-
-    public void setHold(){
-        setPosition(getPosition());
-    }
-
-    public int getPosition() {
+    public int getDesiredPosition() {
         return desiredPosition;
     }
 
-    public int getEncoder() {
-        return (int) mElevatorMotorR.getSelectedSensorPosition();
+    public void goToPosition() {
+        mElevatorMotorR.set(TalonFXControlMode.Position, desiredPosition);
     }
 
     public boolean inRange() {
@@ -75,7 +47,9 @@ public class Elevator extends SubsystemBase {
         return (encoder > (desiredPosition - Constants.Elevator.threshold)) && (encoder < (desiredPosition + Constants.Elevator.threshold));
     }
 
-    public void setDefaultCommand(ManualElevator manualElevator) {
+    private int fitToRange(int position) {
+        desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);
+        desiredPosition = Math.max(desiredPosition, Constants.Elevator.reverseSoftLimit);
+        return desiredPosition;
     }
-
 }

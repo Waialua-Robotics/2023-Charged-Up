@@ -14,8 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
     private int desiredPosition;
-    public Wrist(int wristID) {
-        mWristMotor = new TalonFX(wristID);
+    
+    public Wrist() {
+        mWristMotor = new TalonFX(Constants.Wrist.wristID);
 
         mWristMotor.configFactoryDefault();
         mWristMotor.configAllSettings(Robot.ctreConfigs.wristFXConfig);
@@ -23,34 +24,27 @@ public class Wrist extends SubsystemBase {
         mWristMotor.setNeutralMode(Constants.Wrist.wristNeutralMode);
     }
 
-    public void setPosition(int position) {
-        desiredPosition = position;
+ 
+    public void setDesiredPosition(int position) {
+        desiredPosition = fitToRange(position);
     }
 
-
-    public int getPosition() {
+    public int getDesiredPosition() {
         return desiredPosition;
     }
 
+    public void goToPosition() {
+        mWristMotor.set(TalonFXControlMode.Position, desiredPosition);
+    }
 
     public boolean inRange() {
         int encoder = (int) mWristMotor.getSelectedSensorPosition();
         return (encoder > (desiredPosition - Constants.Wrist.threshold)) && (encoder < (desiredPosition + Constants.Wrist.threshold));
     }
 
-    public void SetWristPosition() {
-        mWristMotor.set(TalonFXControlMode.Position, desiredPosition);
-    }
-
-    public void incrementTargetPosition(int increment) {
-        int Current = getPosition();
-        int newDesired = Current + increment;
-        if (isValidPosition(newDesired)) {
-            desiredPosition = newDesired; 
-        }
-    }
-    public boolean isValidPosition(int position) {
-        boolean valid = position >= Constants.Wrist.minHeight && position <= Constants.Wrist.maxHeight;
-        return valid;
+    private int fitToRange(int position) {
+        desiredPosition = Math.min(position, Constants.Wrist.forwardSoftLimit);
+        desiredPosition = Math.max(desiredPosition, Constants.Wrist.reverseSoftLimit);
+        return desiredPosition;
     }
 }

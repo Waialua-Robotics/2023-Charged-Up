@@ -13,7 +13,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.sql.Driver;
 
 import org.WaialuaRobotics359.robot.autos.*;
-import org.WaialuaRobotics359.robot.commands.*;
+//import org.WaialuaRobotics359.robot.commands.elevator.*;
+import org.WaialuaRobotics359.robot.commands.elevator.ManualElevator;
+import org.WaialuaRobotics359.robot.commands.elevator.SetPositionElevator;
+import org.WaialuaRobotics359.robot.commands.intake.ManualIntake;
+import org.WaialuaRobotics359.robot.commands.slide.ManualSlide;
+import org.WaialuaRobotics359.robot.commands.slide.SetPositionSlide;
+import org.WaialuaRobotics359.robot.commands.wrist.ManualWrist;
+import org.WaialuaRobotics359.robot.commands.wrist.SetPositionWrist;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
 /**
@@ -38,22 +45,23 @@ public class RobotContainer {
     //#FIXME //private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
 
     /* Operator Controls */
-    private final int elevatorAxis = XboxController.Axis.kLeftY.value;
-    private final int SlideAxis = XboxController.Axis.kLeftX.value;
-    private final int WristAxis = XboxController.Axis.kRightY.value;
-    private final int IntakeAxis = XboxController.Axis.kRightTrigger.value;
-    private final int IntakeAxisN = XboxController.Axis.kLeftTrigger.value;
+    private final int elevatorAxis = Constants.OI.elevatorAxis;
+    private final int SlideAxis = Constants.OI.slideAxis;
+    private final int WristAxis = Constants.OI.wristAxis;
+    private final int WristAxisN = Constants.OI.WristAxisN;
 
     /* Operator Buttons */
-    private final JoystickButton ElevatorHigh = new JoystickButton(operator, XboxController.Button.kA.value);
-    private final JoystickButton SlideHigh = new JoystickButton(operator, XboxController.Button.kB.value);
-    private final JoystickButton WristHigh = new JoystickButton(operator, XboxController.Button.kX.value);
+    private final JoystickButton ElevatorHigh = new JoystickButton(operator, Constants.OI.ElevatorHigh);
+    private final JoystickButton SlideHigh = new JoystickButton(operator, Constants.OI.slideHigh);
+    private final JoystickButton WristHigh = new JoystickButton(operator, Constants.OI.wristHigh);
+    private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
+    private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
     /* Subsystems */
     //#FIXME //private final Swerve s_Swerve = new Swerve();
     private final Elevator s_Elevator = new Elevator();
-    private final Slide s_Slide = new Slide(Constants.Slide.slideMotorID);
-    private final Wrist s_Wrist = new Wrist(Constants.Wrist.wristID);
-    private final Intake s_Intake = new Intake(Constants.Intake.intakeID);
+    private final Slide s_Slide = new Slide();
+    private final Wrist s_Wrist = new Wrist();
+    private final Intake s_Intake = new Intake();
 
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
 
@@ -89,28 +97,26 @@ public class RobotContainer {
         );
 
         CommandScheduler.getInstance().setDefaultCommand(s_Slide,
-        new ManualSlide(
-            s_Slide,
-            () -> operator.getRawAxis(SlideAxis)
-            )
-    
+            new ManualSlide(
+                s_Slide,
+                () -> operator.getRawAxis(SlideAxis)
+                )
         );
 
         CommandScheduler.getInstance().setDefaultCommand(s_Wrist,
-        new ManualWrist(
-            s_Wrist,
-            () -> operator.getRawAxis(WristAxis)
-            )
-    
+            new ManualWrist(
+                s_Wrist,
+                () -> operator.getRawAxis(WristAxis),
+                () -> operator.getRawAxis(WristAxisN)
+                )
         );
 
         CommandScheduler.getInstance().setDefaultCommand(s_Intake,
-        new ManualIntake(
-            s_Intake,
-            () -> operator.getRawAxis(IntakeAxis),
-            () -> operator.getRawAxis(IntakeAxisN)
-            )
-    
+            new ManualIntake(
+                s_Intake,
+                () -> Intake.getAsBoolean(),
+                () -> Outake.getAsBoolean()
+                )
         );
 
         // Configure the button bindings
@@ -140,7 +146,6 @@ public class RobotContainer {
         ElevatorHigh.onTrue(new SetPositionElevator(s_Elevator, 8000));
         SlideHigh.onTrue(new SetPositionSlide(s_Slide, 8000));
         WristHigh.onTrue(new SetPositionWrist(s_Wrist, 8000));
-
     }
 
     public void setEventMap() {

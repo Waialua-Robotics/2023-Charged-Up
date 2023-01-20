@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.elevator;
 
 import java.util.function.DoubleSupplier;
 
@@ -21,32 +21,25 @@ public class ManualElevator extends CommandBase {
         addRequirements(s_Elevator);
     }
 
-    public void initialize(){
-
-    }
+    public void initialize() {}
 
     @Override
     public void execute(){
-
         //joystick control 
-        double joystickValue = MathUtil.applyDeadband(elevatorAxis.getAsDouble(), Constants.stickDeadband);
+        double joystickValue = MathUtil.applyDeadband(elevatorAxis.getAsDouble(), Constants.OI.deadband);
         if (Math.abs(joystickValue) > 0){
-        s_Elevator.incrementTargetPosition((int) (joystickValue * positionIncrement));
-        s_Elevator.setElevatorPosition();
-
+            s_Elevator.setDesiredPosition( (int) (s_Elevator.getDesiredPosition() + (joystickValue * positionIncrement)) );
         }
+        
+        s_Elevator.goToPosition();
     }
+
     @Override
     public boolean isFinished(){
         return false;
     }
 
-    public void end(){
+    public void end() {}
 
-    }
-
-    public void interrupted(){
-
-    }
-    
+    public void interrupted() {}
 }
