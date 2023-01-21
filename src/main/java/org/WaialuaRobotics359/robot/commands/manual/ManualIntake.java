@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands.intake;
+package org.WaialuaRobotics359.robot.commands.manual;
 
 import java.util.function.BooleanSupplier;
 

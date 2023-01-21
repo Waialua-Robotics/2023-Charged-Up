@@ -29,9 +29,9 @@ public final class Constants {
         public static final int wristAxis = XboxController.Axis.kRightTrigger.value;
         public static final int WristAxisN = XboxController.Axis.kLeftTrigger.value;
 
-        public static final int ElevatorHigh = XboxController.Button.kA.value;
-        public static final int slideHigh = XboxController.Button.kB.value;
-        public static final int wristHigh = XboxController.Button.kX.value;
+        public static final int HighPosition = XboxController.Button.kA.value;
+        public static final int MidPosition = XboxController.Button.kB.value;
+        public static final int LowPosition = XboxController.Button.kX.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
 
@@ -51,9 +51,9 @@ public final class Constants {
 
         public static final int threshold = 15;
 
-        public static final int LowPosition = 10;
-        public static final int MidPosition = 200;
-        public static final int HighPosition = 500;
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
         public static final int FeederPosition = 10000;
 
         /* soft limits */
@@ -83,9 +83,9 @@ public final class Constants {
 
         public static final int threshold = 15;
         
-        public static final int LowPosition = 10;
-        public static final int MidPosition = 200;
-        public static final int HighPosition = 500;
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
         public static final int FeederPosition = 10000;
 
         public static final int maxHeight = 100000;
@@ -118,9 +118,9 @@ public final class Constants {
 
         public static final int threshold = 15;
 
-        public static final int LowPosition = 10;
-        public static final int MidPosition = 200;
-        public static final int HighPosition = 500;
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
         public static final int FeederPosition = 10000;
 
         /* soft limits */

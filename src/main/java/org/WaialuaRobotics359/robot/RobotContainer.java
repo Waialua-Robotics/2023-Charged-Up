@@ -13,14 +13,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.sql.Driver;
 
 import org.WaialuaRobotics359.robot.autos.*;
-//import org.WaialuaRobotics359.robot.commands.elevator.*;
-import org.WaialuaRobotics359.robot.commands.elevator.ManualElevator;
-import org.WaialuaRobotics359.robot.commands.elevator.SetPositionElevator;
-import org.WaialuaRobotics359.robot.commands.intake.ManualIntake;
-import org.WaialuaRobotics359.robot.commands.slide.ManualSlide;
-import org.WaialuaRobotics359.robot.commands.slide.SetPositionSlide;
-import org.WaialuaRobotics359.robot.commands.wrist.ManualWrist;
-import org.WaialuaRobotics359.robot.commands.wrist.SetPositionWrist;
+import org.WaialuaRobotics359.robot.commands.manual.ManualElevator;
+import org.WaialuaRobotics359.robot.commands.manual.ManualIntake;
+import org.WaialuaRobotics359.robot.commands.manual.ManualSlide;
+import org.WaialuaRobotics359.robot.commands.manual.ManualWrist;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetHighPosition;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetLowPosition;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetMidPosition;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
 /**
@@ -51,9 +50,9 @@ public class RobotContainer {
     private final int WristAxisN = Constants.OI.WristAxisN;
 
     /* Operator Buttons */
-    private final JoystickButton ElevatorHigh = new JoystickButton(operator, Constants.OI.ElevatorHigh);
-    private final JoystickButton SlideHigh = new JoystickButton(operator, Constants.OI.slideHigh);
-    private final JoystickButton WristHigh = new JoystickButton(operator, Constants.OI.wristHigh);
+    private final JoystickButton HighPosition = new JoystickButton(operator, Constants.OI.HighPosition);
+    private final JoystickButton MidPosition = new JoystickButton(operator, Constants.OI.MidPosition);
+    private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
     /* Subsystems */
@@ -143,9 +142,9 @@ public class RobotContainer {
         /* Driver Buttons */
        //#FIXME // zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         //#FIXME //ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-        ElevatorHigh.onTrue(new SetPositionElevator(s_Elevator, 8000));
-        SlideHigh.onTrue(new SetPositionSlide(s_Slide, 8000));
-        WristHigh.onTrue(new SetPositionWrist(s_Wrist, 8000));
+        HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
+        MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
+        LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
     }
 
     public void setEventMap() {
