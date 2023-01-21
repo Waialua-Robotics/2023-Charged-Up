@@ -47,9 +47,26 @@ public class Elevator extends SubsystemBase {
         return (encoder > (desiredPosition - Constants.Elevator.threshold)) && (encoder < (desiredPosition + Constants.Elevator.threshold));
     }
 
+    public double GetPosition() {
+        return mElevatorMotorR.getSelectedSensorPosition();
+     }
+
+     public double GetPositionInches(){
+        return  (GetPosition()*(Constants.Elevator.Ratio))/61440;
+     }
+
+     public void SetPosition(double position){
+        mElevatorMotorR.setSelectedSensorPosition(position);
+     }
+
+     public void SetHomePosition(){
+        mElevatorMotorR.setSelectedSensorPosition(0);
+     }
+
     private int fitToRange(int position) {
         desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Elevator.reverseSoftLimit);
         return desiredPosition;
     }
+
 }

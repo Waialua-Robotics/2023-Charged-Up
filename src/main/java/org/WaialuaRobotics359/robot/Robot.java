@@ -5,6 +5,7 @@
 package org.WaialuaRobotics359.robot;
 
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
+import org.WaialuaRobotics359.robot.util.Dashboard;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
@@ -25,6 +26,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private static Dashboard m_dashboard;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -35,7 +38,14 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_dashboard = new Dashboard(m_robotContainer);
     //#FIXME //PathPlannerServer.startServer(5811);
+
+    /*Motor Zeroing */
+    m_robotContainer.getElevator().SetHomePosition();
+    m_robotContainer.getSlide().SetHomePosition();
+    m_robotContainer.getWrist().SetHomePosition();
+
   }
 
   /**

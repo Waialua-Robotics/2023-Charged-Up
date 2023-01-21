@@ -22,6 +22,9 @@ import org.WaialuaRobotics359.robot.commands.setPoints.SetLowPosition;
 import org.WaialuaRobotics359.robot.commands.setPoints.SetMidPosition;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -63,7 +66,7 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
 
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
-
+ 
     /*The autonomous routines*/
 
     //#FIXME //private final Command m_twomAuto = new twomAuto(s_Swerve);
@@ -121,6 +124,22 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
 
+        /*#FIXME 
+        // Create Auto Builder
+        SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
+            s_Swerve::getPose,
+            s_Swerve::resetOdometry,
+            Constants.Swerve.swerveKinematics,
+            new PIDConstants(Constants.AutoConstants.translationPID.kP, Constants.AutoConstants.translationPID.kI,
+                Constants.AutoConstants.translationPID.kD),
+            new PIDConstants(Constants.AutoConstants.rotationPID.kP, Constants.AutoConstants.rotationPID.kI,
+                Constants.AutoConstants.rotationPID.kD),
+                s_Swerve::setModuleStates,
+            Constants.eventMap,
+            s_Swerve
+            );
+
+            */
         // Add commands to the autonomous command chooser
         //#FIXME //m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
         //#FIXME //m_chooser.addOption("twomAuto", m_twomAuto);
@@ -151,6 +170,19 @@ public class RobotContainer {
     //Constants.eventMap.put("LedBlue", new InstantCommand(() -> s_LEDs.LEDsBlue()));
     //SystemConstants.eventMap.put("intakeRetract", new InstantCommand(m_robotIntake::intakeRetract, m_robotIntake));
       }
+
+      public Elevator getElevator() {
+        return s_Elevator;
+    }
+
+    public Slide getSlide() {
+        return s_Slide;
+    }
+
+    public Wrist getWrist() {
+        return s_Wrist;
+    }
+
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.

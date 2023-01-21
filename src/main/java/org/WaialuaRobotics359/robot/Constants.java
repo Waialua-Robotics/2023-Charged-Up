@@ -49,6 +49,8 @@ public final class Constants {
         public static final Boolean slideMotorInvert = false;
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
 
+        public static final int Ratio = 15;
+
         public static final int threshold = 15;
 
         public static final int LowPosition = 100;
@@ -80,6 +82,8 @@ public final class Constants {
         public static final int lElevatorID = 12;
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+        
+        public static final int Ratio = 30;
 
         public static final int threshold = 15;
         
@@ -115,6 +119,8 @@ public final class Constants {
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean wristMotorInvert = false;
         public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
+
+        public static final int Ratio = 15;
 
         public static final int threshold = 15;
 

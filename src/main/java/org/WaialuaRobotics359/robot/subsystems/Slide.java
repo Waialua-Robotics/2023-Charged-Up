@@ -39,6 +39,22 @@ public class Slide extends SubsystemBase{
         return (encoder > (desiredPosition - Constants.Slide.threshold)) && (encoder < (desiredPosition + Constants.Slide.threshold));
     }
 
+    public double GetPosition() {
+        return mSlideMotor.getSelectedSensorPosition();
+     }
+
+     public double GetPositionInches(){
+        return  (GetPosition()*(Constants.Slide.Ratio))/61440;
+     }
+
+     public void SetPosition(double position){
+        mSlideMotor.setSelectedSensorPosition(position);
+     }
+
+     public void SetHomePosition(){
+        mSlideMotor.setSelectedSensorPosition(0);
+     }
+
     private int fitToRange(int position) {
         desiredPosition = Math.min(position, Constants.Slide.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Slide.reverseSoftLimit);
