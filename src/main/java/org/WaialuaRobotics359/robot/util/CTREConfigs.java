@@ -68,6 +68,7 @@ public final class CTREConfigs {
             swerveCanCoderConfig.sensorDirection = Constants.Swerve.canCoderInvert;
             swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
             swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+
         /* Slide Motor Configuration */
             SupplyCurrentLimitConfiguration slideSupplyLimit = new SupplyCurrentLimitConfiguration(
                 Constants.Slide.enableCurrentLimit, 
@@ -87,6 +88,8 @@ public final class CTREConfigs {
             slideFXConfig.supplyCurrLimit = slideSupplyLimit;
             slideFXConfig.openloopRamp = Constants.Slide.openLoopRamp;
             slideFXConfig.closedloopRamp = Constants.Slide.closedLoopRamp;
+            slideFXConfig.slot0.closedLoopPeakOutput = Constants.Slide.closedLoopPeakOutput;
+
         /* Elevator Motor Configuration */
             SupplyCurrentLimitConfiguration elevatorSupplyLimit = new SupplyCurrentLimitConfiguration(
                 Constants.Elevator.enableCurrentLimit, 
@@ -102,10 +105,11 @@ public final class CTREConfigs {
             elevatorFXConfig.slot0.kP = Constants.Elevator.slideKP;
             elevatorFXConfig.slot0.kI = Constants.Elevator.slideKD;
             elevatorFXConfig.slot0.kD = Constants.Elevator.slideKI;
-            elevatorFXConfig.slot0.kF = Constants.Elevator.slideKF;        
+            elevatorFXConfig.slot0.kF = Constants.Elevator.slideKF;      
             elevatorFXConfig.supplyCurrLimit = elevatorSupplyLimit;
             elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
             elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
+            elevatorFXConfig.slot0.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
         /* Wrist Motor Configuration */
             SupplyCurrentLimitConfiguration wristSupplyLimit = new SupplyCurrentLimitConfiguration(
                 Constants.Wrist.enableCurrentLimit, 
@@ -124,6 +128,7 @@ public final class CTREConfigs {
             wristFXConfig.slot0.kF = Constants.Wrist.wristKF;        
             wristFXConfig.supplyCurrLimit = wristSupplyLimit;
             wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
-            wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;            
+            wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;
+            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput;      
     }
 }

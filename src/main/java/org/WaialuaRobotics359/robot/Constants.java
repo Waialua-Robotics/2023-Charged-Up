@@ -75,6 +75,7 @@ public final class Constants {
         public static final double slideKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
     }
 
     public static final class Elevator {
@@ -112,6 +113,7 @@ public final class Constants {
         public static final double slideKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
     }
 
     public static final class Wrist {
@@ -146,6 +148,7 @@ public final class Constants {
         public static final double wristKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
     }
 
     public static final class Intake {

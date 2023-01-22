@@ -14,7 +14,7 @@ public class ManualWrist extends CommandBase {
     private DoubleSupplier WristAxis;
     private DoubleSupplier WristAxisN;
     
-    private int positionIncrement = 10000;
+    private int positionIncrement = 500;
 
     public ManualWrist(Wrist s_Wrist, DoubleSupplier WristAxis, DoubleSupplier WristAxisN) {
         this.s_Wrist = s_Wrist;

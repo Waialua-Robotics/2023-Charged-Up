@@ -13,7 +13,7 @@ public class ManualElevator extends CommandBase {
     private Elevator s_Elevator;
     private DoubleSupplier elevatorAxis;
     
-    private int positionIncrement = 10000;
+    private int positionIncrement = 500;
 
     public ManualElevator(Elevator s_Elevator, DoubleSupplier elevatorAxis) {
         this.s_Elevator = s_Elevator;
