@@ -17,11 +17,15 @@ import org.WaialuaRobotics359.robot.commands.manual.ManualElevator;
 import org.WaialuaRobotics359.robot.commands.manual.ManualIntake;
 import org.WaialuaRobotics359.robot.commands.manual.ManualSlide;
 import org.WaialuaRobotics359.robot.commands.manual.ManualWrist;
-import org.WaialuaRobotics359.robot.commands.setPoints.SetHighPosition;
-import org.WaialuaRobotics359.robot.commands.setPoints.SetLowPosition;
-import org.WaialuaRobotics359.robot.commands.setPoints.SetMidPosition;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetLowElevatorPositionInches;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetMidElevatorPositionInches;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetWrist90PositionDegrees;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetHighElevatorPositionInches;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetLowSlidePositionInches;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetHighSlidePositionInches;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
@@ -53,11 +57,14 @@ public class RobotContainer {
     private final int WristAxisN = Constants.OI.WristAxisN;
 
     /* Operator Buttons */
-    private final JoystickButton HighPosition = new JoystickButton(operator, Constants.OI.HighPosition);
-    private final JoystickButton MidPosition = new JoystickButton(operator, Constants.OI.MidPosition);
-    private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
+    private final JoystickButton LowElevatorPositionInches = new JoystickButton(operator, Constants.OI.LowElevatorPositionInches);
+    private final JoystickButton MidElevatorPositionInches = new JoystickButton(operator, Constants.OI.MidElevatorPositionInches);
+    private final JoystickButton HighElevatorPositionInches = new JoystickButton(operator, Constants.OI.HighElevatorPositionInches);
+    private final JoystickButton LowSlidePositionInches = new JoystickButton(operator, Constants.OI.LowSlidePositionInches);
+    private final JoystickButton HighSlidePositionInches = new JoystickButton(operator, Constants.OI.HighSlidePositionInches);
+    private final JoystickButton Wrist90PositionDegrees = new JoystickButton(operator, Constants.OI.WristPositionDegrees);
     /* Subsystems */
     //#FIXME //private final Swerve s_Swerve = new Swerve();
     private final Elevator s_Elevator = new Elevator();
@@ -66,16 +73,16 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
 
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
- 
+    
     /*The autonomous routines*/
-
+    
     //#FIXME //private final Command m_twomAuto = new twomAuto(s_Swerve);
     //#FIXME //private final Command m_SwerveBuilderAuto = new swerveBuilderAuto(s_Swerve);
 
     /*chooser for autonomous commands*/
     //#FIXME //SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-
+   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     //#FIXME 
       public RobotContainer() {
@@ -150,6 +157,11 @@ public class RobotContainer {
         // Populate the autonomous event map
         //#FIXME //setEventMap();
     }
+    public static void SetElevatorPositionInches (double desired){
+        double position = (desired*61440)/(Constants.Elevator.Ratio);
+        SetElevatorPositionInches(position);
+        Elevator.mElevatorMotorR.set(TalonFXControlMode.Position, position);
+     }
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -161,9 +173,12 @@ public class RobotContainer {
         /* Driver Buttons */
        //#FIXME // zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         //#FIXME //ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-        HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
-        MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
-        LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        LowElevatorPositionInches.onTrue(new SetLowElevatorPositionInches(s_Elevator));
+        MidElevatorPositionInches.onTrue(new SetMidElevatorPositionInches(s_Elevator));
+        HighElevatorPositionInches.onTrue(new SetHighElevatorPositionInches(s_Elevator));
+        LowSlidePositionInches.onTrue(new SetLowSlidePositionInches(s_Slide));
+        HighSlidePositionInches.onTrue(new SetHighSlidePositionInches(s_Slide));
+        Wrist90PositionDegrees.onTrue(new SetWrist90PositionDegrees(s_Wrist));
     }
 
     public void setEventMap() {

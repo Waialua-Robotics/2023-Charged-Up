@@ -11,6 +11,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import org.WaialuaRobotics359.robot.commands.setPoints.SetLowElevatorPositionInches;
 
 import java.util.HashMap;
 
@@ -29,9 +30,12 @@ public final class Constants {
         public static final int wristAxis = XboxController.Axis.kRightTrigger.value;
         public static final int WristAxisN = XboxController.Axis.kLeftTrigger.value;
 
-        public static final int HighPosition = XboxController.Button.kA.value;
-        public static final int MidPosition = XboxController.Button.kB.value;
-        public static final int LowPosition = XboxController.Button.kX.value;
+        public static final int WristPositionDegrees = XboxController.Button.kX.value;
+        public static final int LowElevatorPositionInches = XboxController.Button.kA.value;
+        public static final int MidElevatorPositionInches = XboxController.Button.kB.value;
+        public static final int HighElevatorPositionInches = XboxController.Button.kY.value;
+        public static final int LowSlidePositionInches = XboxController.Button.kStart.value;
+        public static final int HighSlidePositionInches = XboxController.Button.kBack.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
 
@@ -49,7 +53,19 @@ public final class Constants {
         public static final Boolean slideMotorInvert = false;
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
 
-        public static final int Ratio = 15;
+        public static final float LowSlidePosition = 5;
+        public static final float MidSlidePosition = 10;
+        public static final float HighSlidePosition = 15;
+
+        public static final float InchesPerRevolution = 12;
+
+        public static final float Ratio = 15;
+
+        public static final float TicsPerRevolution = (Ratio*2048);
+
+        public static final int LowSlidePositionInches = (int) ((LowSlidePosition/InchesPerRevolution)*TicsPerRevolution);
+        public static final int MidSlidePositionInches = (int) ((MidSlidePosition/InchesPerRevolution)*TicsPerRevolution);
+        public static final int HighSlidePositionInches = (int) ((HighSlidePosition/InchesPerRevolution)*TicsPerRevolution);
 
         public static final int threshold = 15;
 
@@ -59,7 +75,7 @@ public final class Constants {
         public static final int FeederPosition = 10000;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 100000; 
+        public static final int forwardSoftLimit = 205000; 
         public static final int reverseSoftLimit = 0;
 
         /* current limiting */
@@ -84,7 +100,19 @@ public final class Constants {
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
         
-        public static final int Ratio = 30;
+        public static final float LowElevatorPosition = 5;
+        public static final float MidElevatorPosition = 10;
+        public static final float HighElevatorPosition = 15;
+
+        public static final float InchesPerRevolution = 12;
+
+        public static final float Ratio = 30;
+
+        public static final float TicsPerRevolution = (Ratio*2048);
+
+        public static final int LowElevatorPositionInches = (int) ((LowElevatorPosition/InchesPerRevolution)*TicsPerRevolution);
+        public static final int MidElevatorPositionInches = (int) ((MidElevatorPosition/InchesPerRevolution)*TicsPerRevolution);
+        public static final int HighElevatorPositionInches = (int) ((HighElevatorPosition/InchesPerRevolution)*TicsPerRevolution);
 
         public static final int threshold = 15;
         
@@ -93,7 +121,7 @@ public final class Constants {
         public static final int HighPosition = 90000;
         public static final int FeederPosition = 10000;
 
-        public static final int maxHeight = 100000;
+        public static final int maxHeight = 295000;
         public static final int minHeight = 0;
 
         /* soft limits */
@@ -121,8 +149,16 @@ public final class Constants {
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean wristMotorInvert = false;
         public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
+        public static final float Wrist90Position = 0;
 
-        public static final int Ratio = 15;
+        public static final float DegreesPerRevolution = 360;
+
+        public static final float Ratio = 20;
+
+        public static final float TicsPerRevolution = (Ratio*2048);
+
+        public static final int Wrist90PositionDegrees = (int) (Wrist90Position/DegreesPerRevolution*TicsPerRevolution);
+
 
         public static final int threshold = 15;
 
@@ -132,7 +168,7 @@ public final class Constants {
         public static final int FeederPosition = 10000;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 100000; 
+        public static final int forwardSoftLimit = 11000; 
         public static final int reverseSoftLimit = 0;
 
         /* current limiting */
@@ -148,7 +184,7 @@ public final class Constants {
         public static final double wristKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.1;
+        public static final double closedLoopPeakOutput =.05;
     }
 
     public static final class Intake {

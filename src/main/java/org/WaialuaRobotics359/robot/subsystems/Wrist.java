@@ -44,8 +44,8 @@ public class Wrist extends SubsystemBase {
         return mWristMotor.getSelectedSensorPosition();
      }
 
-     public double GetPositionInches(){
-        return  (GetPosition()*(Constants.Wrist.Ratio))/61440;
+     public double GetPositionDegrees(){
+        return  ((GetPosition()/40960)*360);
      }
 
      public void SetPosition(double position){

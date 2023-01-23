@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
-    private TalonFX mElevatorMotorR;
+    public static TalonFX mElevatorMotorR;
+
+
 
     private int desiredPosition;
 
@@ -52,7 +54,8 @@ public class Elevator extends SubsystemBase {
      }
 
      public double GetPositionInches(){
-        return  (GetPosition()*(Constants.Elevator.Ratio))/61440;
+       // return  (GetPosition()*(Constants.Elevator.Ratio))/61440;
+       return GetPosition();
      }
 
      public void SetPosition(double position){
@@ -62,7 +65,23 @@ public class Elevator extends SubsystemBase {
      public void SetHomePosition(){
         mElevatorMotorR.setSelectedSensorPosition(0);
      }
+/* 
+     public static void SetElevatorPositionInches (double desired){
+        double position = (desired)/(Constants.Elevator.Ratio)*2048;
+        SetElevatorPositionInches(position);
+        Elevator.mElevatorMotorR.set(TalonFXControlMode.Position, position);
+     }
+     */
+    /*  public static void SetElevatorInches(double desired){
+        double position = (desired*61440)/(Constants.Elevator.Ratio);
+        SetElevatorInches(position);
+        mElevatorMotorR.set(TalonFXControlMode.Position, position);
+     }
 
+     public void LowElevatorPositionInches(){
+        SetElevatorInches(30);
+     }
+*/
     private int fitToRange(int position) {
         desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Elevator.reverseSoftLimit);

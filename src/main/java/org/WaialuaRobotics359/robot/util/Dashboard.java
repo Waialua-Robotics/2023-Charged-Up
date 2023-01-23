@@ -17,8 +17,8 @@ public class Dashboard {
                 .withPosition(0, 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 49));
         tab.addNumber("slide Height", () -> container.getSlide().GetPositionInches()).withSize(2, 2)
                 .withPosition(3, 0).withWidget(BuiltInWidgets.kNumberBar).withProperties(Map.of("min" , 0 , "max" , 25));
-        tab.addNumber("Wrist Angle", () -> container.getWrist().GetPositionInches()).withSize(2, 2)
-                .withPosition(6, 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 25));
+        tab.addNumber("Wrist Angle", () -> container.getWrist().GetPositionDegrees()).withSize(2, 2)
+                .withPosition(6, 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 100));
 
         /*tab.add("Autonomous Mode", container.getAutonomousChooser().getModeChooser()).withSize(2, 1).withPosition(2, 0);
         tab.add("Climb Mode", container.getClimbChooser().getClimbChooser()).withSize(2, 1).withPosition(0, 2);
