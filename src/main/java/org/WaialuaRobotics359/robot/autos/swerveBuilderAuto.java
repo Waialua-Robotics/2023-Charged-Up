@@ -18,7 +18,7 @@ public class swerveBuilderAuto extends SequentialCommandGroup {
         PathPlannerTrajectory ComplexAuto = PathPlanner.loadPath("ComplexAuto", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
 
         addCommands(new SequentialCommandGroup(
-        //#FIXME autoBuilder.fullAuto(ComplexAuto)
+            //s_SwerveAutoBuilder.fullAuto(ComplexAuto)
         ));
     }
 }

@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_dashboard = new Dashboard(m_robotContainer);
-    //#FIXME //PathPlannerServer.startServer(5811);
+    PathPlannerServer.startServer(5811);
 
     /*Motor Zeroing */
     m_robotContainer.getElevator().SetHomePosition();
@@ -74,12 +74,12 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    //#FIXME //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    //#FIXME //if (m_autonomousCommand != null) {
-    //#FIXME //  m_autonomousCommand.schedule();
-   //#FIXME // }
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+   }
   }
 
   /** This function is called periodically during autonomous. */
@@ -92,9 +92,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    //#FIXME //if (m_autonomousCommand != null) {
-     //#FIXME // m_autonomousCommand.cancel();
-    //#FIXME //}
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
   }
 
   /** This function is called periodically during operator control. */
