@@ -5,6 +5,7 @@
 package org.WaialuaRobotics359.robot;
 
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
+import org.WaialuaRobotics359.robot.util.Dashboard;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
@@ -25,6 +26,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private static Dashboard m_dashboard;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -35,7 +38,14 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    PathPlannerServer.startServer(5811);
+    m_dashboard = new Dashboard(m_robotContainer);
+    //#FIXME //PathPlannerServer.startServer(5811);
+
+    /*Motor Zeroing */
+    m_robotContainer.getElevator().SetHomePosition();
+    m_robotContainer.getSlide().SetHomePosition();
+    m_robotContainer.getWrist().SetHomePosition();
+
   }
 
   /**
@@ -64,12 +74,12 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //#FIXME //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    //#FIXME //if (m_autonomousCommand != null) {
+    //#FIXME //  m_autonomousCommand.schedule();
+   //#FIXME // }
   }
 
   /** This function is called periodically during autonomous. */
@@ -82,14 +92,16 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
+    //#FIXME //if (m_autonomousCommand != null) {
+     //#FIXME // m_autonomousCommand.cancel();
+    //#FIXME //}
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+
+  }
 
   @Override
   public void testInit() {

@@ -1,4 +1,4 @@
-package org.WaialuaRobotics359.robot.commands;
+package org.WaialuaRobotics359.robot.commands.swerve;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
@@ -31,9 +31,9 @@ public class TeleopSwerve extends CommandBase {
     @Override
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.OI.deadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.OI.deadband);
 
         /* Drive */
         s_Swerve.drive(

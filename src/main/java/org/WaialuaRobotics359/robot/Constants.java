@@ -1,6 +1,7 @@
 package org.WaialuaRobotics359.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.pathplanner.lib.auto.PIDConstants;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -8,6 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.HashMap;
@@ -16,12 +18,152 @@ import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static final double stickDeadband = 0.1;
     public static HashMap<String, Command> eventMap = new HashMap<String, Command>();
+
+    public static final class OI {
+        public static final int driverPort = 0;
+        public static final int operatorPort = 1;
+
+        public static final int elevatorAxis = XboxController.Axis.kLeftY.value;
+        public static final int slideAxis = XboxController.Axis.kLeftX.value;
+        public static final int wristAxis = XboxController.Axis.kRightTrigger.value;
+        public static final int WristAxisN = XboxController.Axis.kLeftTrigger.value;
+
+        public static final int HighPosition = XboxController.Button.kA.value;
+        public static final int MidPosition = XboxController.Button.kB.value;
+        public static final int LowPosition = XboxController.Button.kX.value;
+        public static final int intake = XboxController.Button.kRightBumper.value;
+        public static final int outake = XboxController.Button.kLeftBumper.value;
+
+        public static final double deadband = 0.1;
+    }
 
     public static final class LEDs {
         public static final int CANdleID = 0; //TODO: This must be tuned to robot
 
+    }
+
+    public static final class Slide {
+        public static final int slideMotorID = 32;
+        public static final TalonFXConfiguration config = new TalonFXConfiguration();
+        public static final Boolean slideMotorInvert = false;
+        public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
+
+        public static final int Ratio = 15;
+
+        public static final int threshold = 15;
+
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
+        public static final int FeederPosition = 10000;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100000; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double slideKP = 0.1; 
+        public static final double slideKI = 0.0;
+        public static final double slideKD = 0.0;
+        public static final double slideKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
+    }
+
+    public static final class Elevator {
+        public static final int rElevatorID = 42;
+        public static final int lElevatorID = 12;
+        public static final TalonFXConfiguration config = new TalonFXConfiguration();
+        public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+        
+        public static final int Ratio = 30;
+
+        public static final int threshold = 15;
+        
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
+        public static final int FeederPosition = 10000;
+
+        public static final int maxHeight = 100000;
+        public static final int minHeight = 0;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100000; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double slideKP = 0.1; 
+        public static final double slideKI = 0.0;
+        public static final double slideKD = 0.0;
+        public static final double slideKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
+    }
+
+    public static final class Wrist {
+        public static final int wristID = 33;
+        public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
+        public static final Boolean wristMotorInvert = false;
+        public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
+
+        public static final int Ratio = 15;
+
+        public static final int threshold = 15;
+
+        public static final int LowPosition = 100;
+        public static final int MidPosition = 50000;
+        public static final int HighPosition = 90000;
+        public static final int FeederPosition = 10000;
+
+        /* soft limits */
+        public static final int forwardSoftLimit = 100000; 
+        public static final int reverseSoftLimit = 0;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
+
+        /* PID */
+        public static final double wristKP = 0.1; 
+        public static final double wristKI = 0.0;
+        public static final double wristKD = 0.0;
+        public static final double wristKF = 0.0;
+        public static final double openLoopRamp = 0.25;
+        public static final double closedLoopRamp = 0.0;
+        public static final double closedLoopPeakOutput =.1;
+    }
+
+    public static final class Intake {
+        public static final int intakeID = 22;
+        public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
+        public static final Boolean intakeMotorInvert = false;
+        public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
+
+        public static final double speed = 0.5;
+
+        /* current limiting */
+        public static final int continuousCurrentLimit = 25;
+        public static final int peakCurrentLimit = 40;
+        public static final double peakCurrentDuration = 0.1;
+        public static final boolean enableCurrentLimit = true;
     }
 
     public static final class Swerve {
@@ -146,6 +288,8 @@ public final class Constants {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
     }
+
+
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
         public static final double kMaxSpeedMetersPerSecond = 3;
