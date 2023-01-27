@@ -22,7 +22,7 @@ public class Swerve extends SubsystemBase {
     public Pigeon2 gyro;
 
     public Swerve() {
-        gyro = new Pigeon2(Constants.Swerve.pigeonID, "rio");
+        gyro = new Pigeon2(Constants.Swerve.pigeonID, "Drivetrain");
         gyro.configFactoryDefault();
         zeroGyro();
 
