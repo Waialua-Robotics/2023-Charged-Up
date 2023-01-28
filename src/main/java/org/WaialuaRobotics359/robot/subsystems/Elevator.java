@@ -48,8 +48,8 @@ public class Elevator extends SubsystemBase {
         return (encoder > (desiredPosition - Constants.Elevator.threshold)) && (encoder < (desiredPosition + Constants.Elevator.threshold));
     }
 
-    public double GetPosition() {
-        return mElevatorMotorR.getSelectedSensorPosition();
+    public int GetPosition() {
+        return (int) mElevatorMotorR.getSelectedSensorPosition();
     }
 
     public double GetPositionInches(){

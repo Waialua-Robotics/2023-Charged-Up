@@ -12,7 +12,7 @@ public class ManualSlide extends CommandBase {
     private Slide s_Slide;
     private DoubleSupplier SlideAxis;
     
-    private int positionIncrement = 500;
+    private int positionIncrement = 10000;
 
     public ManualSlide(Slide s_Slide, DoubleSupplier SlideAxis) {
         this.s_Slide = s_Slide;
@@ -27,6 +27,11 @@ public class ManualSlide extends CommandBase {
         //joystick control 
         double joystickValue = MathUtil.applyDeadband(SlideAxis.getAsDouble(), Constants.OI.deadband);
         if (Math.abs(joystickValue) > 0){
+
+            if(! s_Slide.inRange()){
+                s_Slide.setDesiredPosition(s_Slide.GetPosition());
+            }
+
             s_Slide.setDesiredPosition( (int) (s_Slide.getDesiredPosition() + (joystickValue * positionIncrement)) );
         }
         

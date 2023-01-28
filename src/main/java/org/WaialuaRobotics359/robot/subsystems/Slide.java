@@ -39,8 +39,8 @@ public class Slide extends SubsystemBase{
         return (encoder > (desiredPosition - Constants.Slide.threshold)) && (encoder < (desiredPosition + Constants.Slide.threshold));
     }
 
-    public double GetPosition() {
-        return mSlideMotor.getSelectedSensorPosition();
+    public int GetPosition() {
+        return (int) mSlideMotor.getSelectedSensorPosition();
      }
 
      public double GetPositionInches(){

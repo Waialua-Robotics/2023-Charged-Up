@@ -12,7 +12,7 @@ public class ManualElevator extends CommandBase {
     private Elevator s_Elevator;
     private DoubleSupplier elevatorAxis;
     
-    private int positionIncrement = 1000;
+    private int positionIncrement = 5000;
 
     public ManualElevator(Elevator s_Elevator, DoubleSupplier elevatorAxis) {
         this.s_Elevator = s_Elevator;
@@ -27,6 +27,11 @@ public class ManualElevator extends CommandBase {
         //joystick control 
         double joystickValue = MathUtil.applyDeadband(elevatorAxis.getAsDouble(), Constants.OI.deadband);
         if (Math.abs(joystickValue) > 0){
+
+            if(! s_Elevator.inRange()){
+                s_Elevator.setDesiredPosition(s_Elevator.GetPosition());
+            }
+
             s_Elevator.setDesiredPosition( (int) (s_Elevator.getDesiredPosition() + (joystickValue * positionIncrement)) );
         }
         

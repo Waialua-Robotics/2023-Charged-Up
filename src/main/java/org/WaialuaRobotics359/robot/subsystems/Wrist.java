@@ -42,7 +42,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public double GetPosition() {
-        return mWristMotor.getSelectedSensorPosition();
+        return (int) mWristMotor.getSelectedSensorPosition();
      }
 
      public double GetPositionInches(){

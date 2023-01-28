@@ -57,10 +57,10 @@ public final class Constants {
         public static final int MidPosition = 50000;
         public static final int HighPosition = 190000;
         public static final int FeederPosition = 100000;
-
+       
         /* soft limits */
         public static final int forwardSoftLimit = 200000; 
-        public static final int reverseSoftLimit = 2000;
+        public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -75,7 +75,7 @@ public final class Constants {
         public static final double slideKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.1;
+        public static final double closedLoopPeakOutput =1;
     }
 
     public static final class Elevator {
@@ -95,7 +95,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 146000; 
-        public static final int reverseSoftLimit = 2000;
+        public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -104,13 +104,13 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double slideKP = 0.5; 
+        public static final double slideKP = 0.1; 
         public static final double slideKI = 0.0;
         public static final double slideKD = 0.0;
         public static final double slideKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.1;
+        public static final double closedLoopPeakOutput =.8;
     }
 
     public static final class Wrist {
@@ -124,6 +124,7 @@ public final class Constants {
         public static final int threshold = 500;
 
         public static final int LowPosition = 1200;
+        public static final int SafePosition = 4260;
         public static final int MidPosition = 6000;
         public static final int HighPosition = 13000;
         public static final int FeederPosition = 10000;
@@ -139,13 +140,13 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double wristKP = 1; // 0.1
+        public static final double wristKP = 1; 
         public static final double wristKI = 0.0;
         public static final double wristKD = 0.0;
         public static final double wristKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.2; // 0.1
+        public static final double closedLoopPeakOutput =.2; 
     }
 
     public static final class Intake {
@@ -217,7 +218,7 @@ public final class Constants {
         public static final double angleKF = chosenModule.angleKF;
 
         /* Drive Motor PID Values */
-        public static final double driveKP = 0.1; //TODO: This must be tuned to robot
+        public static final double driveKP = 0.2; //TODO: This must be tuned to robot
         public static final double driveKI = 0.0;
         public static final double driveKD = 0.0;
         public static final double driveKF = 0.0;
@@ -250,7 +251,7 @@ public final class Constants {
             public static final int driveMotorID = 0;
             public static final int angleMotorID = 10;
             public static final int canCoderID = 20;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(210.14);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(209.44);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -260,7 +261,7 @@ public final class Constants {
             public static final int driveMotorID = 1;
             public static final int angleMotorID = 11;
             public static final int canCoderID = 21;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(288.89);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(297.24);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -270,7 +271,7 @@ public final class Constants {
             public static final int driveMotorID = 2;
             public static final int angleMotorID = 12;
             public static final int canCoderID = 22;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(296.71);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(289.07);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
@@ -280,7 +281,7 @@ public final class Constants {
             public static final int driveMotorID = 3;
             public static final int angleMotorID = 13;
             public static final int canCoderID = 23;
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(68.81);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(68.55);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }

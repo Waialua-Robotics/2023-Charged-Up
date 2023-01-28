@@ -5,6 +5,7 @@ import org.WaialuaRobotics359.robot.subsystems.Elevator;
 import org.WaialuaRobotics359.robot.subsystems.Slide;
 import org.WaialuaRobotics359.robot.subsystems.Wrist;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class SetMidPosition extends CommandBase {
@@ -28,14 +29,21 @@ public class SetMidPosition extends CommandBase {
     @Override
     public void execute(){
     
-        s_Wrist.setDesiredPosition(Constants.Wrist.MidPosition);
+        s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
+
+        Timer.delay(.5);
 
         s_Elevator.setDesiredPosition(Constants.Elevator.MidPosition);
         s_Elevator.goToPosition();
 
+        Timer.delay(.5);
+
         s_Slide.setDesiredPosition(Constants.Slide.MidPosition);
         s_Slide.goToPosition();
+
+        s_Wrist.setDesiredPosition(Constants.Wrist.MidPosition);
+        s_Wrist.goToPosition();
 
     }
     

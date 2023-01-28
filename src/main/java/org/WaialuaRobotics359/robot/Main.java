@@ -5,6 +5,7 @@
 package org.WaialuaRobotics359.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Do NOT add any static variables to this class, or any initialization at all. Unless you know what
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public final class Main {
   private Main() {}
+  
 
   /**
    * Main initialization function. Do not perform any initialization here.
@@ -20,6 +22,10 @@ public final class Main {
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
+    try {
+      Thread.sleep(5);
+    } catch (InterruptedException e) {
+    }
     RobotBase.startRobot(Robot::new);
   }
 }
