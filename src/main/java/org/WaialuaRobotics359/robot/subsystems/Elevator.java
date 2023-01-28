@@ -14,7 +14,7 @@ public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
     private TalonFX mElevatorMotorR;
 
-    private int desiredPosition;
+    private int desiredPosition = 0;
 
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);
@@ -27,6 +27,8 @@ public class Elevator extends SubsystemBase {
 
         mElevatorMotorL.set(ControlMode.Follower, Constants.Elevator.rElevatorID);
         mElevatorMotorL.setInverted(TalonFXInvertType.OpposeMaster);
+
+        mElevatorMotorR.setSelectedSensorPosition(0);
     }
 
     public void setDesiredPosition(int position) {
@@ -48,19 +50,19 @@ public class Elevator extends SubsystemBase {
 
     public double GetPosition() {
         return mElevatorMotorR.getSelectedSensorPosition();
-     }
+    }
 
-     public double GetPositionInches(){
+    public double GetPositionInches(){
         return  (GetPosition()*(Constants.Elevator.Ratio))/61440;
-     }
+    }
 
-     public void SetPosition(double position){
+    public void SetPosition(double position){
         mElevatorMotorR.setSelectedSensorPosition(position);
-     }
+    }
 
-     public void SetHomePosition(){
+    public void SetHomePosition(){
         mElevatorMotorR.setSelectedSensorPosition(0);
-     }
+    }
 
     private int fitToRange(int position) {
         desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);

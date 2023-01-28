@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
-
-    private int desiredPosition;
+    private int desiredPosition = 0;
 
     public Slide () {
         mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
@@ -20,6 +19,7 @@ public class Slide extends SubsystemBase{
         mSlideMotor.configAllSettings(Robot.ctreConfigs.slideFXConfig);
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
+        mSlideMotor.setSelectedSensorPosition(0);
     }
 
     public void setDesiredPosition(int position) {

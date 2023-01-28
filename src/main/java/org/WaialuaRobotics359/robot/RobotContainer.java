@@ -94,20 +94,22 @@ public class RobotContainer {
             )
         );  
 
+        /* invert y axis */
         CommandScheduler.getInstance().setDefaultCommand(s_Elevator,
             new ManualElevator(
                 s_Elevator,
-                () -> operator.getRawAxis(elevatorAxis)
+                () -> -operator.getRawAxis(elevatorAxis)
                 )
         );
 
+        /* invert y axis */
         CommandScheduler.getInstance().setDefaultCommand(s_Slide,
             new ManualSlide(
                 s_Slide,
-                () -> operator.getRawAxis(SlideAxis)
+                () -> -operator.getRawAxis(SlideAxis)
                 )
         );
-
+  
         CommandScheduler.getInstance().setDefaultCommand(s_Wrist,
             new ManualWrist(
                 s_Wrist,

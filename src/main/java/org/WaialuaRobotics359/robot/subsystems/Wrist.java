@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
-    private int desiredPosition;
+    private int desiredPosition = 0;
     
     public Wrist() {
         mWristMotor = new TalonFX(Constants.Wrist.wristID);
@@ -20,6 +20,7 @@ public class Wrist extends SubsystemBase {
         mWristMotor.configAllSettings(Robot.ctreConfigs.wristFXConfig);
         mWristMotor.setInverted(Constants.Wrist.wristMotorInvert);
         mWristMotor.setNeutralMode(Constants.Wrist.wristNeutralMode);
+        mWristMotor.setSelectedSensorPosition(0);
     }
 
  
