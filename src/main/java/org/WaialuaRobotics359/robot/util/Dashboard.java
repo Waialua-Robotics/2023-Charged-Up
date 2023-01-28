@@ -22,7 +22,9 @@ public class Dashboard {
         tab.addNumber("Wrist value", () -> container.getWrist().GetPosition());
         tab.addNumber("Slide value", () -> container.getSlide().GetPosition());
         tab.addNumber("Elevator value", () -> container.getElevator().GetPosition());
-
+        tab.addNumber("Wrist desired", () -> container.getWrist().getDesiredPosition());
+        tab.addNumber("Slide desired", () -> container.getSlide().getDesiredPosition());
+        tab.addNumber("Elevator desired", () -> container.getElevator().getDesiredPosition());
 
         /*tab.add("Autonomous Mode", container.getAutonomousChooser().getModeChooser()).withSize(2, 1).withPosition(2, 0);
         tab.add("Climb Mode", container.getClimbChooser().getClimbChooser()).withSize(2, 1).withPosition(0, 2);

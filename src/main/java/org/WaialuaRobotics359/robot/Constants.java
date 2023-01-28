@@ -25,13 +25,13 @@ public final class Constants {
         public static final int operatorPort = 1;
 
         public static final int elevatorAxis = XboxController.Axis.kLeftY.value;
-        public static final int slideAxis = XboxController.Axis.kLeftX.value;
+        public static final int slideAxis = XboxController.Axis.kRightY.value;
         public static final int wristAxis = XboxController.Axis.kRightTrigger.value;
         public static final int WristAxisN = XboxController.Axis.kLeftTrigger.value;
 
-        public static final int HighPosition = XboxController.Button.kA.value;
+        public static final int HighPosition = XboxController.Button.kY.value;
         public static final int MidPosition = XboxController.Button.kB.value;
-        public static final int LowPosition = XboxController.Button.kX.value;
+        public static final int LowPosition = XboxController.Button.kA.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
 
@@ -44,23 +44,23 @@ public final class Constants {
     }
 
     public static final class Slide {
-        public static final int slideMotorID = 32;
+        public static final int slideMotorID = 20; // do not revert : 32
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final Boolean slideMotorInvert = false;
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
 
         public static final int Ratio = 15;
 
-        public static final int threshold = 15;
+        public static final int threshold = 500;
 
-        public static final int LowPosition = 100;
+        public static final int LowPosition = 3000;
         public static final int MidPosition = 50000;
-        public static final int HighPosition = 90000;
-        public static final int FeederPosition = 10000;
+        public static final int HighPosition = 190000;
+        public static final int FeederPosition = 100000;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 100000; 
-        public static final int reverseSoftLimit = 0;
+        public static final int forwardSoftLimit = 200000; 
+        public static final int reverseSoftLimit = 2000;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -79,26 +79,23 @@ public final class Constants {
     }
 
     public static final class Elevator {
-        public static final int rElevatorID = 10;
-        public static final int lElevatorID = 11;
+        public static final int rElevatorID = 10; 
+        public static final int lElevatorID = 11; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
         
         public static final int Ratio = 30;
 
-        public static final int threshold = 15;
+        public static final int threshold = 500;
         
-        public static final int LowPosition = 100;
+        public static final int LowPosition = 3000;
         public static final int MidPosition = 50000;
-        public static final int HighPosition = 90000;
-        public static final int FeederPosition = 10000;
-
-        public static final int maxHeight = 100000;
-        public static final int minHeight = 0;
+        public static final int HighPosition = 140000;
+        public static final int FeederPosition = 100000;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 145126; 
-        public static final int reverseSoftLimit = 0;
+        public static final int forwardSoftLimit = 146000; 
+        public static final int reverseSoftLimit = 2000;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -107,33 +104,33 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double slideKP = 0.1; 
+        public static final double slideKP = 0.5; 
         public static final double slideKI = 0.0;
         public static final double slideKD = 0.0;
         public static final double slideKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.1;
+        public static final double closedLoopPeakOutput =1;
     }
 
     public static final class Wrist {
         public static final int wristID = 40;
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
-        public static final Boolean wristMotorInvert = false;
+        public static final Boolean wristMotorInvert = true;
         public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
 
         public static final int Ratio = 15;
 
-        public static final int threshold = 15;
+        public static final int threshold = 500;
 
-        public static final int LowPosition = 100;
-        public static final int MidPosition = 50000;
-        public static final int HighPosition = 90000;
+        public static final int LowPosition = 1200;
+        public static final int MidPosition = 6000;
+        public static final int HighPosition = 13000;
         public static final int FeederPosition = 10000;
 
         /* soft limits */
-        public static final int forwardSoftLimit = 9500; 
-        public static final int reverseSoftLimit = 0;
+        public static final int forwardSoftLimit = 14000; 
+        public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -142,17 +139,17 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double wristKP = 0.1; 
+        public static final double wristKP = 1; // 0.1
         public static final double wristKI = 0.0;
         public static final double wristKD = 0.0;
         public static final double wristKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.1;
+        public static final double closedLoopPeakOutput =.2; // 0.1
     }
 
     public static final class Intake {
-        public static final int intakeID = 20;
+        public static final int intakeID = 30; // do not revert : 20
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean intakeMotorInvert = false;
         public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
