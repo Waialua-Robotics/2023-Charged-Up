@@ -16,9 +16,6 @@ import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
-import com.pathplanner.lib.auto.PIDConstants;
-import com.pathplanner.lib.auto.SwerveAutoBuilder;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -58,18 +55,6 @@ public class RobotContainer {
     private final Slide s_Slide = new Slide();
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
-
-    /*Create Auto Builder*/ //#TODO: fix this in the future currently dosent work 
-    public final SwerveAutoBuilder s_SwerveAutoBuilder = new SwerveAutoBuilder(s_Swerve::getPose,
-    s_Swerve::resetOdometry,
-    Constants.Swerve.swerveKinematics,
-    new PIDConstants(Constants.AutoConstants.translationPID.kP, Constants.AutoConstants.translationPID.kI,
-        Constants.AutoConstants.translationPID.kD),
-    new PIDConstants(Constants.AutoConstants.rotationPID.kP, Constants.AutoConstants.rotationPID.kI,
-        Constants.AutoConstants.rotationPID.kD),
-        s_Swerve::setModuleStates,
-    Constants.eventMap,
-    s_Swerve);
 
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
  

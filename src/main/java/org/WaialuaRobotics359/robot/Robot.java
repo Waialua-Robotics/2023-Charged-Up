@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  @SuppressWarnings("unused")
   private static Dashboard m_dashboard;
 
   /**
