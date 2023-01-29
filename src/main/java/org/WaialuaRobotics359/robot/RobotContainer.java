@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import org.WaialuaRobotics359.robot.autos.*;
+import org.WaialuaRobotics359.robot.commands.Misc.ChangeGamePiece;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
@@ -23,6 +24,9 @@ import org.WaialuaRobotics359.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+    private boolean isCube = false;
+
     /* Controllers */
     private final Joystick driver = new Joystick(0);
     private final Joystick operator = new Joystick(1);
@@ -36,6 +40,8 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
+    private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kY.value);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -49,6 +55,9 @@ public class RobotContainer {
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
+    private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
+    private final JoystickButton setCone = new JoystickButton(operator, Constants.OI.isCone);
+
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final Elevator s_Elevator = new Elevator();
@@ -133,9 +142,14 @@ public class RobotContainer {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+        Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
+        Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
+        /*operator Buttons */
         HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
         MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        setCube.onTrue(new InstantCommand(() -> isCube = true));
+        setCone.onTrue(new InstantCommand(() -> isCube = false));
     }
 
     public void setEventMap() {

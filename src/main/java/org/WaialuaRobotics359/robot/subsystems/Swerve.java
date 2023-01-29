@@ -21,10 +21,14 @@ public class Swerve extends SubsystemBase {
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
 
+    public double desiredAngle;
+
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "Drivetrain");
         gyro.configFactoryDefault();
+
         zeroGyro();
+        desiredAngle = 0;
 
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -39,8 +43,6 @@ public class Swerve extends SubsystemBase {
             System.out.println("CANcoder on Module " + mod.moduleNumber + " took " + mod.CANcoderInitTime + " ms to be ready.");
         }
     }
-
-    
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         SwerveModuleState[] swerveModuleStates =
@@ -102,6 +104,10 @@ public class Swerve extends SubsystemBase {
 
     public Rotation2d getYaw() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
+    }
+
+    public void setDesired( double desired ) {
+        desiredAngle = desired;
     }
 
     public void resetModulesToAbsolute(){
