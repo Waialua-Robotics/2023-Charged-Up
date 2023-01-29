@@ -34,7 +34,8 @@ public final class Constants {
         public static final int LowPosition = XboxController.Button.kA.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
-        public static final int iscube = XboxController.Button.kLeftStick.value;
+        //public static final int isC
+        //public static fiaisCube = XboxController.Button.kLeftStick.value;
         public static final int isCone = XboxController.Button.kRightStick.value;
 
         public static final double deadband = 0.1;
@@ -61,7 +62,7 @@ public final class Constants {
         public static final int FeederPosition = 100000;
        
         /* soft limits */
-        public static final int forwardSoftLimit = 200000; 
+        public static final int forwardSoftLimit = 19750; 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */

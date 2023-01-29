@@ -5,7 +5,6 @@
 package org.WaialuaRobotics359.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Do NOT add any static variables to this class, or any initialization at all. Unless you know what

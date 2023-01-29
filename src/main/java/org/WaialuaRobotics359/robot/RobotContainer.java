@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import org.WaialuaRobotics359.robot.autos.*;
-import org.WaialuaRobotics359.robot.commands.Misc.ChangeGamePiece;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
@@ -40,8 +39,8 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
-    private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -55,7 +54,7 @@ public class RobotContainer {
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
-    private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
+    //private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
     private final JoystickButton setCone = new JoystickButton(operator, Constants.OI.isCone);
 
     /* Subsystems */
@@ -148,7 +147,7 @@ public class RobotContainer {
         HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
         MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
-        setCube.onTrue(new InstantCommand(() -> isCube = true));
+        //setCube.onTrue(new InstantCommand(() -> isCube = true));
         setCone.onTrue(new InstantCommand(() -> isCube = false));
     }
 

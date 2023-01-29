@@ -113,10 +113,10 @@ public class Conversions {
         double difference = angle1 - angle2;
         if (difference > 180) {
             difference -= 360;
-            difference = -difference;
+            //difference = -difference;
         } else if (difference < -180) {
             difference += 360;
-            difference = -difference;
+            //difference = -difference;
         }
         return difference;
     }
