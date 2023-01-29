@@ -22,32 +22,42 @@ public class SetMidPosition extends CommandBase {
         addRequirements(s_Slide);
     }
 
-    public void initialize(){
+    boolean finished = false; 
 
+    private Timer Timer = new Timer();
+
+    public void initialize(){
+        finished = false;
+        
+        Timer.reset();
+
+        Timer.start();
     }
 
     @Override
     public void execute(){
-    
+
+
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
-
-        Timer.delay(.5);
-
+        if (Timer.hasElapsed(0.5)){
         s_Elevator.setDesiredPosition(Constants.Elevator.MidPosition);
         s_Elevator.goToPosition();
-
-        Timer.delay(.5);
-
+        }
+        if (Timer.hasElapsed(1)){
         s_Slide.setDesiredPosition(Constants.Slide.MidPosition);
         s_Slide.goToPosition();
-
+        }
+        if (Timer.hasElapsed(1.5)){
         s_Wrist.setDesiredPosition(Constants.Wrist.MidPosition);
         s_Wrist.goToPosition();
+        finished = true;
+        }
+    
 
     }
     
     public boolean isFinished(){
-        return true;
+        return finished;
     }
 }

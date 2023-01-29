@@ -62,7 +62,7 @@ public final class Constants {
         public static final int FeederPosition = 100000;
        
         /* soft limits */
-        public static final int forwardSoftLimit = 19750; 
+        public static final int forwardSoftLimit = 197500; 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */

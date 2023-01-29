@@ -28,7 +28,6 @@ public class Swerve extends SubsystemBase {
         gyro.configFactoryDefault();
 
         zeroGyro();
-        desiredAngle = 0;
 
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -99,6 +98,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
+        desiredAngle = 0;
         gyro.setYaw(0);
     }
 
@@ -107,8 +107,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public double getYaw360() {
-        double angle = getYaw().getDegrees();
-        return (angle < 0) ? angle + 360 : angle;
+        return ( (getYaw().getDegrees() % 360) + 360 ) % 360;
     }
 
     public void setDesired( double desired ) {
