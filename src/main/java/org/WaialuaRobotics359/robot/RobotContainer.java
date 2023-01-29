@@ -24,7 +24,7 @@ import org.WaialuaRobotics359.robot.subsystems.*;
  */
 public class RobotContainer {
 
-    private boolean isCube = false;
+    public static boolean isCube = true;
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -54,7 +54,7 @@ public class RobotContainer {
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
-    //private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
+    private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
     private final JoystickButton setCone = new JoystickButton(operator, Constants.OI.isCone);
 
     /* Subsystems */
@@ -147,7 +147,7 @@ public class RobotContainer {
         HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
         MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
-        //setCube.onTrue(new InstantCommand(() -> isCube = true));
+        setCube.onTrue(new InstantCommand(() -> isCube = true));
         setCone.onTrue(new InstantCommand(() -> isCube = false));
     }
 

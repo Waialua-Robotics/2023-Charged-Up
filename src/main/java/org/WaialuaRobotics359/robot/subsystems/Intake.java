@@ -21,12 +21,12 @@ public class Intake extends SubsystemBase {
         mIntakeMotor.setNeutralMode(Constants.Intake.intakeNeutralMode);
     }
 
-    public void intake() {
-        mIntakeMotor.set(ControlMode.PercentOutput, Constants.Intake.speed);
+    public void intake(double intakeSpeed) {
+        mIntakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
     }
 
-    public void outake() {
-        mIntakeMotor.set(ControlMode.PercentOutput, -Constants.Intake.speed);
+    public void outake(double intakeSpeed) {
+        mIntakeMotor.set(ControlMode.PercentOutput, -intakeSpeed);
     }
 
     public void stop() {

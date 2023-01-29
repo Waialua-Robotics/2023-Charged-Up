@@ -34,8 +34,7 @@ public final class Constants {
         public static final int LowPosition = XboxController.Button.kA.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
-        //public static final int isC
-        //public static fiaisCube = XboxController.Button.kLeftStick.value;
+        public static final int isCube = XboxController.Button.kLeftStick.value;
         public static final int isCone = XboxController.Button.kRightStick.value;
 
         public static final double deadband = 0.1;
@@ -56,10 +55,19 @@ public final class Constants {
 
         public static final int threshold = 500;
 
-        public static final int LowPosition = 3000;
-        public static final int MidPosition = 50000;
-        public static final int HighPosition = 190000;
-        public static final int FeederPosition = 100000;
+        public static final class Cube {
+            public static final int LowPosition = 3000;
+            public static final int MidPosition = 50000;
+            public static final int HighPosition = 190000;
+            public static final int FeederPosition = 100000;
+        }
+
+        public static final class Cone {
+            public static final int LowPosition = 3000;
+            public static final int MidPosition = 50000;
+            public static final int HighPosition = 190000;
+            public static final int FeederPosition = 100000;
+        }
        
         /* soft limits */
         public static final int forwardSoftLimit = 197500; 
@@ -90,11 +98,20 @@ public final class Constants {
         public static final int Ratio = 30;
 
         public static final int threshold = 500;
-        
-        public static final int LowPosition = 3000;
-        public static final int MidPosition = 50000;
-        public static final int HighPosition = 140000;
-        public static final int FeederPosition = 100000;
+
+        public static final class Cube {
+            public static final int LowPosition = 3000;
+            public static final int MidPosition = 50000;
+            public static final int HighPosition = 140000;
+            public static final int FeederPosition = 100000;
+        }
+
+        public static final class Cone {
+            public static final int LowPosition = 3000;
+            public static final int MidPosition = 50000;
+            public static final int HighPosition = 140000;
+            public static final int FeederPosition = 100000;
+        }
 
         /* soft limits */
         public static final int forwardSoftLimit = 146000; 
@@ -126,11 +143,22 @@ public final class Constants {
 
         public static final int threshold = 500;
 
-        public static final int LowPosition = 1200;
         public static final int SafePosition = 4260;
-        public static final int MidPosition = 6000;
-        public static final int HighPosition = 13000;
-        public static final int FeederPosition = 10000;
+        public static final int StowPosition = 1200;
+
+        public static final class Cube {
+            public static final int LowPosition = 1200;
+            public static final int MidPosition = 6000;
+            public static final int HighPosition = 13000;
+            public static final int FeederPosition = 10000;
+        }
+
+        public static final class Cone {
+            public static final int LowPosition = 1200;
+            public static final int MidPosition = 6000;
+            public static final int HighPosition = 13000;
+            public static final int FeederPosition = 10000;
+        }
 
         /* soft limits */
         public static final int forwardSoftLimit = 14000; 

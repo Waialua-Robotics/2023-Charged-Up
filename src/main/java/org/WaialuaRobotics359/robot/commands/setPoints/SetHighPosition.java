@@ -1,6 +1,7 @@
 package org.WaialuaRobotics359.robot.commands.setPoints;
 
 import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Elevator;
 import org.WaialuaRobotics359.robot.subsystems.Slide;
 import org.WaialuaRobotics359.robot.subsystems.Wrist;
@@ -13,6 +14,10 @@ public class SetHighPosition extends CommandBase {
     private Elevator s_Elevator;
     private Slide s_Slide;
 
+    private static int ElevatorPosition;
+    private static int SlidePosition;
+    private static int WristPosition;
+
     public SetHighPosition(Wrist s_Wrist, Elevator s_Elevator, Slide s_Slide) {
         this.s_Wrist = s_Wrist;
         this.s_Elevator = s_Elevator;
@@ -22,9 +27,28 @@ public class SetHighPosition extends CommandBase {
         addRequirements(s_Slide);
     }
 
-    public void initialize(){
+    boolean finished = false; 
 
+    private Timer Timer = new Timer();
+
+    public void initialize(){
+        if (RobotContainer.isCube){
+            ElevatorPosition = Constants.Elevator.Cube.HighPosition;
+            SlidePosition = Constants.Slide.Cube.HighPosition;
+            WristPosition = Constants.Wrist.Cube.HighPosition;
+        }else{
+            ElevatorPosition = Constants.Elevator.Cone.HighPosition;
+            SlidePosition = Constants.Slide.Cone.HighPosition;
+            WristPosition = Constants.Wrist.Cone.HighPosition;
+        }
+        
+        finished = false;
+        
+        Timer.reset();
+
+        Timer.start();
     }
+
 
     @Override
     public void execute(){
@@ -32,23 +56,23 @@ public class SetHighPosition extends CommandBase {
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
 
-        Timer.delay(.5);
+        if (Timer.hasElapsed(0.5)){
+            s_Elevator.setDesiredPosition(ElevatorPosition);
+            s_Elevator.goToPosition();
+        }
 
-        s_Elevator.setDesiredPosition(Constants.Elevator.HighPosition);
-        s_Elevator.goToPosition();
-
-        Timer.delay(.5);
-
-        s_Slide.setDesiredPosition(Constants.Slide.HighPosition);
+        if (Timer.hasElapsed(1)){
+            s_Slide.setDesiredPosition(SlidePosition);
         s_Slide.goToPosition();
+        }
 
-        s_Wrist.setDesiredPosition(Constants.Wrist.HighPosition);
+        s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
 
     }
     
     public boolean isFinished(){
-        return true;
+        return finished;
     }
 }
     

@@ -24,6 +24,7 @@ public class Dashboard {
         tab.addNumber("Wrist desired", () -> container.getWrist().getDesiredPosition());
         tab.addNumber("Slide desired", () -> container.getSlide().getDesiredPosition());
         tab.addNumber("Elevator desired", () -> container.getElevator().getDesiredPosition());
+        tab.addBoolean("isCube", () -> RobotContainer.isCube);
 
         /*tab.add("Autonomous Mode", container.getAutonomousChooser().getModeChooser()).withSize(2, 1).withPosition(2, 0);
         tab.add("Climb Mode", container.getClimbChooser().getClimbChooser()).withSize(2, 1).withPosition(0, 2);
