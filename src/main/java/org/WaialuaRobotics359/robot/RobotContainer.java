@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import org.WaialuaRobotics359.robot.autos.*;
@@ -15,6 +16,7 @@ import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
+import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -63,6 +65,7 @@ public class RobotContainer {
     private final Slide s_Slide = new Slide();
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
+    private final LEDs s_LEDs = new LEDs();
 
     //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
  
@@ -147,8 +150,12 @@ public class RobotContainer {
         HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
         MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
-        setCube.onTrue(new InstantCommand(() -> isCube = true));
-        setCone.onTrue(new InstantCommand(() -> isCube = false));
+        setCube.onTrue(
+            new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
+            new InstantCommand(() -> s_LEDs.state= State.purple)));
+        setCone.onTrue(
+            new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
+            new InstantCommand(() -> s_LEDs.state= State.yellow)));
     }
 
     public void setEventMap() {
