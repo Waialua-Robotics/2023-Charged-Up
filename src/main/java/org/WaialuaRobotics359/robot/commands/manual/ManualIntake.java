@@ -30,9 +30,9 @@ public class ManualIntake extends CommandBase {
     public void execute(){
 
         if(RobotContainer.isCube){
-            intakeSpeed = Constants.Intake.speed;
-        } else {
             intakeSpeed = -Constants.Intake.speed;
+        } else {
+            intakeSpeed = Constants.Intake.speed;
         }
         //trigger control 
         boolean rBumperValue = Intake.getAsBoolean();

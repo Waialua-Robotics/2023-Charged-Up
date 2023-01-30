@@ -171,7 +171,7 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double wristKP = 1; 
+        public static final double wristKP = 1.5; 
         public static final double wristKI = 0.0;
         public static final double wristKD = 0.0;
         public static final double wristKF = 0.0;

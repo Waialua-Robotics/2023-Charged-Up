@@ -12,7 +12,7 @@ public class ManualSlide extends CommandBase {
     private Slide s_Slide;
     private DoubleSupplier SlideAxis;
     
-    private int positionIncrement = 10000;
+    private int positionIncrement = 20000;
 
     public ManualSlide(Slide s_Slide, DoubleSupplier SlideAxis) {
         this.s_Slide = s_Slide;

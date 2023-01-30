@@ -16,7 +16,6 @@ public class SetStowPosition extends CommandBase {
 
     private static int ElevatorPosition;
     private static int SlidePosition;
-    private static int WristPosition;
 
     public SetStowPosition(Wrist s_Wrist, Elevator s_Elevator, Slide s_Slide) {
         this.s_Wrist = s_Wrist;
@@ -35,11 +34,9 @@ public class SetStowPosition extends CommandBase {
         if (RobotContainer.isCube){
             ElevatorPosition = Constants.Elevator.Cube.LowPosition;
             SlidePosition = Constants.Slide.Cube.LowPosition;
-            WristPosition = Constants.Wrist.Cube.LowPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.LowPosition;
             SlidePosition = Constants.Slide.Cone.LowPosition;
-            WristPosition = Constants.Wrist.Cone.LowPosition;
         }
 
         finished = false;
