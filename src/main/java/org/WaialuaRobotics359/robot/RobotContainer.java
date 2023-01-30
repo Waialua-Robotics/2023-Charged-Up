@@ -36,11 +36,11 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kStart.value); 
-    private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kBack.value); 
+    private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kA.value);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;

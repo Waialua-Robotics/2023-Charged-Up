@@ -46,7 +46,7 @@ public final class Constants {
     }
 
     public static final class Slide {
-        public static final int slideMotorID = 20; // do not revert : 32
+        public static final int slideMotorID = 20; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final Boolean slideMotorInvert = false;
         public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
