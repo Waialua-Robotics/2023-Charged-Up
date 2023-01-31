@@ -33,7 +33,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public void goToPosition() {
-        mWristMotor.set(TalonFXControlMode.Position, desiredPosition);
+        mWristMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }
 
     public boolean inRange() {

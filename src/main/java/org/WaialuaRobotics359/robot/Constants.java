@@ -146,6 +146,10 @@ public final class Constants {
         public static final int SafePosition = 4260;
         public static final int StowPosition = 1200;
 
+        public static final int velocity = 5000;
+        public static final int acceleration = 6000;
+        public static final int smoothing = 4; // 0-4
+
         public static final class Cube {
             public static final int LowPosition = 1200;
             public static final int MidPosition = 6000;

@@ -127,8 +127,14 @@ public final class CTREConfigs {
             wristFXConfig.slot0.kD = Constants.Wrist.wristKI;
             wristFXConfig.slot0.kF = Constants.Wrist.wristKF;        
             wristFXConfig.supplyCurrLimit = wristSupplyLimit;
-            wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
-            wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;
-            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput;      
+
+            _talon.configMotionCruiseVelocity(Constants.Wrists.velocity);
+            _talon.configMotionAcceleration(Constants.Wrist.acceleration);
+			_talon.configMotionSCurveStrength(Constants.Wrist.smoothing);
+
+            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput;  
+            
+            
     }
+
 }
