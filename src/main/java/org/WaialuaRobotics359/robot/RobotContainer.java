@@ -52,8 +52,10 @@ public class RobotContainer {
 
     /* Operator Buttons */
     private final JoystickButton HighPosition = new JoystickButton(operator, Constants.OI.HighPosition);
+    private final JoystickButton FeederPosition = new JoystickButton(operator, Constants.OI.FeederPosition);
     private final JoystickButton MidPosition = new JoystickButton(operator, Constants.OI.MidPosition);
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
+    private final JoystickButton StowPosition =new JoystickButton(operator, Constants.OI.StowPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
     private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
@@ -148,10 +150,12 @@ public class RobotContainer {
         Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
         /*operator Buttons */
         HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
+        FeederPosition.onTrue(new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
         MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        StowPosition.onTrue(new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
         setCube.onTrue(
-            new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
+            new ParallelCommandGroup( new InstantCommand(() -> isCube = true),
             new InstantCommand(() -> s_LEDs.state= State.purple)));
         setCone.onTrue(
             new ParallelCommandGroup( new InstantCommand(() -> isCube = false),

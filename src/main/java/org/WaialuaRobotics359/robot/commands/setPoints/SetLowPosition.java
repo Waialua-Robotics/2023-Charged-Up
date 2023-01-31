@@ -50,7 +50,7 @@ public class SetLowPosition extends CommandBase {
     @Override
     public void execute(){
 
-        s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
+        s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
     
         if (Timer.hasElapsed(0.5)){
@@ -61,14 +61,8 @@ public class SetLowPosition extends CommandBase {
         if (Timer.hasElapsed(1)){
                 s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
+            finished =true; 
         }
-
-        if (Timer.hasElapsed(1.5)){
-            s_Wrist.setDesiredPosition(WristPosition);
-            s_Wrist.goToPosition();
-            finished = true;
-        }
-
 
     }
     
