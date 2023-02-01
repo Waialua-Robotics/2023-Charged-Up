@@ -27,6 +27,7 @@ import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
 public class RobotContainer {
 
     public static boolean isCube = true;
+    public static boolean DriveSlowMode = false;
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -43,6 +44,7 @@ public class RobotContainer {
     private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kBack.value); 
     private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton setDriveSlowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value); 
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -160,6 +162,8 @@ public class RobotContainer {
         setCone.onTrue(
             new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
             new InstantCommand(() -> s_LEDs.state= State.yellow)));
+        setDriveSlowMode.onTrue(new InstantCommand(()-> DriveSlowMode =true ));
+        setDriveSlowMode.onFalse(new InstantCommand(() -> DriveSlowMode = false));
     }
 
     public void setEventMap() {

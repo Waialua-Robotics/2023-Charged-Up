@@ -2,6 +2,7 @@ package org.WaialuaRobotics359.robot.commands.swerve;
 
 import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
@@ -21,6 +22,7 @@ public class TeleopSwerve extends CommandBase {
     private BooleanSupplier robotCentricSup;
 
     private double rotationalIncrement = 5;
+    private double ControllerGain = 1;
     private Boolean feedbackNode = false;
 
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
@@ -35,6 +37,13 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
+
+        if (RobotContainer.DriveSlowMode){
+            ControllerGain = .5;
+        }else{
+            ControllerGain = 1;
+        }
+
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.OI.deadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
@@ -43,6 +52,10 @@ public class TeleopSwerve extends CommandBase {
         translationVal = translationVal * translationVal * Math.signum(translationVal);
         strafeVal = strafeVal * strafeVal * Math.signum(strafeVal);
         omega = omega * omega * Math.signum(omega);
+
+        translationVal *= ControllerGain;
+        strafeVal *= ControllerGain;
+        omega *= ControllerGain;
 
         if (omega != 0 && !feedbackNode) {
             s_Swerve.desiredAngle = s_Swerve.getYaw360();
