@@ -40,6 +40,10 @@ public class TeleopSwerve extends CommandBase {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
         double omega = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.OI.deadband);
 
+        translationVal = translationVal * translationVal * Math.signum(translationVal);
+        strafeVal = strafeVal * strafeVal * Math.signum(strafeVal);
+        omega = omega * omega * Math.signum(omega);
+
         if (omega != 0 && !feedbackNode) {
             s_Swerve.desiredAngle = s_Swerve.getYaw360();
             feedbackNode = true;

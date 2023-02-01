@@ -102,10 +102,10 @@ public final class CTREConfigs {
             elevatorFXConfig.reverseSoftLimitEnable = true;
             elevatorFXConfig.reverseSoftLimitThreshold = Constants.Elevator.reverseSoftLimit;
 
-            elevatorFXConfig.slot0.kP = Constants.Elevator.slideKP;
-            elevatorFXConfig.slot0.kI = Constants.Elevator.slideKD;
-            elevatorFXConfig.slot0.kD = Constants.Elevator.slideKI;
-            elevatorFXConfig.slot0.kF = Constants.Elevator.slideKF;      
+            elevatorFXConfig.slot0.kP = Constants.Elevator.elevatorKP;
+            elevatorFXConfig.slot0.kI = Constants.Elevator.elevatorKD;
+            elevatorFXConfig.slot0.kD = Constants.Elevator.elevatorKI;
+            elevatorFXConfig.slot0.kF = Constants.Elevator.elevatorKF;      
             elevatorFXConfig.supplyCurrLimit = elevatorSupplyLimit;
             elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
             elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;

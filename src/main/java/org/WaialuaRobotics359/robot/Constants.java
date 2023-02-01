@@ -126,10 +126,10 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /* PID */
-        public static final double slideKP = 0.1; 
-        public static final double slideKI = 0.0;
-        public static final double slideKD = 0.0;
-        public static final double slideKF = 0.0;
+        public static final double elevatorKP = 0.1; 
+        public static final double elevatorKI = 0.0;
+        public static final double elevatorKD = 0.0;
+        public static final double elevatorKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
         public static final double closedLoopPeakOutput =.8;
