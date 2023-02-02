@@ -79,10 +79,10 @@ public class RobotContainer {
     private SwerveAutoBuilder autoBuilder; 
 
     /* The autonomous routines */
-    private final Command m_SwerveBuilderAuto;
+    private final swerveBuilderAuto m_SwerveBuilderAuto;
 
     /* chooser for autonomous commands */
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    SendableChooser<String> m_chooser = new SendableChooser<>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
       public RobotContainer() {
@@ -177,14 +177,21 @@ public class RobotContainer {
 
     public void configAuto() {
         /* Populate Sendable Chooser */
-        m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
-        // m_chooser.addOption("twomAuto", m_twomAuto);   
+        m_chooser.setDefaultOption("swerveBuilderAuto",  "SwerveBuilderAuto");
+        m_chooser.addOption("twomAuto", "twomAuto");   
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         /* Populate Event Map */
         HashMap<String, Command> eventMap = new HashMap<String, Command>();
         eventMap.put("LedYellow", new InstantCommand(() -> s_LEDs.state = State.yellow));
         eventMap.put("LedPurple", new InstantCommand(() -> s_LEDs.state = State.purple));
+        eventMap.put("SetCube", new InstantCommand(() -> isCube = true));
+        eventMap.put("SetCone", new InstantCommand(()-> isCube = false));
+        eventMap.put("Outake", new InstantCommand(()-> s_Intake.outake(1)));
+        eventMap.put("Intake", new InstantCommand(()-> s_Intake.intake(1)));
+        eventMap.put("IntakeStop", new InstantCommand(()-> s_Intake.stop()));
+        eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
 
         /* Auto Builder */
         autoBuilder = new SwerveAutoBuilder(
@@ -223,7 +230,21 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        //selected auto will run
-       return m_chooser.getSelected();
+
+        Command selected;
+
+        switch (m_chooser.getSelected()) {
+            case "swerveBuilderAuto":
+                selected = m_SwerveBuilderAuto;
+                break;
+            case "twomAuto":
+                selected = m_SwerveBuilderAuto;
+                break;
+            default:
+                selected =  m_SwerveBuilderAuto;
+                break;
+        }
+
+        return selected;
     }
 }
