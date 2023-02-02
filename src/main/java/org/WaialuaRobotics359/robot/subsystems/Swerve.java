@@ -23,6 +23,8 @@ public class Swerve extends SubsystemBase {
 
     public double desiredAngle;
 
+    public Boolean slowMode;
+
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "Drivetrain");
         gyro.configFactoryDefault();

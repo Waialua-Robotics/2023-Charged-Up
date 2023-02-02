@@ -10,16 +10,11 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-
-import java.util.HashMap;
 
 import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
-    public static HashMap<String, Command> eventMap = new HashMap<String, Command>();
-
     public static final class OI {
         public static final int driverPort = 0;
         public static final int operatorPort = 1;

@@ -2,7 +2,6 @@ package org.WaialuaRobotics359.robot.commands.swerve;
 
 import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
-import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
@@ -37,22 +36,20 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-
-        if (RobotContainer.DriveSlowMode){
-            ControllerGain = .5;
-        }else{
-            ControllerGain = 1;
-        }
+        /* if slow drive 0.5 : else 1 */
+        ControllerGain = s_Swerve.slowMode ? 0.5 : 1;
 
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.OI.deadband);
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
         double omega = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.OI.deadband);
 
+        /* Square Values */
         translationVal = translationVal * translationVal * Math.signum(translationVal);
         strafeVal = strafeVal * strafeVal * Math.signum(strafeVal);
         omega = omega * omega * Math.signum(omega);
 
+        /* Enable Slow Mode */
         translationVal *= ControllerGain;
         strafeVal *= ControllerGain;
         omega *= ControllerGain;

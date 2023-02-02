@@ -11,12 +11,17 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import java.util.HashMap;
+
 import org.WaialuaRobotics359.robot.autos.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
 import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
+
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,7 +32,6 @@ import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
 public class RobotContainer {
 
     public static boolean isCube = true;
-    public static boolean DriveSlowMode = false;
 
     /* Controllers */
     private final Joystick driver = new Joystick(0);
@@ -71,16 +75,14 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
 
-    //private final LEDsSubsystem s_LEDs = new LEDsSubsystem();
- 
-    /*The autonomous routines*/
+    /* auto Builder */
+    private SwerveAutoBuilder autoBuilder; 
 
-    private final Command m_twomAuto = new twomAuto(s_Swerve);
-    private final Command m_SwerveBuilderAuto = new swerveBuilderAuto(s_Swerve);
+    /* The autonomous routines */
+    private final Command m_SwerveBuilderAuto;
 
-    /*chooser for autonomous commands*/
+    /* chooser for autonomous commands */
     SendableChooser<Command> m_chooser = new SendableChooser<>();
-
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
       public RobotContainer() {
@@ -126,16 +128,17 @@ public class RobotContainer {
                 )
         );
 
-        // Configure the button bindings
+        /* Configure Button Bindings */
         configureButtonBindings();
 
-        // Add commands to the autonomous command chooser
-        m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
-        m_chooser.addOption("twomAuto", m_twomAuto);                   // Put the chooser on the dashboard
-        Shuffleboard.getTab("Autonomous").add(m_chooser);
+        /* Configure Autonomous Assets */
+        configAuto();
 
-        // Populate the autonomous event map
-        setEventMap();
+        /** 
+         * Initialize Autonomous Routines 
+         * Do not move to prevent initialization race case
+         */ 
+        m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
     }
 
     /**
@@ -146,32 +149,59 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-        Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
-        Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
-        /*operator Buttons */
-        HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
-        FeederPosition.onTrue(new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
-        MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
-        LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
-        StowPosition.onTrue(new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
-        setCube.onTrue(
-            new ParallelCommandGroup( new InstantCommand(() -> isCube = true),
-            new InstantCommand(() -> s_LEDs.state= State.purple)));
-        setCone.onTrue(
-            new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
-            new InstantCommand(() -> s_LEDs.state= State.yellow)));
-        setDriveSlowMode.onTrue(new InstantCommand(()-> DriveSlowMode =true ));
-        setDriveSlowMode.onFalse(new InstantCommand(() -> DriveSlowMode = false));
+            /* Reset Gyro */
+            zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+            /* Reset Swerve Modules */
+            ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+            /* Snap-to Swerve Angle */
+            Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
+            Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
+        /* Operator Buttons */
+            /* Elevator System Positions */
+            HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
+            FeederPosition.onTrue(new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
+            MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
+            LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+            StowPosition.onTrue(new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
+            /* Toggle Game Piece */
+            setCube.onTrue(
+                new ParallelCommandGroup( new InstantCommand(() -> isCube = true),
+                new InstantCommand(() -> s_LEDs.state= State.purple)));
+            setCone.onTrue(
+                new ParallelCommandGroup( new InstantCommand(() -> isCube = false),
+                new InstantCommand(() -> s_LEDs.state= State.yellow)));
+            /* Toggle Swerve Slow Mode */
+            setDriveSlowMode.onTrue(new InstantCommand(()-> s_Swerve.slowMode =true ));
+            setDriveSlowMode.onFalse(new InstantCommand(() -> s_Swerve.slowMode = false));
     }
 
-    public void setEventMap() {
-        //Constants.eventMap.put("LedBlue", new InstantCommand(() -> s_LEDs.LEDsBlue()));
-        //Constants.eventMap.put("intakeRetract", new InstantCommand(m_robotIntake::intakeRetract, m_robotIntake));
-      }
+    public void configAuto() {
+        /* Populate Sendable Chooser */
+        m_chooser.setDefaultOption("swerveBuilderAuto", m_SwerveBuilderAuto);
+        // m_chooser.addOption("twomAuto", m_twomAuto);   
+        Shuffleboard.getTab("Autonomous").add(m_chooser);
 
-      public Elevator getElevator() {
+        /* Populate Event Map */
+        HashMap<String, Command> eventMap = new HashMap<String, Command>();
+        eventMap.put("LedYellow", new InstantCommand(() -> s_LEDs.state = State.yellow));
+        eventMap.put("LedPurple", new InstantCommand(() -> s_LEDs.state = State.purple));
+
+        /* Auto Builder */
+        autoBuilder = new SwerveAutoBuilder(
+            s_Swerve::getPose,
+            s_Swerve::resetOdometry,
+            Constants.Swerve.swerveKinematics,
+            new PIDConstants(Constants.AutoConstants.translationPID.kP, Constants.AutoConstants.translationPID.kI,
+                Constants.AutoConstants.translationPID.kD),
+            new PIDConstants(Constants.AutoConstants.rotationPID.kP, Constants.AutoConstants.rotationPID.kI,
+                Constants.AutoConstants.rotationPID.kD),
+            s_Swerve::setModuleStates,
+            eventMap,
+            s_Swerve
+        );
+    }
+
+    public Elevator getElevator() {
         return s_Elevator;
     }
 
@@ -183,6 +213,9 @@ public class RobotContainer {
         return s_Wrist;
     }
 
+    public Swerve getSwerve(){
+        return s_Swerve;
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
