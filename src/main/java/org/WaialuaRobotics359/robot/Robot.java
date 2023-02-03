@@ -4,6 +4,7 @@
 
 package org.WaialuaRobotics359.robot;
 
+import org.WaialuaRobotics359.robot.commands.autonomous.InitializeRobot;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
 
@@ -96,8 +97,10 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    CommandScheduler.getInstance().schedule(
+      new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())
+    );
   }
-
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {

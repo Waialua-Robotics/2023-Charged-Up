@@ -194,11 +194,12 @@ public class RobotContainer {
         eventMap.put("LedPurple", new InstantCommand(() -> s_LEDs.state = State.purple));
         eventMap.put("SetCube", new InstantCommand(() -> isCube = true));
         eventMap.put("SetCone", new InstantCommand(()-> isCube = false));
-        eventMap.put("Outake", new InstantCommand(()-> s_Intake.outake(1)));
-        eventMap.put("Intake", new InstantCommand(()-> s_Intake.intake(1)));
+        eventMap.put("IntakeCone", new AutoIntakeCone(s_Intake));
+        eventMap.put("IntakeCube", new AutoIntakeCube(s_Intake));
         eventMap.put("IntakeStop", new InstantCommand(()-> s_Intake.stop()));
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
 
         /* Auto Builder */
         autoBuilder = new SwerveAutoBuilder(

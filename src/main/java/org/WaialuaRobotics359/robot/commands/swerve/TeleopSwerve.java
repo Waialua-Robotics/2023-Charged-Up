@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -37,50 +38,53 @@ public class TeleopSwerve extends CommandBase {
 
     @Override
     public void execute() {
-        /* if slow drive 0.5 : else 1 */
-        ControllerGain = s_Swerve.slowMode ? 0.5 : 1;
 
-        /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.OI.deadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
-        double omega = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.OI.deadband);
+        if (!RobotState.isAutonomous()){
+            /* if slow drive 0.5 : else 1 */
+            ControllerGain = s_Swerve.slowMode ? 0.5 : 1;
 
-        /* Square Values */
-        translationVal = translationVal * translationVal * Math.signum(translationVal);
-        strafeVal = strafeVal * strafeVal * Math.signum(strafeVal);
-        omega = omega * omega * Math.signum(omega);
+            /* Get Values, Deadband*/
+            double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), Constants.OI.deadband);
+            double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.OI.deadband);
+            double omega = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.OI.deadband);
 
-        /* Enable Slow Mode */
-        translationVal *= ControllerGain;
-        strafeVal *= ControllerGain;
-        omega *= ControllerGain;
+            /* Square Values */
+            translationVal = translationVal * translationVal * Math.signum(translationVal);
+            strafeVal = strafeVal * strafeVal * Math.signum(strafeVal);
+            omega = omega * omega * Math.signum(omega);
 
-        if (omega != 0 && !feedbackNode) {
-            s_Swerve.desiredAngle = s_Swerve.getYaw360();
-            feedbackNode = true;
-        } else if (omega == 0) {
-            feedbackNode = false;
+            /* Enable Slow Mode */
+            translationVal *= ControllerGain;
+            strafeVal *= ControllerGain;
+            omega *= ControllerGain;
+
+            if (omega != 0 && !feedbackNode) {
+                s_Swerve.desiredAngle = s_Swerve.getYaw360();
+                feedbackNode = true;
+            } else if (omega == 0) {
+                feedbackNode = false;
+            }
+
+            s_Swerve.desiredAngle += omega * rotationalIncrement;
+            s_Swerve.desiredAngle = (s_Swerve.desiredAngle + 360) % 360;
+
+            SmartDashboard.putNumber("desired", s_Swerve.desiredAngle);
+            SmartDashboard.putNumber("current", s_Swerve.getYaw360());
+
+            double angleToDesired = -Conversions.wrap(s_Swerve.getYaw360(), s_Swerve.desiredAngle);
+            double rotationVal = angleToDesired / 90;
+            if (rotationVal > 1) rotationVal = 1;
+            if (rotationVal < -1) rotationVal = -1;
+
+            SmartDashboard.putNumber("rotationval", rotationVal);
+
+            /* Drive */
+            s_Swerve.drive(
+                new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
+                rotationVal * Constants.Swerve.maxAngularVelocity, 
+                !robotCentricSup.getAsBoolean(), 
+                true
+            );
         }
-        
-        s_Swerve.desiredAngle += omega * rotationalIncrement;
-        s_Swerve.desiredAngle = (s_Swerve.desiredAngle + 360) % 360;
-
-        SmartDashboard.putNumber("desired", s_Swerve.desiredAngle);
-        SmartDashboard.putNumber("current", s_Swerve.getYaw360());
-        
-        double angleToDesired = -Conversions.wrap(s_Swerve.getYaw360(), s_Swerve.desiredAngle);
-        double rotationVal = angleToDesired / 90;
-        if (rotationVal > 1) rotationVal = 1;
-        if (rotationVal < -1) rotationVal = -1;
-
-        SmartDashboard.putNumber("rotationval", rotationVal);
-
-        /* Drive */
-        s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
-            !robotCentricSup.getAsBoolean(), 
-            true
-        );
     }
 }
