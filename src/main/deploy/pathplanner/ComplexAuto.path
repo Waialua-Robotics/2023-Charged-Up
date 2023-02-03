@@ -16,7 +16,11 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "LedYellow",
+          "StowPosition",
+          "Intake"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 10.0
@@ -24,12 +28,12 @@
     },
     {
       "anchorPoint": {
-        "x": 6.3663957327914655,
-        "y": 4.766809390761639
+        "x": 7.640407852244277,
+        "y": 2.8629485830400236
       },
       "prevControl": {
-        "x": 6.352080989876265,
-        "y": 4.766809390761639
+        "x": 7.6260931093290765,
+        "y": 2.8629485830400236
       },
       "nextControl": null,
       "holonomicAngle": 0.0,

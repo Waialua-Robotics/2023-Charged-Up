@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoZeroSlide extends CommandBase {
     private Slide s_Slide;
     
-    private double ZeroCurrent = .1;
+    private double ZeroCurrent = 4;
     private boolean finished =  false; 
 
-    public AutoZeroSlide() {
+    public AutoZeroSlide(Slide s_Slide) {
+        this.s_Slide = s_Slide;
         addRequirements(s_Slide);
     }
 

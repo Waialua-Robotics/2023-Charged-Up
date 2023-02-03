@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
+import org.WaialuaRobotics359.robot.commands.AutoZeroSlide;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
@@ -49,6 +50,7 @@ public class RobotContainer {
     private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton setDriveSlowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value); 
+    private final JoystickButton AutoZero = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -156,6 +158,8 @@ public class RobotContainer {
             /* Snap-to Swerve Angle */
             Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
             Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
+            AutoZero.onTrue(new AutoZeroSlide(s_Slide));
+
         /* Operator Buttons */
             /* Elevator System Positions */
             HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
