@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
-import org.WaialuaRobotics359.robot.commands.AutoZeroSlide;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCone;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCube;
 import org.WaialuaRobotics359.robot.commands.manual.*;
