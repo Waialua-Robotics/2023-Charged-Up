@@ -3,24 +3,33 @@ package org.WaialuaRobotics359.robot.commands.autonomous;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Intake;
 
-public class AutoIntake extends CommandBase {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class AutoIntakeCube extends CommandBase {
     private Intake s_intake;
 
-    public AutoIntake(Intake s_intake) {
+    private double currentLimit = 0.5;
+
+    public AutoIntakeCube(Intake s_intake) {
         this.s_intake = s_intake;
         addRequirements(s_intake);
     }
 
+    @Override
     public void initialize() {}
 
     @Override
-    public void execute(){
-
-    
-
+    public void execute() {
+        s_intake.intake();
     }
     
+    @Override
     public boolean isFinished(){
-        return s_intake.;
+        return s_intake.getCurrent() > 0.5;
+    }
+
+    @Override 
+    public void end(boolean interupted) {
+        s_intake.stop();
     }
 }

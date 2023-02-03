@@ -29,6 +29,10 @@ public class Intake extends SubsystemBase {
         mIntakeMotor.set(ControlMode.PercentOutput, -intakeSpeed);
     }
 
+    public double getCurrent() {
+        return mIntakeMotor.getStatorCurrent()
+    }
+
     public void stop() {
         mIntakeMotor.set(ControlMode.PercentOutput, 0);
     }
