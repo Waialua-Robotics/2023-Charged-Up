@@ -76,14 +76,19 @@ public final class Constants {
         public static final double peakCurrentDuration = 0.1;
         public static final boolean enableCurrentLimit = true;
 
+        /*Motion Magic */
+        public static final int velocity = 40000;
+        public static final int acceleration = 40000;
+        public static final int smoothing = 0; // 0-8
+
         /* PID */
         public static final double slideKP = 0.1; 
         public static final double slideKI = 0.0;
         public static final double slideKD = 0.0;
         public static final double slideKF = 0.0;
-        public static final double openLoopRamp = 0.25;
+        //public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =1;
+        public static final double closedLoopPeakOutput = 1;
     }
 
     public static final class Elevator {
@@ -120,14 +125,19 @@ public final class Constants {
         public static final double peakCurrentDuration = 0.1;
         public static final boolean enableCurrentLimit = true;
 
+        /*Motion Magic */
+        public static final int velocity = 50000;
+        public static final int acceleration = 50000;
+        public static final int smoothing = 0; // 0-8
+
         /* PID */
         public static final double elevatorKP = 0.1; 
         public static final double elevatorKI = 0.0;
         public static final double elevatorKD = 0.0;
         public static final double elevatorKF = 0.0;
-        public static final double openLoopRamp = 0.25;
+        //public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.8;
+        public static final double closedLoopPeakOutput =1;
     }
 
     public static final class Wrist {
@@ -174,7 +184,13 @@ public final class Constants {
         public static final double wristKF = 0.0;
         public static final double openLoopRamp = 0.25;
         public static final double closedLoopRamp = 0.0;
-        public static final double closedLoopPeakOutput =.2; 
+        public static final double closedLoopPeakOutput =1; 
+
+        /*Motion Magic */
+        public static final int velocity = 7000;
+        public static final int acceleration = 7000;
+        public static final int smoothing = 0; // 0-8
+
     }
 
     public static final class Intake {

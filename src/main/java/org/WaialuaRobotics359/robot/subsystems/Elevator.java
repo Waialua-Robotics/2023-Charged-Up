@@ -40,7 +40,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void goToPosition() {
-        mElevatorMotorR.set(TalonFXControlMode.Position, desiredPosition);
+        mElevatorMotorR.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }
 
     public boolean inRange() {

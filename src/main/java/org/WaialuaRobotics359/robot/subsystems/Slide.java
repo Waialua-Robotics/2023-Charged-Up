@@ -1,7 +1,5 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
-import javax.swing.text.Position;
-
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
@@ -33,7 +31,7 @@ public class Slide extends SubsystemBase{
     }
 
     public void goToPosition() {
-        mSlideMotor.set(TalonFXControlMode.Position, desiredPosition);
+        mSlideMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }
 
     public boolean inRange() {

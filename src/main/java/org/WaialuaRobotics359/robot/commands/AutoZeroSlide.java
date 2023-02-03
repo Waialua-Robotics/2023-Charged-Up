@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoZeroSlide extends CommandBase {
     private Slide s_Slide;
     
-    private double ZeroCurrent = 4;
+    private double ZeroCurrent = 1;
     private boolean finished =  false; 
 
     public AutoZeroSlide(Slide s_Slide) {

@@ -86,9 +86,15 @@ public final class CTREConfigs {
             slideFXConfig.slot0.kD = Constants.Slide.slideKI;
             slideFXConfig.slot0.kF = Constants.Slide.slideKF;        
             slideFXConfig.supplyCurrLimit = slideSupplyLimit;
-            slideFXConfig.openloopRamp = Constants.Slide.openLoopRamp;
-            slideFXConfig.closedloopRamp = Constants.Slide.closedLoopRamp;
             slideFXConfig.slot0.closedLoopPeakOutput = Constants.Slide.closedLoopPeakOutput;
+            /*PID */
+            //slideFXConfig.openloopRamp = Constants.Slide.openLoopRamp;
+            //slideFXConfig.closedloopRamp = Constants.Slide.closedLoopRamp;
+
+            /*Magic*/
+            slideFXConfig.motionCruiseVelocity = Constants.Slide.velocity;
+            slideFXConfig.motionAcceleration = Constants.Slide.acceleration;
+            slideFXConfig.motionCurveStrength = Constants.Slide.smoothing;
 
         /* Elevator Motor Configuration */
             SupplyCurrentLimitConfiguration elevatorSupplyLimit = new SupplyCurrentLimitConfiguration(
@@ -107,9 +113,16 @@ public final class CTREConfigs {
             elevatorFXConfig.slot0.kD = Constants.Elevator.elevatorKI;
             elevatorFXConfig.slot0.kF = Constants.Elevator.elevatorKF;      
             elevatorFXConfig.supplyCurrLimit = elevatorSupplyLimit;
-            elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
-            elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
             elevatorFXConfig.slot0.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
+            
+            /*PID*/
+            //elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
+            //elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
+
+            /*Magic*/
+            elevatorFXConfig.motionCruiseVelocity = Constants.Slide.velocity;
+            elevatorFXConfig.motionAcceleration = Constants.Slide.acceleration;
+            elevatorFXConfig.motionCurveStrength = Constants.Slide.smoothing;
         /* Wrist Motor Configuration */
             SupplyCurrentLimitConfiguration wristSupplyLimit = new SupplyCurrentLimitConfiguration(
                 Constants.Wrist.enableCurrentLimit, 
@@ -127,8 +140,14 @@ public final class CTREConfigs {
             wristFXConfig.slot0.kD = Constants.Wrist.wristKI;
             wristFXConfig.slot0.kF = Constants.Wrist.wristKF;        
             wristFXConfig.supplyCurrLimit = wristSupplyLimit;
-            wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
-            wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;
-            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput;      
+            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput; 
+            /*PID */
+            //wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
+            //wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;     
+
+            /*Magic*/
+            wristFXConfig.motionCruiseVelocity = Constants.Wrist.velocity;
+            wristFXConfig.motionAcceleration = Constants.Wrist.acceleration;
+            wristFXConfig.motionCurveStrength = Constants.Wrist.smoothing;
     }
 }
