@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
+import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoBalance;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCone;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCube;
@@ -185,6 +186,16 @@ public class RobotContainer {
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
+            SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
+            SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
+            SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
+            SmartDashboard.putData("AutoZeroAll", new ParallelCommandGroup(
+                new AutoZeroSlide(s_Slide),
+                new AutoZeroElevator(s_Elevator),
+                new AutoZeroWrist(s_Wrist)
+            ));
+
+            
     }
 
     public void configAuto() {

@@ -3,10 +3,12 @@ package org.WaialuaRobotics359.robot.util;
 import java.util.Map;
 
 import org.WaialuaRobotics359.robot.RobotContainer;
+import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class Dashboard {
     public Dashboard(RobotContainer container) {
@@ -28,6 +30,12 @@ public class Dashboard {
         tab.addBoolean("DriveSlowMode", () -> container.getSwerve().slowMode);
         tab.addNumber("SlideCurrent", () -> container.getSlide().getCurrent());
         tab.addNumber("intakeCurrent", ()-> container.getIntake().getCurrent());
+        tab.addNumber("velocityChangeWrist",()-> container.getWrist().GetVelocity());
+        tab.addNumber("getCurrentWrist",()-> container.getWrist().getCurrent());
+        tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
+        tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
+
+
 
         /*tab.add("Autonomous Mode", container.getAutonomousChooser().getModeChooser()).withSize(2, 1).withPosition(2, 0);
         tab.add("Climb Mode", container.getClimbChooser().getClimbChooser()).withSize(2, 1).withPosition(0, 2);

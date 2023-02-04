@@ -1,6 +1,5 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
-import org.WaialuaRobotics359.robot.Robot;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -39,6 +38,6 @@ public class AutoBalance extends SequentialCommandGroup {
                           new SwerveModuleState(0.2, Rotation2d.fromDegrees(0))
                         });
                   })
-              .until(() -> s_Swerve.GetGyroPitch()< 10));
+              .until(() -> s_Swerve.GetGyroPitch()< 5));
     }
   }

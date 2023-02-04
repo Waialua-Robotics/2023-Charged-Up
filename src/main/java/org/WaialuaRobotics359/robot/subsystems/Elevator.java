@@ -56,6 +56,15 @@ public class Elevator extends SubsystemBase {
         return  (GetPosition()*(Constants.Elevator.Ratio))/61440;
     }
 
+    public double GetVelocity(){
+        return mElevatorMotorR.getSelectedSensorVelocity();
+    }
+
+    public double getCurrent(){
+        return mElevatorMotorR.getStatorCurrent();
+    }
+
+
     public void SetPosition(double position){
         mElevatorMotorR.setSelectedSensorPosition(position);
     }
@@ -63,6 +72,15 @@ public class Elevator extends SubsystemBase {
     public void SetHomePosition(){
         mElevatorMotorR.setSelectedSensorPosition(0);
     }
+
+    public void Stop(){
+        SetPrecentOut(0);
+    }
+
+    public void SetPrecentOut(double percent){
+        mElevatorMotorR.set(TalonFXControlMode.PercentOutput, percent);
+    }
+
 
     private int fitToRange(int position) {
         desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);

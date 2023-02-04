@@ -49,9 +49,26 @@ public class Wrist extends SubsystemBase {
         return  (GetPosition()*(Constants.Wrist.Ratio))/61440;
      }
 
+     public double GetVelocity(){
+        return mWristMotor.getSelectedSensorVelocity();
+    }
+
      public void SetPosition(double position){
         mWristMotor.setSelectedSensorPosition(position);
      }
+
+     public void Stop(){
+        SetPrecentOut(0);
+    }
+
+    public double getCurrent(){
+        return mWristMotor.getStatorCurrent();
+    }
+
+
+    public void SetPrecentOut(double percent){
+        mWristMotor.set(TalonFXControlMode.PercentOutput, percent);
+    }
 
      public void SetHomePosition(){
         mWristMotor.setSelectedSensorPosition(0);
