@@ -216,6 +216,7 @@ public class RobotContainer {
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
 
         /* Auto Builder */
         autoBuilder = new SwerveAutoBuilder(

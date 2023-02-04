@@ -27,17 +27,28 @@ public class AutoBalance extends SequentialCommandGroup {
                           new SwerveModuleState(-0.7, Rotation2d.fromDegrees(0))
                         });
                   })
-              .until(() -> s_Swerve.GetGyroPitch() < 10 && s_Swerve.GetGyroPitch()> 5),
+              .until(() -> s_Swerve.GetGyroPitch() >20 ),
           new RunCommand(
                   () -> {
                     s_Swerve.setModuleStates(
                         new SwerveModuleState[] {
-                          new SwerveModuleState(0.2, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0.2, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0.2, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0.2, Rotation2d.fromDegrees(0))
+                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0))
                         });
                   })
-              .until(() -> s_Swerve.GetGyroPitch()< 5));
+              .until(() -> s_Swerve.GetGyroPitch() < 10),
+              new RunCommand(
+                  () -> {
+                    s_Swerve.setModuleStates(
+                        new SwerveModuleState[] {
+                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
+                          new SwerveModuleState(0, Rotation2d.fromDegrees(0))
+                        });
+                  })
+              );
     }
   }

@@ -17,6 +17,9 @@ public class ComplexAuto extends SequentialCommandGroup {
 
      
     public ComplexAuto (Swerve s_Swerve) {
+
+        s_Swerve.resetOdometry(new PathPlannerTrajectory().getInitialPose());
+        
         PathPlannerTrajectory ComplexAuto = PathPlanner.loadPath("ComplexAuto", new PathConstraints(4, 3));
 
         var thetaController =

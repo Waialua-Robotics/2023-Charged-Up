@@ -34,6 +34,7 @@ public class Dashboard {
         tab.addNumber("getCurrentWrist",()-> container.getWrist().getCurrent());
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
+        tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
 
 
 
