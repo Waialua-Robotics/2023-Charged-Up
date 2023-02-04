@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
+import org.WaialuaRobotics359.robot.commands.autonomous.AutoBalance;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCone;
 import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCube;
 import org.WaialuaRobotics359.robot.commands.manual.*;
@@ -180,6 +182,9 @@ public class RobotContainer {
             /* Toggle Swerve Slow Mode */
             setDriveSlowMode.onTrue(new InstantCommand(()-> s_Swerve.slowMode =true ));
             setDriveSlowMode.onFalse(new InstantCommand(() -> s_Swerve.slowMode = false));
+
+            /*DashboardCommand */
+            SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
     }
 
     public void configAuto() {

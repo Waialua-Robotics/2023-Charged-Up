@@ -22,6 +22,7 @@ public class Swerve extends SubsystemBase {
     public Pigeon2 gyro;
 
     public double desiredAngle;
+    public double PreviousPitch;
 
     public Boolean slowMode = false;
 
@@ -104,6 +105,20 @@ public class Swerve extends SubsystemBase {
         gyro.setYaw(0);
     }
 
+    public double GetGyroPitch(){
+        double pitch = gyro.getRoll();
+        return Math.abs(pitch);
+    }
+
+    public boolean gyroPitchHasChanged(){
+        int pitch = (int) GetGyroPitch();
+        boolean Compare = pitch != PreviousPitch;
+        PreviousPitch = pitch;
+        return Compare;
+    }
+
+    //Boolean function if pitch value has changed since last call
+
     public Rotation2d getYaw() {
         return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
@@ -125,6 +140,10 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
+
+        SmartDashboard.putNumber("Pitch", GetGyroPitch());
+        SmartDashboard.putNumber("prevPitch", PreviousPitch);
+        SmartDashboard.putBoolean("Changedpitch", gyroPitchHasChanged());
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
