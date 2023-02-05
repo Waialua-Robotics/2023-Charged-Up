@@ -35,4 +35,5 @@ Elevator L|11| NA |
 Slide | 20 | NA |
 Intake | 30 | NA |
 Wrist | 40 | NA |
+Folder | 50 | NA |
 <sub> * = "Driverain" Can Bus</sub>
