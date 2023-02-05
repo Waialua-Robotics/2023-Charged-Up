@@ -189,11 +189,7 @@ public class RobotContainer {
             SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
             SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
-            SmartDashboard.putData("AutoZeroAll", new ParallelCommandGroup(
-                new AutoZeroSlide(s_Slide),
-                new AutoZeroElevator(s_Elevator),
-                new AutoZeroWrist(s_Wrist)
-            ));
+            SmartDashboard.putData("AutoZeroAll", new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
             
     }

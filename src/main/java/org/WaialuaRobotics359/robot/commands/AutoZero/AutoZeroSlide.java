@@ -22,7 +22,7 @@ public class AutoZeroSlide extends CommandBase {
 
     @Override
     public void execute() {
-        s_Slide.SetPrecentOut(-.1);
+        s_Slide.SetPrecentOut(-.2);
     }
     
     @Override
