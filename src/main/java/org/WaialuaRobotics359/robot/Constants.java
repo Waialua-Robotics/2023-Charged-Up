@@ -351,5 +351,11 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+
+        /*Auto Balance Const */
+        public static final double BalanceKp = 0.03; // P (Proportional) constant of a PID loop
+        public static final double BalanceGoal = 0;
+        public static final double BalanceThreshold = 1;
+        public static final double BalanceReverseMulti = 1;
     }
 }

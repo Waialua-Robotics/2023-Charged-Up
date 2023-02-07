@@ -76,6 +76,10 @@ public class Swerve extends SubsystemBase {
         }
     }    
 
+    public void stop(){
+        drive(new Translation2d(0,0), 0, true, false);
+    }
+
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }
@@ -106,8 +110,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public double GetGyroPitch(){
-        double pitch = gyro.getRoll();
-        return Math.abs(pitch);
+        return gyro.getRoll();
     }
 
     public boolean gyroPitchHasChanged(){

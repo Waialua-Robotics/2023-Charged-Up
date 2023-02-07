@@ -1,54 +1,114 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
+import org.WaialuaRobotics359.lib.math.Conversions;
+import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
-public class AutoBalance extends SequentialCommandGroup {
+public class AutoBalance extends CommandBase {
+  private Swerve s_Swerve;    
 
-    private Swerve s_Swerve;    
+  private boolean balancing = false;
+  private boolean finished = false;
 
-
-    public AutoBalance(Swerve s_Swerve) {
-        this.s_Swerve = s_Swerve;
-        addRequirements(s_Swerve);
-
-      addCommands(
-          new RunCommand(
-                  () -> {
-                    s_Swerve.setModuleStates(
-                        new SwerveModuleState[] {
-                          new SwerveModuleState(-0.7, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.7, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.7, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.7, Rotation2d.fromDegrees(0))
-                        });
-                  })
-              .until(() -> s_Swerve.GetGyroPitch() >20 ),
-          new RunCommand(
-                  () -> {
-                    s_Swerve.setModuleStates(
-                        new SwerveModuleState[] {
-                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(-0.5, Rotation2d.fromDegrees(0))
-                        });
-                  })
-              .until(() -> s_Swerve.GetGyroPitch() < 10),
-              new RunCommand(
-                  () -> {
-                    s_Swerve.setModuleStates(
-                        new SwerveModuleState[] {
-                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0, Rotation2d.fromDegrees(0)),
-                          new SwerveModuleState(0, Rotation2d.fromDegrees(0))
-                        });
-                  })
-              );
-    }
+  private double error;
+  private double currentAngle;
+  private double drivePower;
+  private double startPitch = 0;
+  private double pitchOffset;
+  
+  public AutoBalance(Swerve s_Swerve) {
+    this.s_Swerve = s_Swerve;
+    addRequirements(s_Swerve);
   }
+
+  public void initialize(){
+    balancing = false;
+    finished = false;
+    pitchOffset = s_Swerve.GetGyroPitch();
+  }
+
+  @Override
+  public void execute() {
+
+    // Uncomment the line below this to simulate the gyroscope axis with a controller joystick
+    // Double currentAngle = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
+    currentAngle = s_Swerve.GetGyroPitch() - pitchOffset;
+
+    error = Constants.AutoConstants.BalanceGoal - currentAngle;
+
+    // if first time, use second condition. if second time, use first condition
+    if (Math.abs(error) < (balancing ? Constants.AutoConstants.BalanceThreshold : 20) ) {
+
+        /* 
+         * if the balancing sequence has begun and the pitch is in range,
+         * the robot has balanced on the platform. return from the execute
+         * and initiate the ending sequence.
+         */
+        if (balancing) {
+          finished = true;
+          return;
+        }
+
+        s_Swerve.setModuleStates(
+          new SwerveModuleState[] {
+            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0))
+          }
+        );
+
+    } else {
+
+        // indicates that the balancing sequence has begun
+        balancing = true;
+
+        drivePower = -Math.min(Constants.AutoConstants.BalanceKp * error, 1);
+
+        // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
+        if (drivePower < 0) {
+          drivePower *= Constants.AutoConstants.BalanceReverseMulti;
+        }
+
+        // Limit the max power
+        if (Math.abs(drivePower) > 0.4) {
+          drivePower = Math.copySign(0.4, drivePower);
+        }
+
+        s_Swerve.setModuleStates(
+                  new SwerveModuleState[] {
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0))
+                  }
+        );
+
+    }
+
+    // Debugging Print Statments
+    //System.out.println("Current Angle: " + currentAngle);
+    //System.out.println("Error " + error);
+    //System.out.println("Drive Power: " + drivePower);
+  }
+
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    s_Swerve.stop();
+  }
+ 
+   // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return finished; // End the command when we are within the specified threshold of being 'flat' (gyroscope pitch of 0 degrees)
+  }
+}
