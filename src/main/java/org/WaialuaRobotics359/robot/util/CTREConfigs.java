@@ -109,9 +109,9 @@ public final class CTREConfigs {
             elevatorFXConfig.reverseSoftLimitThreshold = Constants.Elevator.reverseSoftLimit;
 
             elevatorFXConfig.slot0.kP = Constants.Elevator.elevatorKP;
-            elevatorFXConfig.slot0.kI = Constants.Elevator.elevatorKD;
-            elevatorFXConfig.slot0.kD = Constants.Elevator.elevatorKI;
-            elevatorFXConfig.slot0.kF = Constants.Elevator.elevatorKF;      
+            //elevatorFXConfig.slot0.kI = Constants.Elevator.elevatorKD;
+            //elevatorFXConfig.slot0.kD = Constants.Elevator.elevatorKI;
+            //elevatorFXConfig.slot0.kF = Constants.Elevator.elevatorKF;      
             elevatorFXConfig.supplyCurrLimit = elevatorSupplyLimit;
             elevatorFXConfig.slot0.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
             
@@ -120,9 +120,9 @@ public final class CTREConfigs {
             //elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
 
             /*Magic*/
-            elevatorFXConfig.motionCruiseVelocity = Constants.Slide.velocity;
-            elevatorFXConfig.motionAcceleration = Constants.Slide.acceleration;
-            elevatorFXConfig.motionCurveStrength = Constants.Slide.smoothing;
+            elevatorFXConfig.motionCruiseVelocity = Constants.Elevator.velocity;
+            elevatorFXConfig.motionAcceleration = Constants.Elevator.acceleration;
+            elevatorFXConfig.motionCurveStrength = Constants.Elevator.smoothing;
         /* Wrist Motor Configuration */
             SupplyCurrentLimitConfiguration wristSupplyLimit = new SupplyCurrentLimitConfiguration(
                 Constants.Wrist.enableCurrentLimit, 

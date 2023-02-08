@@ -20,8 +20,8 @@ public class AutoBalance extends CommandBase {
   private double error;
   private double currentAngle;
   private double drivePower;
-  private double startPitch = 0;
   private double pitchOffset;
+  private int timebalaced = 0;
   
   public AutoBalance(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
@@ -51,9 +51,11 @@ public class AutoBalance extends CommandBase {
          * the robot has balanced on the platform. return from the execute
          * and initiate the ending sequence.
          */
-        if (balancing) {
+        if (balancing && timebalaced > 100) {
           finished = true;
           return;
+        } else if (balancing) {
+          timebalaced++;
         }
 
         s_Swerve.setModuleStates(
@@ -69,6 +71,8 @@ public class AutoBalance extends CommandBase {
 
         // indicates that the balancing sequence has begun
         balancing = true;
+
+        timebalaced =0;
 
         drivePower = -Math.min(Constants.AutoConstants.BalanceKp * error, 1);
 

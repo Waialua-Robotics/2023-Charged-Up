@@ -1,5 +1,6 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.WaialuaRobotics359.robot.Constants;
 
@@ -10,7 +11,7 @@ import com.ctre.phoenix.led.CANdle.LEDStripType;
 public class LEDs extends SubsystemBase {
     private final CANdle candle;
 
-    public static enum State {off,purple,yellow}
+    public static enum State {off,purple,yellow,Blue,Red}
     public State state = State.off;
 
     public LEDs() {
@@ -35,12 +36,28 @@ public class LEDs extends SubsystemBase {
             case yellow:
                 candle.setLEDs(247,255,0);
                 break;
+            case Blue:
+                candle.setLEDs(0,0,255);
+                break;
+            case Red:
+                candle.setLEDs(255,0,0);
+                break;
             default:
                 candle.setLEDs(0,0,0);
                 break;
         }
     }
 
-  
+    public void setLEDs(int i, int j, int k) {
+    }
+
+    public void setLEDAliance (){
+        if (DriverStation.getAlliance() == DriverStation.Alliance.Blue){
+            state = State.Blue;
+        } else {
+            state = State.Red;
+        }
+    }
+
 }
    
