@@ -82,7 +82,7 @@ public class AutoBalance extends CommandBase {
         }
 
         // Limit the max power
-        if (Math.abs(drivePower) > 0.4) {
+        if (Math.abs(drivePower) > 0.6) {
           drivePower = Math.copySign(0.4, drivePower);
         }
 

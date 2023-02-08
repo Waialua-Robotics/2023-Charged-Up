@@ -69,6 +69,7 @@ public class RobotContainer {
     private final JoystickButton MidPosition = new JoystickButton(operator, Constants.OI.MidPosition);
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
     private final JoystickButton StowPosition =new JoystickButton(operator, Constants.OI.StowPosition);
+    private final JoystickButton StandPosition = new JoystickButton(operator, Constants.OI.StandPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
     private final JoystickButton setCube = new JoystickButton(operator, Constants.OI.isCube);
@@ -173,6 +174,7 @@ public class RobotContainer {
             MidPosition.onTrue(new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
             LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
             StowPosition.onTrue(new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
+            StandPosition.onTrue(new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
             /* Toggle Game Piece */
             setCube.onTrue(
                 new ParallelCommandGroup( new InstantCommand(() -> isCube = true),

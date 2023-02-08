@@ -11,6 +11,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 
+import javax.xml.xpath.XPathVariableResolver;
+
 import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
@@ -28,7 +30,8 @@ public final class Constants {
         public static final int FeederPosition =XboxController.Button.kX.value;
         public static final int MidPosition = XboxController.Button.kB.value;
         public static final int LowPosition = XboxController.Button.kA.value;
-        public static final int StowPosition = XboxController.Button.kStart.value;
+        public static final int StowPosition = XboxController.Button.kBack.value;
+        public static final int StandPosition = XboxController.Button.kStart.value;
         public static final int intake = XboxController.Button.kRightBumper.value;
         public static final int outake = XboxController.Button.kLeftBumper.value;
         public static final int isCube = XboxController.Button.kLeftStick.value;
@@ -64,6 +67,7 @@ public final class Constants {
             public static final int MidPosition = 85000;
             public static final int HighPosition = 197000;
             public static final int FeederPosition = 9500;
+            public static final int standPosition = 4300;
         }
        
         /* soft limits */
@@ -113,6 +117,7 @@ public final class Constants {
             public static final int MidPosition = 123500;
             public static final int HighPosition = 145500;
             public static final int FeederPosition = 135500;
+            public static final int standPosition = 31000;
         }
 
         /* soft limits */
@@ -126,7 +131,7 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /*Motion Magic */
-        public static final int velocity = 60000;
+        public static final int velocity = 70000;
         public static final int acceleration = 50000;
         public static final int smoothing = 0; // 0-8
 
@@ -162,9 +167,10 @@ public final class Constants {
 
         public static final class Cone {
             public static final int LowPosition = 14000;
-            public static final int MidPosition = 12000;
+            public static final int MidPosition = 13242;
             public static final int HighPosition = 9100;
             public static final int FeederPosition = 12000;
+            public static final int standPosition = 14000;
         }
 
         /* soft limits */
@@ -357,9 +363,9 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
         /*Auto Balance Const */
-        public static final double BalanceKp = 0.03; // P (Proportional) constant of a PID loop
+        public static final double BalanceKp = 0.015; // P (Proportional) constant of a PID loop
         public static final double BalanceGoal = 0;
-        public static final double BalanceThreshold = 1;
+        public static final double BalanceThreshold = 3;
         public static final double BalanceReverseMulti = 1;
     }
 }
