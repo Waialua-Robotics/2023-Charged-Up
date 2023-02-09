@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import java.util.HashMap;
 
@@ -46,6 +47,8 @@ public class RobotContainer {
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
+    private final int ForkLiftTrigger = XboxController.Axis.kRightTrigger.value;
+    private final int ForkLowerTrigger = XboxController.Axis.kLeftTrigger.value;
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
@@ -56,6 +59,7 @@ public class RobotContainer {
     private final JoystickButton setDriveSlowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value); 
     private final JoystickButton intakeCube = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton intakeCone = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final POVButton ForkDeploy = new POVButton(driver, 90);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -82,6 +86,7 @@ public class RobotContainer {
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
+    private final Fork s_Fork = new Fork();
 
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
@@ -135,6 +140,15 @@ public class RobotContainer {
                 () -> Outake.getAsBoolean()
                 )
         );
+
+        CommandScheduler.getInstance().setDefaultCommand(s_Fork,
+            new ManualFork(
+                s_Fork,
+                () -> driver.getRawAxis(ForkLiftTrigger),
+                () -> driver.getRawAxis(ForkLowerTrigger),
+                () -> ForkDeploy.getAsBoolean()
+                )
+            );
 
         /* Configure Button Bindings */
         configureButtonBindings();

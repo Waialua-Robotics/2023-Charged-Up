@@ -40,8 +40,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    //m_dashboard = new Dashboard(m_robotContainer);
-    //PathPlannerServer.startServer(5811);
+    m_dashboard = new Dashboard(m_robotContainer);
+    PathPlannerServer.startServer(5811);
 
     /*Motor Zeroing */
     m_robotContainer.getElevator().SetHomePosition();
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    //m_robotContainer.getLEDs().setLEDAliance();
+    m_robotContainer.getLEDs().setLEDAliance();
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */

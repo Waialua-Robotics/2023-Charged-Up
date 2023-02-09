@@ -3,18 +3,12 @@ package org.WaialuaRobotics359.robot.commands.AutoZero;
 import org.WaialuaRobotics359.robot.subsystems.Slide;
 import org.WaialuaRobotics359.robot.subsystems.Elevator;
 import org.WaialuaRobotics359.robot.subsystems.Wrist;
-import org.WaialuaRobotics359.robot.util.Dashboard;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.WaialuaRobotics359.robot.subsystems.Wrist;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoZeroAll extends CommandBase {
     private Wrist s_Wrist;

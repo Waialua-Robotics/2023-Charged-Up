@@ -22,6 +22,9 @@ public final class CTREConfigs {
     public TalonFXConfiguration wristFXConfig;
     /* Intake */
     public TalonFXConfiguration intakeFXConfig;
+    /* Fork */
+    public TalonFXConfiguration forkFXConfig;
+
 
     public CTREConfigs(){
         /* Swerve */
@@ -36,6 +39,8 @@ public final class CTREConfigs {
         wristFXConfig = new TalonFXConfiguration();
         /* Intake */
         intakeFXConfig = new TalonFXConfiguration();
+        /* Fork */
+        forkFXConfig = new TalonFXConfiguration();
 
         /* Swerve Angle Motor Configurations */
             SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
@@ -149,5 +154,7 @@ public final class CTREConfigs {
             wristFXConfig.motionCruiseVelocity = Constants.Wrist.velocity;
             wristFXConfig.motionAcceleration = Constants.Wrist.acceleration;
             wristFXConfig.motionCurveStrength = Constants.Wrist.smoothing;
+
+            
     }
 }

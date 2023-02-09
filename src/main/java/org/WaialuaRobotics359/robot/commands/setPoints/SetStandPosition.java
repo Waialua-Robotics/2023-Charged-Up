@@ -61,7 +61,7 @@ public class SetStandPosition extends CommandBase {
         }
 
         if (Timer.hasElapsed(1.5)){
-            s_Wrist.setDesiredPosition(Constants.Wrist.StowPosition);
+            s_Wrist.setDesiredPosition(Constants.Wrist.Cone.standPosition);
             s_Wrist.goToPosition();
             finished = true;
         }

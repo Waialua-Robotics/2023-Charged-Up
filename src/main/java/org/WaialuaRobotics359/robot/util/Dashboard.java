@@ -3,23 +3,21 @@ package org.WaialuaRobotics359.robot.util;
 import java.util.Map;
 
 import org.WaialuaRobotics359.robot.RobotContainer;
-import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class Dashboard {
     public Dashboard(RobotContainer container) {
         ShuffleboardTab tab = Shuffleboard.getTab("Subsystem");
 
         tab.addNumber("elevator Height", () -> container.getElevator().GetPositionInches()).withSize(2, 2)
-                .withPosition(0, 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 49));
+                .withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 49));
         tab.addNumber("slide Height", () -> container.getSlide().GetPositionInches()).withSize(2, 2)
-                .withPosition(3, 0).withWidget(BuiltInWidgets.kNumberBar).withProperties(Map.of("min" , 0 , "max" , 25));
+                .withWidget(BuiltInWidgets.kNumberBar).withProperties(Map.of("min" , 0 , "max" , 25));
         tab.addNumber("Wrist Angle", () -> container.getWrist().GetPositionInches()).withSize(2, 2)
-                .withPosition(6, 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 25));
+                .withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 25));
         tab.addNumber("Wrist value", () -> container.getWrist().GetPosition());
         tab.addNumber("Slide value", () -> container.getSlide().GetPosition());
         tab.addNumber("Elevator value", () -> container.getElevator().GetPosition());
@@ -35,6 +33,7 @@ public class Dashboard {
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
+        tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
 
 
 

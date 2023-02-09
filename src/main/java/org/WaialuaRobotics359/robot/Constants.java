@@ -43,6 +43,17 @@ public final class Constants {
 
     }
 
+
+    public static final class Fork {
+
+        public static final int forkMotorID = 50;
+        public static final TalonFXConfiguration config = new TalonFXConfiguration();
+
+        public static final Boolean forkMotorInvert = false;
+        public static final NeutralMode forkNeutralMode = NeutralMode.Brake;
+
+    }
+    
     public static final class Slide {
         public static final int slideMotorID = 20; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
@@ -113,13 +124,13 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 123500;
-            public static final int HighPosition = 145500;
+            public static final int HighPosition = 150000;
             public static final int FeederPosition = 135500;
-            public static final int standPosition = 31000;
+            public static final int standPosition = 39000;
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 146000; 
+        public static final int forwardSoftLimit = 150000; 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
