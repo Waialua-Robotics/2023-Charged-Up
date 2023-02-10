@@ -41,7 +41,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_dashboard = new Dashboard(m_robotContainer);
-    PathPlannerServer.startServer(5811);
+
+    PathPlannerServer.startServer(5811); //#TODO: Change to remove if competition
 
     /*Motor Zeroing */
     m_robotContainer.getElevator().SetHomePosition();

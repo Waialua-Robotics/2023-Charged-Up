@@ -8,11 +8,10 @@ import org.WaialuaRobotics359.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class InitializeRobot extends CommandBase {
-    private Wrist s_Wrist;
-    private Elevator s_Elevator;
-    private Slide s_Slide;
+    @SuppressWarnings("unused") private Wrist s_Wrist;
+    @SuppressWarnings("unused") private Elevator s_Elevator;
+    @SuppressWarnings("unused") private Slide s_Slide;
     private Swerve s_Swerve;
-
     public InitializeRobot(Wrist s_Wrist, Elevator s_Elevator, Slide s_Slide, Swerve s_Swerve) {
         this.s_Wrist = s_Wrist;
         this.s_Elevator = s_Elevator;

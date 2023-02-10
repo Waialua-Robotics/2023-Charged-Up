@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class AutoOuttakeCone extends CommandBase {
     private Intake s_intake;
 
-    private double currentLimit = 30;
-
     public AutoOuttakeCone(Intake s_intake) {
         this.s_intake = s_intake;
         addRequirements(s_intake);
@@ -26,7 +24,7 @@ public class AutoOuttakeCone extends CommandBase {
 
     @Override
     public void execute() {
-        s_intake.outake(Constants.Intake.speed);
+        s_intake.outake(-(.5)*Constants.Intake.speed);
     }
     
     @Override
