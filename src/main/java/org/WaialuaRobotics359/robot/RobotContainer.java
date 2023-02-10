@@ -57,9 +57,10 @@ public class RobotContainer {
     private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton setDriveSlowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value); 
-    private final JoystickButton intakeCube = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton intakeCone = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton Angle90 = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton Angle270 = new JoystickButton(driver, XboxController.Button.kB.value);
     private final POVButton ForkDeploy = new POVButton(driver, 90);
+    private final POVButton AutoZeroAll = new POVButton(driver, 180);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -177,9 +178,11 @@ public class RobotContainer {
             ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
             /* Snap-to Swerve Angle */
             Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
+            Angle90.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
-            intakeCube.onTrue(new AutoIntakeCube(s_Intake));
-            intakeCone.onTrue(new AutoIntakeCone(s_Intake));
+            Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(270)));
+            /*Misc Driver Binds */
+            AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
         /* Operator Buttons */
             /* Elevator System Positions */

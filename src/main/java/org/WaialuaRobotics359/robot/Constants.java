@@ -183,7 +183,7 @@ public final class Constants {
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 14000; 
+        public static final int forwardSoftLimit = 15200; 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
