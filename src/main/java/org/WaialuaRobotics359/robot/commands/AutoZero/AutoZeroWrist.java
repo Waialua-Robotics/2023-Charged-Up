@@ -30,7 +30,7 @@ public class AutoZeroWrist extends CommandBase {
 
     @Override
     public void execute() {
-        s_Wrist.SetPrecentOut(-.1);
+        s_Wrist.SetPrecentOut(-.2);
     }
     
     @Override
@@ -42,7 +42,5 @@ public class AutoZeroWrist extends CommandBase {
     public void end(boolean interupted) {
         s_Wrist.Stop();
         s_Wrist.SetPosition(-1000);
-        s_Wrist.setDesiredPosition(Constants.Wrist.StowPosition);
-        s_Wrist.goToPosition();
     }
 }

@@ -47,21 +47,23 @@ public class AutoBalance extends CommandBase {
          * the robot has balanced on the platform. return from the execute
          * and initiate the ending sequence.
          */
-        if (balancing && timebalaced > 100) {
+        if (balancing && timebalaced > 10) {
           finished = true;
           return;
         } else if (balancing) {
           timebalaced++;
         }
 
-        s_Swerve.setModuleStates(
-          new SwerveModuleState[] {
-            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
-            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
-            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
-            new SwerveModuleState(-.7, Rotation2d.fromDegrees(0))
-          }
+        if(!balancing){
+          s_Swerve.setModuleStates(
+            new SwerveModuleState[] {
+              new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(-.7, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(-.7, Rotation2d.fromDegrees(0))
+            }
         );
+        }
 
     } else {
 
@@ -73,13 +75,13 @@ public class AutoBalance extends CommandBase {
         drivePower = -Math.min(Constants.AutoConstants.BalanceKp * error, 1);
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
-        if (drivePower < 0) {
+        if (drivePower > 0) {
           drivePower *= Constants.AutoConstants.BalanceReverseMulti;
         }
 
         // Limit the max power
-        if (Math.abs(drivePower) > 0.6) {
-          drivePower = Math.copySign(0.4, drivePower);
+        if (Math.abs(drivePower) > 0.8) {
+          drivePower = Math.copySign(0.8, drivePower);
         }
 
         s_Swerve.setModuleStates(

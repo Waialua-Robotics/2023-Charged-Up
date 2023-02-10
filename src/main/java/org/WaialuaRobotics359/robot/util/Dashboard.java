@@ -33,7 +33,7 @@ public class Dashboard {
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
-        tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
+        //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
 
 
 

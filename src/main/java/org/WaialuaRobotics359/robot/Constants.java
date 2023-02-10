@@ -123,10 +123,10 @@ public final class Constants {
 
         public static final class Cone {
             public static final int LowPosition = 3000;
-            public static final int MidPosition = 123500;
+            public static final int MidPosition = 136000;
             public static final int HighPosition = 150000;
             public static final int FeederPosition = 135500;
-            public static final int standPosition = 39000;
+            public static final int standPosition = 49000;
         }
 
         /* soft limits */
@@ -179,7 +179,7 @@ public final class Constants {
             public static final int MidPosition = 13242;
             public static final int HighPosition = 9100;
             public static final int FeederPosition = 12000;
-            public static final int standPosition = 14000;
+            public static final int standPosition = 16500;
         }
 
         /* soft limits */
@@ -372,9 +372,9 @@ public final class Constants {
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
         /*Auto Balance Const */
-        public static final double BalanceKp = 0.015; // P (Proportional) constant of a PID loop
+        public static final double BalanceKp = 0.04; // P (Proportional) constant of a PID loop
         public static final double BalanceGoal = 0;
         public static final double BalanceThreshold = 3;
-        public static final double BalanceReverseMulti = 1;
+        public static final double BalanceReverseMulti = .5;
     }
 }
