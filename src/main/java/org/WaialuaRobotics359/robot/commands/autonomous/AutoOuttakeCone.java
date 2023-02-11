@@ -29,7 +29,7 @@ public class AutoOuttakeCone extends CommandBase {
     
     @Override
     public boolean isFinished(){
-        return Timer.hasElapsed(1.5);
+        return Timer.hasElapsed(.75);
     }
 
     @Override 

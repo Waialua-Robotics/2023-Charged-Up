@@ -74,13 +74,13 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 85000;
-            public static final int HighPosition = 197000;
+            public static final int HighPosition = 204000;
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
         }
        
         /* soft limits */
-        public static final int forwardSoftLimit = 197500; 
+        public static final int forwardSoftLimit = 208000; 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
@@ -363,16 +363,17 @@ public final class Constants {
         public static final double kPThetaController = 1;
 
         /*Auto Builder Const */
-        public static final PIDConstants translationPID = new PIDConstants(0.5, 0, 0);
-        public static final PIDConstants rotationPID = new PIDConstants(15, 0, 0); //d.05
+        public static final PIDConstants translationPID = new PIDConstants(2, 0, 0); //p.5, 1.2
+        public static final PIDConstants rotationPID = new PIDConstants(8, 0, 0); //d.05 p15  
     
         /* Constraint for the motion profilied robot angle controller */
+
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
             new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
         /*Auto Balance Const */
-        public static final double BalanceKp = 0.04; // P (Proportional) constant of a PID loop
+        public static final double BalanceKp = 0.03; // P (Proportional) constant of a PID loop
         public static final double BalanceGoal = 0;
         public static final double BalanceThreshold = 3;
         public static final double BalanceReverseMulti = .5;

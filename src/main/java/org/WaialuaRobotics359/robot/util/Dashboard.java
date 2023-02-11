@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.WaialuaRobotics359.robot.RobotContainer;
 
+import com.fasterxml.jackson.databind.cfg.ContextAttributes;
+
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -33,6 +35,8 @@ public class Dashboard {
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
+        tab.addNumber("posex", ()-> container.getSwerve().getPose().getX());
+        tab.addNumber("posey", ()-> container.getSwerve().getPose().getY());
         //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
 
 

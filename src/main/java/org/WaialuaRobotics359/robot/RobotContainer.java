@@ -16,14 +16,9 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
-import org.WaialuaRobotics359.robot.autos.AutoCommandGroup.ConeScoreMid;
+import org.WaialuaRobotics359.robot.autos.AutoCommandGroup.*;
 import org.WaialuaRobotics359.robot.commands.AutoZero.*;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoBalance;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCone;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoIntakeCube;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoOuttakeCone;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoOuttakeCube;
-import org.WaialuaRobotics359.robot.commands.autonomous.AutoWait;
+import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
@@ -100,6 +95,7 @@ public class RobotContainer {
     /* The autonomous routines */
     private final swerveBuilderAuto m_SwerveBuilderAuto;
     private final ConeL3Auto m_ConeL3Auto;
+    private final ConeL1Auto m_ConeL1Auto;
     
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -168,7 +164,8 @@ public class RobotContainer {
          * Do not move to prevent initialization race case
          */ 
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
-        m_ConeL3Auto =new ConeL3Auto(autoBuilder);
+        m_ConeL3Auto = new ConeL3Auto(autoBuilder);
+        m_ConeL1Auto = new ConeL1Auto(autoBuilder);
     }
 
     /**
@@ -213,6 +210,7 @@ public class RobotContainer {
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
+            SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
             //SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
@@ -226,6 +224,7 @@ public class RobotContainer {
         m_chooser.setDefaultOption("swerveBuilderAuto",  "SwerveBuilderAuto");
         m_chooser.addOption("twomAuto", "twomAuto");   
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
+        m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         /* Populate Event Map */
@@ -244,9 +243,12 @@ public class RobotContainer {
         eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
         eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("StopSwerve", new InstantCommand( () -> s_Swerve.stop()));
+        eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("ConeSlideIntake",new AutoIntakeConeSlide(s_Intake, s_Slide));
 
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
 
         /*Wait Times */
         eventMap.put("Wait5", new AutoWait(5));
@@ -311,6 +313,9 @@ public class RobotContainer {
                 break;
             case "ConeL3Auto":
                 selected = m_ConeL3Auto;
+                break;
+            case "ConeL1Auto":
+                selected = m_ConeL1Auto;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;

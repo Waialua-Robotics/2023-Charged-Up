@@ -55,12 +55,12 @@ public class SetStandPosition extends CommandBase {
             s_Slide.goToPosition();
         }
 
-        if (Timer.hasElapsed(.8)){
+        if (Timer.hasElapsed(.5)){
                 s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (Timer.hasElapsed(1.5)){
+        if (Timer.hasElapsed(.8)){
             s_Wrist.setDesiredPosition(Constants.Wrist.Cone.standPosition);
             s_Wrist.goToPosition();
             finished = true;

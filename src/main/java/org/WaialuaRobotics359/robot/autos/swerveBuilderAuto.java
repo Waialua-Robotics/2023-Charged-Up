@@ -13,11 +13,13 @@ public class swerveBuilderAuto extends SequentialCommandGroup {
 
     public swerveBuilderAuto (SwerveAutoBuilder autoBuilder) {
 
-        PathPlannerTrajectory ComplexAuto = PathPlanner.loadPath("ComplexAuto", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
+        PathPlannerTrajectory ComplexAuto = PathPlanner.loadPath("ComplexAuto", new PathConstraints(1, 1));
+        PathPlannerTrajectory ComplexAuto2 = PathPlanner.loadPath("ComplexAuto2", new PathConstraints(Constants.AutoConstants.kMaxSpeedMetersPerSecond, Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared));
 
         addCommands(new SequentialCommandGroup(
             //new InstantCommand(() -> s_LEDs.state = State.purple),
-            autoBuilder.fullAuto(ComplexAuto)
+            autoBuilder.fullAuto(ComplexAuto),
+            autoBuilder.fullAuto(ComplexAuto2)
         ));
     }
 }

@@ -2,41 +2,40 @@
   "waypoints": [
     {
       "anchorPoint": {
-        "x": 1.8429369715882291,
-        "y": 3.864980587104032
+        "x": 6.81,
+        "y": 4.6
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0862876011466316,
-        "y": 3.836351101273632
+        "x": 6.624061105265068,
+        "y": 5.024474763235241
       },
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "SetCone",
-          "ConeScoreHigh"
+          "IntakeCone"
         ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "before",
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
         "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 4.190554809681048,
-        "y": 4.695235676185638
+        "x": 4.906291955441054,
+        "y": 5.096048477811242
       },
       "prevControl": {
-        "x": 2.1578613157226316,
-        "y": 5.053104249065641
+        "x": 6.331015927267501,
+        "y": 5.751421504851408
       },
       "nextControl": {
-        "x": 5.015975791274887,
-        "y": 4.5499150808346105
+        "x": 3.474817663921043,
+        "y": 4.437570303712036
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -52,33 +51,28 @@
     },
     {
       "anchorPoint": {
-        "x": 6.7,
-        "y": 4.55
+        "x": 1.9574549149098301,
+        "y": 4.709550419100839
       },
       "prevControl": {
-        "x": 6.070151311731196,
-        "y": 4.55
+        "x": 2.472785659857034,
+        "y": 4.666606190355238
       },
       "nextControl": null,
-      "holonomicAngle": 0,
+      "holonomicAngle": 180.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "StandPosition",
-          "ConeSlideIntake",
-          "StowPosition"
+          "ConeScoreMid"
         ],
-        "executionBehavior": "sequential",
-        "waitBehavior": "after",
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
         "waitTime": 0
       }
     }
   ],
-  "maxVelocity": 1.0,
-  "maxAcceleration": 1.0,
-  "isReversed": null,
   "markers": []
 }
