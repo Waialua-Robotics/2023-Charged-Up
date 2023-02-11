@@ -80,6 +80,10 @@ public class Swerve extends SubsystemBase {
         drive(new Translation2d(0,0), 0, true, false);
     }
 
+    public void setCurrentAngle(){
+        desiredAngle = getYaw().getDegrees();
+    }
+
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }

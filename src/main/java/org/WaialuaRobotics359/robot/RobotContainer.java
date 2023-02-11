@@ -65,6 +65,7 @@ public class RobotContainer {
     private final JoystickButton Angle270 = new JoystickButton(driver, XboxController.Button.kB.value);
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
+    private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -183,6 +184,7 @@ public class RobotContainer {
             /* Reset Swerve Modules */
             ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
             /* Snap-to Swerve Angle */
+            setCurrentAngle.onTrue(new InstantCommand(() -> s_Swerve.setCurrentAngle()));
             Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
             Angle90.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
