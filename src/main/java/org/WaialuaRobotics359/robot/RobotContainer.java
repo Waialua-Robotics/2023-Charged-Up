@@ -36,6 +36,8 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
  */
 public class RobotContainer {
 
+    public static boolean isCompetitionBot = true;
+
     public static boolean isCube = true;
 
     /* Controllers */
@@ -73,7 +75,7 @@ public class RobotContainer {
     private final JoystickButton FeederPosition = new JoystickButton(operator, Constants.OI.FeederPosition);
     private final JoystickButton MidPosition = new JoystickButton(operator, Constants.OI.MidPosition);
     private final JoystickButton LowPosition = new JoystickButton(operator, Constants.OI.LowPosition);
-    private final JoystickButton StowPosition =new JoystickButton(operator, Constants.OI.StowPosition);
+    private final JoystickButton StowPosition = new JoystickButton(operator, Constants.OI.StowPosition);
     private final JoystickButton StandPosition = new JoystickButton(operator, Constants.OI.StandPosition);
     private final JoystickButton Intake = new JoystickButton(operator, Constants.OI.intake);
     private final JoystickButton Outake = new JoystickButton(operator, Constants.OI.outake);
@@ -87,7 +89,7 @@ public class RobotContainer {
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
-    private final Fork s_Fork = new Fork();
+    private final Fork s_Fork = new Fork(); // TODO: practice bot edit
 
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
@@ -151,7 +153,7 @@ public class RobotContainer {
                 () -> driver.getRawAxis(ForkLowerTrigger),
                 () -> ForkDeploy.getAsBoolean()
                 )
-            );
+            ); // TODO: practice bot edit
 
         /* Configure Button Bindings */
         configureButtonBindings();

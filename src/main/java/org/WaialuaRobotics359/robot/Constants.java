@@ -15,6 +15,9 @@ import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
+
+    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition
+
     public static final class OI {
         public static final int driverPort = 0;
         public static final int operatorPort = 1;
@@ -313,7 +316,7 @@ public final class Constants {
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(285.99);
             public static final Rotation2d angleOffsetPractice = Rotation2d.fromDegrees(209.44);
             public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetPractice);
         }
 
         /* Front Right Module - Module 1 */
@@ -324,7 +327,7 @@ public final class Constants {
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(267.89);
             public static final Rotation2d angleOffsetPractice = Rotation2d.fromDegrees(297.24);
             public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset,angleOffsetPractice);
         }
         
         /* Back Left Module - Module 2 */
@@ -335,7 +338,7 @@ public final class Constants {
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(100.45);
             public static final Rotation2d angleOffsetPractice = Rotation2d.fromDegrees(289.07);
             public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetPractice);
         }
 
         /* Back Right Module - Module 3 */
@@ -346,7 +349,7 @@ public final class Constants {
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(315.08);
             public static final Rotation2d angleOffsetPractice = Rotation2d.fromDegrees(68.55);
             public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetPractice);
         }
     }
 

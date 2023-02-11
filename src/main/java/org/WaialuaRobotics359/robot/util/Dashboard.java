@@ -2,9 +2,8 @@ package org.WaialuaRobotics359.robot.util;
 
 import java.util.Map;
 
+import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
-
-import com.fasterxml.jackson.databind.cfg.ContextAttributes;
 
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -27,6 +26,7 @@ public class Dashboard {
         tab.addNumber("Slide desired", () -> container.getSlide().getDesiredPosition());
         tab.addNumber("Elevator desired", () -> container.getElevator().getDesiredPosition());
         tab.addBoolean("isCube", () -> RobotContainer.isCube);
+        tab.addBoolean("competition mode", ()-> Constants.isCompetitionRobot);
         tab.addBoolean("DriveSlowMode", () -> container.getSwerve().slowMode);
         tab.addNumber("SlideCurrent", () -> container.getSlide().getCurrent());
         tab.addNumber("intakeCurrent", ()-> container.getIntake().getCurrent());
@@ -37,6 +37,8 @@ public class Dashboard {
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
         tab.addNumber("posex", ()-> container.getSwerve().getPose().getX());
         tab.addNumber("posey", ()-> container.getSwerve().getPose().getY());
+        
+
         //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
 
 

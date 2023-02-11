@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     m_dashboard = new Dashboard(m_robotContainer);
 
-    PathPlannerServer.startServer(5811); //#TODO: Change to remove if competition
+    if( ! Constants.isCompetitionRobot) PathPlannerServer.startServer(5811); 
 
     /*Motor Zeroing */
     m_robotContainer.getElevator().SetHomePosition();

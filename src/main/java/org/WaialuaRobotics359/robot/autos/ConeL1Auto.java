@@ -1,6 +1,5 @@
 package org.WaialuaRobotics359.robot.autos;
 
-import org.WaialuaRobotics359.robot.Constants;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
