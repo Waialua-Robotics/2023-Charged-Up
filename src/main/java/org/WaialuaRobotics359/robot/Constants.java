@@ -16,7 +16,7 @@ import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition
+    public static final boolean isCompetitionRobot = true; //#TODO: Change to true for competition Bot
 
     public static final class OI {
         public static final int driverPort = 0;

@@ -89,7 +89,7 @@ public class RobotContainer {
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
-    private final Fork s_Fork = new Fork(); // TODO: practice bot edit
+    private final Fork s_Fork = new Fork(); // #TODO: Change to true for competition Bot
 
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
@@ -153,7 +153,7 @@ public class RobotContainer {
                 () -> driver.getRawAxis(ForkLowerTrigger),
                 () -> ForkDeploy.getAsBoolean()
                 )
-            ); // TODO: practice bot edit
+            ); // #TODO: Change to true for competition Bot
 
         /* Configure Button Bindings */
         configureButtonBindings();
