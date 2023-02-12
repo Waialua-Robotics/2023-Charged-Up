@@ -26,6 +26,7 @@ public class InitializeRobot extends CommandBase {
 
     @Override
     public void execute() {
+        s_Swerve.setGyroYaw(((180 - s_Swerve.getYaw360()) % 360));
         s_Swerve.desiredAngle = s_Swerve.getYaw360();
     }
 

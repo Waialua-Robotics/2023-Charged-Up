@@ -63,6 +63,7 @@ public class RobotContainer {
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
     private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
+    private final POVButton
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;

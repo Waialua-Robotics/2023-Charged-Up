@@ -226,6 +226,36 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
     }
 
+    public static final class Limelight {
+
+        public static final class LimelightOptions{
+            public static final int LED_PIPE = 0;
+            public static final int LED_OFF = 1;
+            public static final int LED_BLINK = 2;
+            public static final int LED_ON = 3;
+    
+            public static final int CAM_VISION = 0;
+            public static final int CAM_DRIVER = 1;
+    
+            public static final int PIPELINE_0 = 0;
+            public static final int PIPELINE_1 = 1;
+            public static final int PIPELINE_2 = 2;
+            public static final int PIPELINE_3 = 3;
+            public static final int PIPELINE_4 = 4;
+            public static final int PIPELINE_5 = 5;
+            public static final int PIPELINE_6 = 6;
+            public static final int PIPELINE_7 = 7;
+    
+            public static final int STREAM_STANDARD = 0;
+            public static final int STREAM_PIP_MAIN = 1;
+            public static final int STREAM_PIP_SECONDARY = 2;
+    
+            public static final int SNAPSHOT_OFF = 0;
+            public static final int SNAPSHOT_ON = 1;
+        }
+        public static final TrapezoidProfile.Constraints txProfile = new TrapezoidProfile.Constraints(1, 0);
+    }
+
     public static final class Swerve {
         public static final int pigeonID = 0;
         public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
