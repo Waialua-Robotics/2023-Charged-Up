@@ -12,7 +12,7 @@ public class ConeL3Auto extends SequentialCommandGroup {
     public ConeL3Auto (SwerveAutoBuilder autoBuilder) {
 
         PathPlannerTrajectory ConeL3Auto = PathPlanner.loadPath("ConeL3Auto", new PathConstraints(3, 2));
-        PathPlannerTrajectory ConeL3AutoReturn = PathPlanner.loadPath("ConeL3AutoReturn",new PathConstraints(2, 2));
+        PathPlannerTrajectory ConeL3AutoReturn = PathPlanner.loadPath("ConeL3AutoReturn",new PathConstraints(4, 2));
 
         addCommands(new SequentialCommandGroup(
             //new InstantCommand(() -> s_LEDs.state = State.purple),

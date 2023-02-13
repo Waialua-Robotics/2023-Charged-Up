@@ -63,7 +63,7 @@ public class RobotContainer {
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
     private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
-    private final POVButton
+    private final POVButton AutoAlign = new POVButton(driver, 270);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -90,6 +90,7 @@ public class RobotContainer {
     private final Wrist s_Wrist = new Wrist();
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
+    private final LimeLight s_LimeLight = new LimeLight();
     private final Fork s_Fork = new Fork(); // #TODO: Change to true for competition Bot
 
     /* auto Builder */
@@ -191,6 +192,7 @@ public class RobotContainer {
             Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(270)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
+            AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve));
 
         /* Operator Buttons */
             /* Elevator System Positions */
@@ -249,6 +251,8 @@ public class RobotContainer {
         eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("ConeSlideIntake",new AutoIntakeConeSlide(s_Intake, s_Slide));
 
+        eventMap.put("AutoLimelightAlign", new AutoLimelightAlign(s_LimeLight, s_Swerve));
+
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
@@ -296,6 +300,10 @@ public class RobotContainer {
 
     public LEDs getLEDs(){
         return s_LEDs;
+    }
+
+    public LimeLight getLimelight(){
+        return s_LimeLight;
     }
 
     /**

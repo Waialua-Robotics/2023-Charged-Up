@@ -1,3 +1,4 @@
+
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
 import java.util.function.BooleanSupplier;
@@ -18,18 +19,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-public class AutoLimelightAlign extends CommandBase {
+public class AutoLimelightAlignComplex extends CommandBase {
 
     private LimeLight s_limelight;
     private Swerve s_swerve;
 
-    //ProfiledPIDController txPid;
-    //ProfiledPIDController tyPid;
+    ProfiledPIDController txPid;
+    ProfiledPIDController tyPid;
     //PIDController txPid;
     //PIDController tyPid;
-
-    double KPX =.2;
-    double KPY =.2;
 
     double tx;
     double ty;
@@ -40,15 +38,15 @@ public class AutoLimelightAlign extends CommandBase {
     DoubleSupplier rotationSup = () -> {return 0;};
     BooleanSupplier robotCentricSup = () -> {return false;};*/
 
-    public AutoLimelightAlign(LimeLight s_limelight, Swerve s_swerve) {
+    public AutoLimelightAlignComplex(LimeLight s_limelight, Swerve s_swerve) {
         this.s_limelight = s_limelight;
         this.s_swerve = s_swerve;
-        //txPid = new ProfiledPIDController(txAlign.kp, txAlign.ki, txAlign.kd, txAlign.profile);
-        //tyPid = new ProfiledPIDController(tyAlign.kp, tyAlign.ki, tyAlign.kd, tyAlign.profile);
+        txPid = new ProfiledPIDController(txAlign.kp, txAlign.ki, txAlign.kd, txAlign.profile);
+        tyPid = new ProfiledPIDController(tyAlign.kp, tyAlign.ki, tyAlign.kd, tyAlign.profile);
         //txPid = new PIDController(txAlign.kp, txAlign.ki, txAlign.kd);
         //tyPid = new PIDController(tyAlign.kp, tyAlign.ki, tyAlign.kd);
-       // txPid.setTolerance(txAlign.threshold);
-        //tyPid.setTolerance(tyAlign.threshold);
+        txPid.setTolerance(txAlign.threshold);
+        tyPid.setTolerance(tyAlign.threshold);
     }
 
     private void fetchValues() {
@@ -60,10 +58,9 @@ public class AutoLimelightAlign extends CommandBase {
     public void initialize() {
         s_limelight.setPipeline(Constants.Limelight.Options.RetroReflective);
         fetchValues();
-
-        //txPid.reset(tx);
-        //tyPid.reset(ty);
-
+        txPid.reset(tx);
+        tyPid.reset(ty);
+        
         //txPid.reset();
         //tyPid.reset();
     }
@@ -71,22 +68,17 @@ public class AutoLimelightAlign extends CommandBase {
     @Override
     public void execute() {
        fetchValues();
-
-       double Xerr = tx;
-       double Yerr = ty;
-
-
        
        //Translation2d translation = new Translation2d(txPid.calculate(-tx, 0), tyPid.calculate(-ty, 0));
        //Translation2d translation = new Translation2d(tyPid.calculate(-ty, 0), 0);
-       Translation2d translation = new Translation2d(Yerr*(KPY), Xerr*(KPX));
-       SmartDashboard.putNumber("txPid",  Xerr*(KPX));
-       SmartDashboard.putNumber("tyPid", Yerr*(KPY));
+       Translation2d translation = new Translation2d(tyPid.calculate(-ty, -1), txPid.calculate(-tx, 0));
+       SmartDashboard.putNumber("txPid", txPid.calculate(-tx, 0));
+       SmartDashboard.putNumber("tyPid", tyPid.calculate(-ty, -1));
 
-        
+       /* 
         s_swerve.drive(
             translation, 0, false, true
-        ); 
+        ); */
 
         /* 
        CommandScheduler.getInstance().schedule(

@@ -228,18 +228,21 @@ public final class Constants {
 
     public static final class Limelight {
 
-        public static final class LimelightOptions{
-            public static final int LED_PIPE = 0;
-            public static final int LED_OFF = 1;
-            public static final int LED_BLINK = 2;
-            public static final int LED_ON = 3;
+        public static final double limelightHeight = 36.5;
+        public static final double nodeHeight = 24;
+
+        public static final class Options{
+            public static final int LEDPipe = 0;
+            public static final int LEDOff = 1;
+            public static final int LEDBlink = 2;
+            public static final int LEDOn = 3;
     
-            public static final int CAM_VISION = 0;
-            public static final int CAM_DRIVER = 1;
+            public static final int CAMVision = 0;
+            public static final int CAMDrive = 1;
     
-            public static final int PIPELINE_0 = 0;
-            public static final int PIPELINE_1 = 1;
-            public static final int PIPELINE_2 = 2;
+            public static final int AprilTag = 0;
+            public static final int RetroReflective = 1;
+            public static final int Driver = 2;
             public static final int PIPELINE_3 = 3;
             public static final int PIPELINE_4 = 4;
             public static final int PIPELINE_5 = 5;
@@ -250,10 +253,26 @@ public final class Constants {
             public static final int STREAM_PIP_MAIN = 1;
             public static final int STREAM_PIP_SECONDARY = 2;
     
-            public static final int SNAPSHOT_OFF = 0;
-            public static final int SNAPSHOT_ON = 1;
+            public static final int SnapshotOff = 0;
+            public static final int SnapshotOn = 1;
         }
-        public static final TrapezoidProfile.Constraints txProfile = new TrapezoidProfile.Constraints(1, 0);
+
+        public static final class txAlign {
+            public static final TrapezoidProfile.Constraints profile = new TrapezoidProfile.Constraints(0.0001, 0.1); 
+            public static final double threshold = .5;
+            public static final double kp = 0.080;//.08
+            public static final double ki = 0.1;
+            public static final double kd = 0.0;
+        }
+
+        public static final class tyAlign {
+            public static final TrapezoidProfile.Constraints profile = new TrapezoidProfile.Constraints(0.0001, 0.1); 
+            public static final double threshold = 1;
+            public static final double kp = 0.080;
+            public static final double ki = 0.05;
+            public static final double kd = 0.0;
+        }
+        
     }
 
     public static final class Swerve {

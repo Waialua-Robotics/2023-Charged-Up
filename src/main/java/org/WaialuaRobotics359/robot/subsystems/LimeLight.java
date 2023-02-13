@@ -1,13 +1,25 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
+import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.Constants.Limelight;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimeLight extends SubsystemBase {
     private NetworkTable NetworkTable;
 
-    private LimeLight() {
+    public LimeLight() {
         NetworkTable = edu.wpi.first.networktables.NetworkTableInstance.getDefault().getTable("limelight");
+        ConfigStart();
+    }
+
+    public void ConfigStart(){
+        setPipeline(Constants.Limelight.Options.RetroReflective);
+        setLEDs(Constants.Limelight.Options.LEDPipe);
+        setCAM(Constants.Limelight.Options.CAMVision);
+
+
     }
 
     public double getTX() {
@@ -22,25 +34,23 @@ public class LimeLight extends SubsystemBase {
         return (NetworkTable.getEntry("tv").getDouble(0) >.5);
     }
 
-    public double getTargetLatency() {
-        return NetworkTable.getEntry("tl").getDouble(0);
-    }
-
     public void setPipeline(int pipeline) {
         NetworkTable.getEntry("pipeline").setNumber(pipeline);
     }
 
-    @Override
-    public void periodic() {
-
-            NetworkTable.getEntry("ledMode").setNumber(mPeriodicIO.ledMode);
-            NetworkTable.getEntry("camMode").setNumber(mPeriodicIO.camMode);
-            NetworkTable.getEntry("pipeline").setNumber(mPeriodicIO.pipeline);
-            NetworkTable.getEntry("stream").setNumber(mPeriodicIO.stream);
-            NetworkTable.getEntry("snapshot").setNumber(mPeriodicIO.snapshot);
-
+    public void setLEDs(int LEDmode){
+        NetworkTable.getEntry("ledMode").setNumber(LEDmode);
     }
 
+    public void setCAM(int CAMmode){
+        NetworkTable.getEntry("camMode").setNumber(CAMmode);
+    }
 
-    
+    public Double getDistance() {
+        return (Limelight.limelightHeight - Limelight.nodeHeight) / Math.tan(Math.toRadians(getTY()));
+    }
+
+    @Override
+    public void periodic() {
+    }    
 }
