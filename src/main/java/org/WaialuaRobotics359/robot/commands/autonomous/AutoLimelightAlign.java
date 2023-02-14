@@ -3,6 +3,7 @@ package org.WaialuaRobotics359.robot.commands.autonomous;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Constants.Limelight.txAlign;
 import org.WaialuaRobotics359.robot.Constants.Limelight.tyAlign;
@@ -21,18 +22,20 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class AutoLimelightAlign extends CommandBase {
 
     private LimeLight s_limelight;
-    private Swerve s_swerve;
+    private Swerve s_Swerve;
 
     //ProfiledPIDController txPid;
     //ProfiledPIDController tyPid;
     //PIDController txPid;
     //PIDController tyPid;
 
-    double KPX =.2;
-    double KPY =.2;
+    double KPX =.2;//.2
+    double KPY =.15;//.2
+    double KPO =.1;
 
     double tx;
     double ty;
+    double omega;
 
     /* 
     DoubleSupplier translationSup = () -> tyPid.calculate(ty, 0);
@@ -40,9 +43,9 @@ public class AutoLimelightAlign extends CommandBase {
     DoubleSupplier rotationSup = () -> {return 0;};
     BooleanSupplier robotCentricSup = () -> {return false;};*/
 
-    public AutoLimelightAlign(LimeLight s_limelight, Swerve s_swerve) {
+    public AutoLimelightAlign(LimeLight s_limelight, Swerve s_Swerve) {
         this.s_limelight = s_limelight;
-        this.s_swerve = s_swerve;
+        this.s_Swerve = s_Swerve;
         //txPid = new ProfiledPIDController(txAlign.kp, txAlign.ki, txAlign.kd, txAlign.profile);
         //tyPid = new ProfiledPIDController(tyAlign.kp, tyAlign.ki, tyAlign.kd, tyAlign.profile);
         //txPid = new PIDController(txAlign.kp, txAlign.ki, txAlign.kd);
@@ -54,11 +57,12 @@ public class AutoLimelightAlign extends CommandBase {
     private void fetchValues() {
        tx = -s_limelight.getTX();
        ty = s_limelight.getTY();
+       omega = s_Swerve .getYaw().getDegrees();
     }
 
     @Override
     public void initialize() {
-        s_limelight.setPipeline(Constants.Limelight.Options.RetroReflective);
+        s_limelight.setPipeline(Constants.Limelight.Options.RetroReflectiveStand);
         fetchValues();
 
         //txPid.reset(tx);
@@ -74,6 +78,10 @@ public class AutoLimelightAlign extends CommandBase {
 
        double Xerr = tx;
        double Yerr = ty;
+       double Oerr  =-Conversions.wrap(s_Swerve.getYaw360(), 0); //angle 2 = desired 
+
+       double rotationVal = Oerr / 90;
+
 
 
        
@@ -84,8 +92,8 @@ public class AutoLimelightAlign extends CommandBase {
        SmartDashboard.putNumber("tyPid", Yerr*(KPY));
 
         
-        s_swerve.drive(
-            translation, 0, false, true
+        s_Swerve.drive(
+            translation, rotationVal * Constants.Swerve.maxAngularVelocity, false, true
         ); 
 
         /* 
@@ -108,6 +116,6 @@ public class AutoLimelightAlign extends CommandBase {
 
     @Override 
     public void end(boolean interupted) {
-        s_swerve.stop();
+        s_Swerve.stop();
     }
 }

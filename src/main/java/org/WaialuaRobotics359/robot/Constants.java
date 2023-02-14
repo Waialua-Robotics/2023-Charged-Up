@@ -242,7 +242,7 @@ public final class Constants {
     
             public static final int AprilTag = 0;
             public static final int RetroReflective = 1;
-            public static final int Driver = 2;
+            public static final int RetroReflectiveStand = 2;
             public static final int PIPELINE_3 = 3;
             public static final int PIPELINE_4 = 4;
             public static final int PIPELINE_5 = 5;

@@ -52,11 +52,11 @@
     },
     {
       "anchorPoint": {
-        "x": 6.71,
+        "x": 6.65,
         "y": 4.5
       },
       "prevControl": {
-        "x": 5.71,
+        "x": 5.65,
         "y": 4.5
       },
       "nextControl": null,
@@ -69,7 +69,7 @@
         "names": [
           "StandPosition",
           "ConeSlideIntake",
-          "StowPosition"
+          "StandPosition"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",

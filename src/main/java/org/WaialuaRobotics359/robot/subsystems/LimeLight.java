@@ -12,10 +12,11 @@ public class LimeLight extends SubsystemBase {
     public LimeLight() {
         NetworkTable = edu.wpi.first.networktables.NetworkTableInstance.getDefault().getTable("limelight");
         ConfigStart();
+        System.out.println("LimelightConfig");
     }
 
     public void ConfigStart(){
-        setPipeline(Constants.Limelight.Options.RetroReflective);
+        setPipeline(2);
         setLEDs(Constants.Limelight.Options.LEDPipe);
         setCAM(Constants.Limelight.Options.CAMVision);
 
