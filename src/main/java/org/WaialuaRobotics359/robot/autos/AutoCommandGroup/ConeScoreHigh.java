@@ -13,9 +13,9 @@ public class ConeScoreHigh extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             new SetHighPosition(s_Wrist, s_Elevator, s_Slide),
-            new AutoWait(.7),
+            new AutoWait(.9),
             new AutoOuttakeCone(s_Intake),
-            new SetStowPosition(s_Wrist, s_Elevator, s_Slide),
+            new SetStandPosition(s_Wrist, s_Elevator, s_Slide),
             new AutoWait(.1)
         ));
     }
