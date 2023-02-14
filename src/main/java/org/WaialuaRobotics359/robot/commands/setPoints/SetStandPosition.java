@@ -50,7 +50,7 @@ public class SetStandPosition extends CommandBase {
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
     
-        if (Timer.hasElapsed(0.3)){
+        if (Timer.hasElapsed(0.1)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }

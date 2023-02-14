@@ -13,10 +13,10 @@ public class ConeScoreMid extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             new SetMidPosition(s_Wrist, s_Elevator, s_Slide),
-            new AutoWait(1),
+            new AutoWait(.5),
             new AutoOuttakeCone(s_Intake),
             new SetStowPosition(s_Wrist, s_Elevator, s_Slide),
-            new AutoWait(1)
+            new AutoWait(.1)
         ));
     }
 }

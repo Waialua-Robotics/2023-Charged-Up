@@ -100,6 +100,7 @@ public class RobotContainer {
     private final swerveBuilderAuto m_SwerveBuilderAuto;
     private final ConeL3Auto m_ConeL3Auto;
     private final ConeL1Auto m_ConeL1Auto;
+    private final ConeL1DualBalance m_ConeL1DualBalance;
     
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -170,6 +171,7 @@ public class RobotContainer {
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
         m_ConeL3Auto = new ConeL3Auto(autoBuilder);
         m_ConeL1Auto = new ConeL1Auto(autoBuilder);
+        m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder);
     }
 
     /**
@@ -230,6 +232,7 @@ public class RobotContainer {
         m_chooser.addOption("twomAuto", "twomAuto");   
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
         m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
+        m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         /* Populate Event Map */
@@ -327,6 +330,9 @@ public class RobotContainer {
                 break;
             case "ConeL1Auto":
                 selected = m_ConeL1Auto;
+                break;
+            case "ConeL1DualBalance":
+                selected = m_ConeL1DualBalance;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;
