@@ -59,14 +59,42 @@
         "x": 4.848829783373852,
         "y": 4.493458761203237
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 4.848829783373852,
+        "y": 4.493458761203237
+      },
       "holonomicAngle": 0,
-      "isReversal": false,
+      "isReversal": true,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
         "names": [],
+        "executionBehavior": "sequential",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 3.15989331978664,
+        "y": 4.909956819913639
+      },
+      "prevControl": {
+        "x": 3.9042599513770457,
+        "y": 4.952901048659241
+      },
+      "nextControl": null,
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "AutoLimelightAlign",
+          "ConeScoreMid"
+        ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
@@ -77,7 +105,12 @@
     {
       "position": 0.3818181818181817,
       "names": [
-        "event",
+        "IntakeCone"
+      ]
+    },
+    {
+      "position": 2.536363636363639,
+      "names": [
         "IntakeCone"
       ]
     }

@@ -16,8 +16,8 @@ public class ConeL1Auto extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             //new InstantCommand(() -> s_LEDs.state = State.purple),
-            autoBuilder.fullAuto(ConeL1Auto),
-            autoBuilder.fullAuto(ConeL1AutoReturn)
+            autoBuilder.fullAuto(ConeL1Auto)
+            //autoBuilder.fullAuto(ConeL1AutoReturn)
         ));
     }
 }
