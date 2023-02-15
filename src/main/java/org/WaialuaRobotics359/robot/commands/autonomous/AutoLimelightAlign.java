@@ -29,7 +29,7 @@ public class AutoLimelightAlign extends CommandBase {
     //PIDController txPid;
     //PIDController tyPid;
 
-    double KPX =.2;//.2
+    double KPX =.15;//.2
     double KPY =.15;//.2
     double KPO =.1;
 

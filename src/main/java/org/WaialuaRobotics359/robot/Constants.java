@@ -259,8 +259,8 @@ public final class Constants {
 
         public static final class txAlign {
             public static final TrapezoidProfile.Constraints profile = new TrapezoidProfile.Constraints(0.0001, 0.1); 
-            public static final double threshold = .5;
-            public static final double kp = 0.09;//.08
+            public static final double threshold = 1;
+            public static final double kp = 0.08;//.08
             public static final double ki = 0.1;
             public static final double kd = 0.0;
         }
@@ -336,9 +336,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.32 / 12); 
-        public static final double driveKV = (1.51 / 12);
-        public static final double driveKA = (0.27 / 12);
+        public static final double driveKS = (0.16 / 12); //.32
+        public static final double driveKV = (.024 / 12); //1.51
+        public static final double driveKA = (0.01 / 12); // .27
 
         /* Swerve Profiling Values */
         /** Meters per Second */
