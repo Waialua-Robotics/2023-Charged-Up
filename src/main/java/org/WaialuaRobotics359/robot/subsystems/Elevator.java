@@ -39,6 +39,10 @@ public class Elevator extends SubsystemBase {
         return desiredPosition;
     }
 
+    public void currentToDisired(){
+        setDesiredPosition(GetPosition());
+    }
+
     public void goToPosition() {
         mElevatorMotorR.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }

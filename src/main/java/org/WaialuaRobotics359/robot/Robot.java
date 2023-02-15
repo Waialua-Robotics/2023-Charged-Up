@@ -73,6 +73,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    /*Set Current to disired in disabled #TODO: Change to false for competition */ 
+      m_robotContainer.getWrist().currentToDisired();
+      //m_robotContainer.getElevator().currentToDisired();
+      //m_robotContainer.getSlide().currentToDisired();
+
     m_robotContainer.getLEDs().setLEDAliance();
   }
 

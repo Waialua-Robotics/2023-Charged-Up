@@ -39,6 +39,10 @@ public class LimeLight extends SubsystemBase {
         NetworkTable.getEntry("pipeline").setNumber(pipeline);
     }
 
+    public double getPipeline(){
+        return NetworkTable.getEntry("pipeline").getDouble(0);
+    }
+
     public void setLEDs(int LEDmode){
         NetworkTable.getEntry("ledMode").setNumber(LEDmode);
     }

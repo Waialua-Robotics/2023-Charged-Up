@@ -260,7 +260,7 @@ public final class Constants {
         public static final class txAlign {
             public static final TrapezoidProfile.Constraints profile = new TrapezoidProfile.Constraints(0.0001, 0.1); 
             public static final double threshold = .5;
-            public static final double kp = 0.080;//.08
+            public static final double kp = 0.09;//.08
             public static final double ki = 0.1;
             public static final double kd = 0.0;
         }

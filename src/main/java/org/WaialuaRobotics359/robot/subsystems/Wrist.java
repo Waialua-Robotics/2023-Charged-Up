@@ -32,6 +32,11 @@ public class Wrist extends SubsystemBase {
         return desiredPosition;
     }
 
+    public void currentToDisired(){
+        setDesiredPosition((int)GetPosition());
+    }
+
+
     public void goToPosition() {
         mWristMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }
