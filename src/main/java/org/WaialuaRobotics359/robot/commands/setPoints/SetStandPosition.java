@@ -1,5 +1,7 @@
 package org.WaialuaRobotics359.robot.commands.setPoints;
 
+import java.nio.channels.WritableByteChannel;
+
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Elevator;
@@ -16,6 +18,7 @@ public class SetStandPosition extends CommandBase {
 
     private static int ElevatorPosition;
     private static int SlidePosition;
+    private static int WristPosition;
 
     public SetStandPosition(Wrist s_Wrist, Elevator s_Elevator, Slide s_Slide) {
         this.s_Wrist = s_Wrist;
@@ -32,11 +35,13 @@ public class SetStandPosition extends CommandBase {
 
     public void initialize(){
         if (RobotContainer.isCube){
-            ElevatorPosition = Constants.Elevator.Cone.standPosition;
-            SlidePosition = Constants.Slide.Cone.standPosition;
+            ElevatorPosition = Constants.Elevator.Cube.standPosition;
+            SlidePosition = Constants.Slide.Cube.standPosition;
+            WristPosition = Constants.Wrist.Cube.standPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.standPosition;
             SlidePosition = Constants.Slide.Cone.standPosition;
+            WristPosition = Constants.Wrist.Cone.standPosition;
         }
 
         finished = false;
@@ -55,13 +60,13 @@ public class SetStandPosition extends CommandBase {
             s_Slide.goToPosition();
         }
 
-        if (Timer.hasElapsed(.5)){
-                s_Elevator.setDesiredPosition(ElevatorPosition);
+        if (s_Slide.GetPosition() < 40000 || Timer.hasElapsed(.3)){
+            s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (Timer.hasElapsed(.8)){
-            s_Wrist.setDesiredPosition(Constants.Wrist.Cone.standPosition);
+        if (s_Elevator.GetPosition() > 20000 && Timer.hasElapsed(.4)|| Timer.hasElapsed(.8)){
+            s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;
         }

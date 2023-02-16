@@ -72,6 +72,7 @@ public final class Constants {
             public static final int MidPosition = 4600;
             public static final int HighPosition = 200000;
             public static final int FeederPosition = 1400;
+            public static final int standPosition = 4300;
         }
 
         public static final class Cone {
@@ -122,6 +123,7 @@ public final class Constants {
             public static final int MidPosition = 80000;
             public static final int HighPosition = 145000;
             public static final int FeederPosition = 138000;
+            public static final int standPosition = 21600;
         }
 
         public static final class Cone {
@@ -175,6 +177,7 @@ public final class Constants {
             public static final int MidPosition = 9700;
             public static final int HighPosition = 12000;
             public static final int FeederPosition = 13000;
+            public static final int standPosition = 16500;
         }
 
         public static final class Cone {

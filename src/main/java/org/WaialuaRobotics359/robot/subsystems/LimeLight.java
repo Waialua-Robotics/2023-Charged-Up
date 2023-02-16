@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LimeLight extends SubsystemBase {
     private NetworkTable NetworkTable;
 
+    private boolean DriverMode = false;
+    private int previousPipeline;
+
     public LimeLight() {
         NetworkTable = edu.wpi.first.networktables.NetworkTableInstance.getDefault().getTable("limelight");
         ConfigStart();
@@ -53,6 +56,26 @@ public class LimeLight extends SubsystemBase {
 
     public Double getDistance() {
         return (Limelight.limelightHeight - Limelight.nodeHeight) / Math.tan(Math.toRadians(getTY()));
+    }
+
+    public void toggleDriver(){
+        if((int)getPipeline() != 4 && DriverMode){
+            DriverMode = false; 
+        }
+        
+        if(!DriverMode){previousPipeline = (int)getPipeline();}
+
+        if(!DriverMode){
+            setPipeline(4);
+            DriverMode = true; 
+        } else {
+            setPipeline(previousPipeline);
+            DriverMode = false; 
+        }
+    }
+
+    public boolean GetDriverMode(){
+        return DriverMode;
     }
 
     @Override

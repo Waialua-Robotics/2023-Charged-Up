@@ -64,6 +64,7 @@ public class RobotContainer {
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
     private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
     private final POVButton AutoAlign = new POVButton(driver, 270);
+    private final POVButton toggleCam = new POVButton(driver, 0);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -136,8 +137,8 @@ public class RobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(s_Wrist,
             new ManualWrist(
                 s_Wrist,
-                () -> operator.getRawAxis(WristAxis),
-                () -> operator.getRawAxis(WristAxisN)
+                () -> operator.getRawAxis(WristAxisN),
+                () -> operator.getRawAxis(WristAxis)
                 )
         );
 
@@ -195,7 +196,7 @@ public class RobotContainer {
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
             AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve));
-
+            toggleCam.onTrue( new InstantCommand(() -> s_LimeLight.toggleDriver()));
         /* Operator Buttons */
             /* Elevator System Positions */
             HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));

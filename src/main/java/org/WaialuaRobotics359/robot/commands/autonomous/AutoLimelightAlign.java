@@ -14,6 +14,7 @@ import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -62,7 +63,11 @@ public class AutoLimelightAlign extends CommandBase {
 
     @Override
     public void initialize() {
-        s_limelight.setPipeline(Constants.Limelight.Options.RetroReflectiveStand);
+        if (DriverStation.isTeleopEnabled()){
+            s_limelight.setPipeline(Constants.Limelight.Options.RetroReflective);
+        }else{
+            s_limelight.setPipeline(Constants.Limelight.Options.RetroReflectiveStand);
+        }
         fetchValues();
 
         //txPid.reset(tx);
