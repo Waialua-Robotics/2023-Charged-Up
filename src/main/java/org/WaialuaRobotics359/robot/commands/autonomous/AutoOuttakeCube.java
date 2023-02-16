@@ -24,12 +24,12 @@ public class AutoOuttakeCube extends CommandBase {
 
     @Override
     public void execute() {
-        s_intake.outake((.5)*Constants.Intake.speed);
+        s_intake.outake((.5)*-Constants.Intake.speed);
     }
     
     @Override
     public boolean isFinished(){
-        return Timer.hasElapsed(1.5);
+        return Timer.hasElapsed(.5);
     }
 
     @Override 

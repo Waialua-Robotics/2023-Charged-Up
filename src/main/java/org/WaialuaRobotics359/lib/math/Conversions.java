@@ -120,4 +120,15 @@ public class Conversions {
         }
         return difference;
     }
+
+    /**
+     * @param value current value
+     * @param min min value  
+     * @param max max value
+     * @return true if value is between min and max
+     */
+    public static boolean isBetween(double value, double min, double max)
+    {
+      return((value > min) && (value < max));
+    }
 }

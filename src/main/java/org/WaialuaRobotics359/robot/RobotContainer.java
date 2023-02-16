@@ -102,6 +102,12 @@ public class RobotContainer {
     private final ConeL3Auto m_ConeL3Auto;
     private final ConeL1Auto m_ConeL1Auto;
     private final ConeL1DualBalance m_ConeL1DualBalance;
+    private final ConeM1Balance m_ConeM1Balance;
+    private final CubeM2Balance m_CubeM2Balance;
+    private final ConeM3Balance m_ConeM3Balance;
+    private final ConeM1ClearBalance m_ConeM1ClearBalance;
+    private final CubeM2ClearBalance m_CubeM2ClearBalance;
+    private final ConeM3ClearBalance m_ConeM3ClearBalance;
     
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -173,6 +179,12 @@ public class RobotContainer {
         m_ConeL3Auto = new ConeL3Auto(autoBuilder);
         m_ConeL1Auto = new ConeL1Auto(autoBuilder);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder);
+        m_ConeM1Balance = new ConeM1Balance(autoBuilder);
+        m_CubeM2Balance = new CubeM2Balance(autoBuilder);
+        m_ConeM3Balance = new ConeM3Balance(autoBuilder);
+        m_ConeM1ClearBalance = new ConeM1ClearBalance(autoBuilder);
+        m_CubeM2ClearBalance = new CubeM2ClearBalance(autoBuilder);
+        m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder);
     }
 
     /**
@@ -218,6 +230,7 @@ public class RobotContainer {
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
+            SmartDashboard.putData("AutoBallanceInstantForward", new AutoBalanceInstantForward(s_Swerve));
             SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
@@ -234,32 +247,46 @@ public class RobotContainer {
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
         m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
         m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
+        m_chooser.addOption("ConeM1Balance", "ConeM1Balance");
+        m_chooser.addOption("CubeM2Balance", "CubeM2Balance");
+        m_chooser.addOption("ConeM3Balance", "ConeM3Balance");
+        m_chooser.addOption("ConeM1ClearBalance", "ConeM1ClearBalance");
+        m_chooser.addOption("ConeM3ClearBalance", "ConeM3ClearBalance");
+        m_chooser.addOption("CubeM2ClearBalance", "CubeM2ClearBalance");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         /* Populate Event Map */
         HashMap<String, Command> eventMap = new HashMap<String, Command>();
         eventMap.put("LedYellow", new InstantCommand(() -> s_LEDs.state = State.yellow));
         eventMap.put("LedPurple", new InstantCommand(() -> s_LEDs.state = State.purple));
+
         eventMap.put("SetCube", new InstantCommand(() -> isCube = true));
         eventMap.put("SetCone", new InstantCommand(()-> isCube = false));
+
         eventMap.put("IntakeCone", new AutoIntakeCone(s_Intake));
         eventMap.put("IntakeCube", new AutoIntakeCube(s_Intake));
         eventMap.put("IntakeStop", new InstantCommand(()-> s_Intake.stop()));
+
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
+        eventMap.put("AutoBalanceForward",new AutoBalanceForward(s_Swerve));
         eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
         eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("StopSwerve", new InstantCommand( () -> s_Swerve.stop()));
         eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("ConeSlideIntake",new AutoIntakeConeSlide(s_Intake, s_Slide));
+        eventMap.put("AutoBalanceInstant", new AutoBalanceInstant(s_Swerve));
+        eventMap.put("AutoBalanceInstantForward", new AutoBalanceInstantForward(s_Swerve));
 
         eventMap.put("AutoLimelightAlign", new AutoLimelightAlign(s_LimeLight, s_Swerve));
 
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreHighStow", new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("CubeScoreHighStow", new CubeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
 
         /*Wait Times */
         eventMap.put("Wait5", new AutoWait(5));
@@ -334,6 +361,24 @@ public class RobotContainer {
                 break;
             case "ConeL1DualBalance":
                 selected = m_ConeL1DualBalance;
+                break;
+            case "ConeM1Balance":
+                selected = m_ConeM1Balance;
+                break;
+            case "CubeM2Balance":
+                selected = m_CubeM2Balance;
+                break;
+            case "ConeM3Balance":
+                selected = m_ConeM3Balance;
+                break;
+            case "ConeM1ClearBalance":
+                selected = m_ConeM1ClearBalance;
+                break;
+            case "CubeM2ClearBalance":
+                selected = m_CubeM2ClearBalance;
+                break;
+            case "ConeM3ClearBalance":
+                selected = m_ConeM3ClearBalance;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;
