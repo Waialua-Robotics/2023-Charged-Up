@@ -40,6 +40,7 @@ public class Dashboard {
         tab.addNumber("Distace to pull",()-> container.getLimelight().getDistance());
         tab.addNumber("tx", ()-> container.getLimelight().getTX());
         tab.addNumber("ty", ()-> container.getLimelight().getTY());
+        tab.addBoolean("LimitSwitch", ()-> container.getElevator().getSwitch());
         
 
         //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");

@@ -5,6 +5,7 @@
 package org.WaialuaRobotics359.robot;
 
 import org.WaialuaRobotics359.robot.commands.autonomous.InitializeRobot;
+import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
 
@@ -74,7 +75,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-      m_robotContainer.getLEDs().setLEDAliance(); //#TODO: Fix this if other aliance work
+      m_robotContainer.getLEDs().setLEDAliance();
+
+      if(m_robotContainer.getElevator().getSwitch()){
+        LEDs.autoStartPose = false;
+      }else{
+        LEDs.autoStartPose = true;
+      }
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
@@ -82,7 +89,12 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    //m_robotContainer.getElevator().SetPosition(66500);
+    
+    if(m_robotContainer.getElevator().getSwitch()){
+      m_robotContainer.getElevator().SetHomePosition();
+    }else{
+      m_robotContainer.getElevator().SetPosition(66500);
+    }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

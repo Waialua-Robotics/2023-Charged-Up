@@ -114,6 +114,8 @@ public final class Constants {
         public static final int lElevatorID = 11; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+
+        public static final int MagElevatorID = 0;
         
         public static final int Ratio = 30;
 
