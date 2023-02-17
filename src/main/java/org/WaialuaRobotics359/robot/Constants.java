@@ -290,6 +290,8 @@ public final class Constants {
         public static final double wheelBase = Units.inchesToMeters(18.5); 
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
+        public static final double algorithmTickler = 0.0001;
+
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
          public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(

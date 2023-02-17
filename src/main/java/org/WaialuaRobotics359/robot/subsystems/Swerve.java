@@ -77,7 +77,7 @@ public class Swerve extends SubsystemBase {
     }    
 
     public void stop(){
-        drive(new Translation2d(0,0), 0, true, false);
+        drive(new Translation2d(0,0), Constants.Swerve.algorithmTickler, true, false);
     }
 
     public void setCurrentAngle(){
