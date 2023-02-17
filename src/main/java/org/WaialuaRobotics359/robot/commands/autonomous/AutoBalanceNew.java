@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoBalance2 extends CommandBase {
+public class AutoBalanceNew extends CommandBase {
     private Swerve s_Swerve; 
     private Boolean forward;
 
@@ -24,7 +24,7 @@ public class AutoBalance2 extends CommandBase {
     enum State {mount, drop, balance, finish}
     private State state = State.mount;
 
-    public AutoBalance2(Swerve s_Swerve, Boolean forward) {
+    public AutoBalanceNew(Swerve s_Swerve, Boolean forward) {
         this.s_Swerve = s_Swerve;
         this.forward = forward;
         addRequirements(s_Swerve);

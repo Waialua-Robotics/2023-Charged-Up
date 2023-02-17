@@ -53,12 +53,12 @@ public class SetLowPosition extends CommandBase {
         s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
     
-        if (Timer.hasElapsed(0.5)){
+        if (Timer.hasElapsed(0.2)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
 
-        if (Timer.hasElapsed(1)){
+        if (Timer.hasElapsed(.5)){
                 s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
             finished =true; 

@@ -43,6 +43,7 @@ public final class Constants {
 
     public static final class LEDs {
         public static final int CANdleID = 0; 
+        public static final int LEDCount = 128; 
 
     }
 

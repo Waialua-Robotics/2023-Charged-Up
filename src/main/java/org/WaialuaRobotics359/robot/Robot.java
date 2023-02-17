@@ -73,12 +73,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    /*Set Current to disired in disabled #TODO: Change to false for competition */ 
-      m_robotContainer.getWrist().currentToDisired();
-      //m_robotContainer.getElevator().currentToDisired();
-      //m_robotContainer.getSlide().currentToDisired();
 
-    m_robotContainer.getLEDs().setLEDAliance();
+      m_robotContainer.getLEDs().setLEDAliance(); //#TODO: Fix this if other aliance work
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */

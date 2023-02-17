@@ -230,7 +230,8 @@ public class RobotContainer {
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
-            SmartDashboard.putData("AutoBallanceInstantForward", new AutoBalanceInstantForward(s_Swerve));
+            SmartDashboard.putData("AutoBallanceNewForward", new AutoBalanceNew(s_Swerve, true));
+            SmartDashboard.putData("AutoBallanceNewReverse", new AutoBalanceNew(s_Swerve, false));
             SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
