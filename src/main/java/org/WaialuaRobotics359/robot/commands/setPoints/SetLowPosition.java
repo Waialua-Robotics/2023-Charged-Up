@@ -50,18 +50,39 @@ public class SetLowPosition extends CommandBase {
     @Override
     public void execute(){
 
-        s_Wrist.setDesiredPosition(WristPosition);
-        s_Wrist.goToPosition();
-    
-        if (Timer.hasElapsed(0.2)){
-            s_Slide.setDesiredPosition(SlidePosition);
-            s_Slide.goToPosition();
-        }
+        if(!RobotContainer.isCube){
+            s_Wrist.setDesiredPosition(WristPosition);
+            s_Wrist.goToPosition();
+            
+            if (Timer.hasElapsed(0.2)){
+                s_Slide.setDesiredPosition(SlidePosition);
+                s_Slide.goToPosition();
+            }
 
-        if (Timer.hasElapsed(.5)){
+            if (Timer.hasElapsed(.5)){
+                    s_Elevator.setDesiredPosition(ElevatorPosition);
+                s_Elevator.goToPosition();
+                finished =true; 
+            }
+        }else{
+            s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
+            s_Wrist.goToPosition();
+        
+            if (Timer.hasElapsed(0.1)){
+                s_Slide.setDesiredPosition(SlidePosition);
+                s_Slide.goToPosition();
+            }
+    
+            if (s_Slide.GetPosition() < 40000 || Timer.hasElapsed(.3)){
                 s_Elevator.setDesiredPosition(ElevatorPosition);
-            s_Elevator.goToPosition();
-            finished =true; 
+                s_Elevator.goToPosition();
+            }
+    
+            if (s_Elevator.GetPosition() > 20000 && Timer.hasElapsed(.4)|| Timer.hasElapsed(.8)){
+                s_Wrist.setDesiredPosition(WristPosition);
+                s_Wrist.goToPosition();
+                finished = true;
+            }
         }
 
     }

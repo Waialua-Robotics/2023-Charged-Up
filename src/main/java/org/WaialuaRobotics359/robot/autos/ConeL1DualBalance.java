@@ -19,8 +19,8 @@ public class ConeL1DualBalance extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             //new InstantCommand(() -> s_LEDs.state = State.purple),
-            autoBuilder.fullAuto(ConeL1DualBalance),
-            autoBuilder.fullAuto(ConeL1DualBalance2)
+            autoBuilder.fullAuto(ConeL1DualBalance)
+            //autoBuilder.fullAuto(ConeL1DualBalance2)
         ));
     }
 }

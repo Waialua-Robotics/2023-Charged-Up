@@ -233,6 +233,7 @@ public class RobotContainer {
             SmartDashboard.putData("AutoBallanceNewForward", new AutoBalanceNew(s_Swerve, true));
             SmartDashboard.putData("AutoBallanceNewReverse", new AutoBalanceNew(s_Swerve, false));
             SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
+            SmartDashboard.putData("setElivatorToStart", new InstantCommand(()-> s_Elevator.SetPosition(66500)));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
             //SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
@@ -272,6 +273,8 @@ public class RobotContainer {
         eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
+        eventMap.put("AutoBalanceNewForward", new AutoBalanceNew(s_Swerve, true));
+        eventMap.put("AutoBalanceNewBackward", new AutoBalanceNew(s_Swerve, false));
         eventMap.put("AutoBalanceForward",new AutoBalanceForward(s_Swerve));
         eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
         eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));

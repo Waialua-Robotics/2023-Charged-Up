@@ -23,7 +23,7 @@ public class LEDs extends SubsystemBase {
     public LEDs() {
         candle = new CANdle(Constants.LEDs.CANdleID, "rio");
         PurpleStrobe = new StrobeAnimation(147, 0, 255, 0, .2, Constants.LEDs.LEDCount, 0);
-        YellowStrobe = new StrobeAnimation(247, 255, 0, 0, .2, Constants.LEDs.LEDCount, 0);
+        YellowStrobe = new StrobeAnimation(255, 150, 0, 0, .2, Constants.LEDs.LEDCount, 0);
 
         CANdleConfiguration config = new CANdleConfiguration();
         config.stripType = LEDStripType.RGB; // set the strip type to RGB
@@ -51,7 +51,7 @@ public class LEDs extends SubsystemBase {
                 if (hasObject){
                     candle.animate(YellowStrobe, 1);
                 }else{
-                    candle.setLEDs(247,255,0);
+                    candle.setLEDs(255,150,0);
                     candle.clearAnimation(1);
                 }
                 break;

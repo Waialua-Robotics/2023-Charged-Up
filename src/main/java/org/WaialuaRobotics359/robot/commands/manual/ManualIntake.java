@@ -26,6 +26,7 @@ public class ManualIntake extends CommandBase {
     }
 
     double intakeSpeed;
+    double outtakeSpeed;
 
     public void initialize(){}
 
@@ -33,9 +34,11 @@ public class ManualIntake extends CommandBase {
     public void execute(){
 
         if(RobotContainer.isCube){
-            intakeSpeed = -Constants.Intake.speed;
+            intakeSpeed = -Constants.Intake.speedIn;
+            outtakeSpeed = -Constants.Intake.speedOut;
         } else {
-            intakeSpeed = Constants.Intake.speed;
+            intakeSpeed = Constants.Intake.speedIn;
+            outtakeSpeed = Constants.Intake.speedOut;
         }
 
         //trigger control 

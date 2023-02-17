@@ -16,7 +16,7 @@ import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition Bot
+    public static final boolean isCompetitionRobot = true; //#TODO: Change to true for competition Bot
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -221,7 +221,8 @@ public final class Constants {
         public static final Boolean intakeMotorInvert = false;
         public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
-        public static final double speed = 0.5;
+        public static final double speedIn = 0.5;
+        public static final double speedOut = 0.3;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;

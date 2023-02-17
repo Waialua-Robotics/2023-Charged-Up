@@ -121,7 +121,8 @@
       "stopEvent": {
         "names": [
           "AutoLimelightAlign",
-          "ConeScoreMid"
+          "ConeScoreMid",
+          "AutoBalanceNewForward"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",

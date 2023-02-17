@@ -82,6 +82,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_robotContainer.getElevator().SetPosition(66500);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

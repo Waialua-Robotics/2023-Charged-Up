@@ -67,7 +67,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "AutoBalanceForward"
+          "AutoBalanceNewForward"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "after",

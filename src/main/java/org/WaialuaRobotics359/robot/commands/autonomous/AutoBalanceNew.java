@@ -1,9 +1,11 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
+import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceNew extends CommandBase {
@@ -15,9 +17,9 @@ public class AutoBalanceNew extends CommandBase {
     private double pitchThreshold = 0.5;
 
     /* Variables for the drop case */
-        private double previousPitch = 50; // Set to a value that will never be reached
-        private int i = 0;
-        private int inRangeDuration = 10;
+        private double previousPitch; // Set to a value that will never be reached
+        private int i;
+        private int inRangeDuration;
     /* Variables for the balance case */ 
         private double dropAngle;
 
@@ -34,6 +36,13 @@ public class AutoBalanceNew extends CommandBase {
     @Override
     public void initialize() {
         pitchOffset = s_Swerve.GetGyroPitch();
+        state = State.mount;
+
+        /* Initialize variables to their default values */
+        previousPitch = 50; // Set to a value that will never be reached
+        i = 0;
+        inRangeDuration = 10;
+        dropAngle = 15;
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -45,7 +54,9 @@ public class AutoBalanceNew extends CommandBase {
         switch (state) {
             case mount:
 
-                double drivePower = (forward ? 0.7 : - 0.7);
+            System.out.println("mount");
+
+                double drivePower = (forward ? 1 : -1);
 
                 s_Swerve.setModuleStates(
                     new SwerveModuleState[] {
@@ -56,34 +67,40 @@ public class AutoBalanceNew extends CommandBase {
                     }
                 );
 
-                if (currentPitch > 20) state = State.drop;
+                if (Math.abs(currentPitch) > 16) state = State.balance; //drop
 
                 break;
 
             case drop:
 
-                if (Math.abs(currentPitch - previousPitch) < pitchThreshold) {
-                    i++; 
+
+            System.out.println("drop");
+
+                if (Conversions.isBetween(currentPitch, dropAngle - pitchThreshold, dropAngle + pitchThreshold)) {
+                    i++;
                 } else {
                     i = 0;
                 }
 
-                previousPitch = currentPitch;
-
-                if (i > inRangeDuration) {
+                if (i > inRangeDuration ) {
                     state = State.balance;
-                    dropAngle = currentPitch;
                 }
 
                 break;  
 
             case balance:
 
-                if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
+            System.out.println("balance");
+
+                if (Math.abs(currentPitch) <9) state = State.finish;
+
+                //if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
 
                 break;
             
         }
+
+        System.out.println(currentPitch);
     }
     
     // Called once the command ends or is interrupted.
