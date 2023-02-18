@@ -10,13 +10,14 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = true; //#TODO: Change to true for competition Bot
+    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition Bot
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -37,6 +38,8 @@ public final class Constants {
         public static final int outake = XboxController.Button.kLeftBumper.value;
         public static final int isCube = XboxController.Button.kLeftStick.value;
         public static final int isCone = XboxController.Button.kRightStick.value;
+        public static final int ZeroSlide = 270;
+        public static final int ZeroAll = 180;
 
         public static final double deadband = 0.1;
     }
@@ -139,7 +142,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 150000; 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = -700;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;

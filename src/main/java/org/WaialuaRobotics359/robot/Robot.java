@@ -89,11 +89,11 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    
+
     if(m_robotContainer.getElevator().getSwitch()){
       m_robotContainer.getElevator().SetHomePosition();
     }else{
-      m_robotContainer.getElevator().SetPosition(66500);
+      m_robotContainer.getElevator().SetPosition(64500);
     }
 
     // schedule the autonomous command (example)
