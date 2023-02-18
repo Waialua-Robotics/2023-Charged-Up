@@ -115,9 +115,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    CommandScheduler.getInstance().schedule(
+    /*CommandScheduler.getInstance().schedule(
       new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())
-    );
+    );*/
   }
   /** This function is called periodically during operator control. */
   @Override
