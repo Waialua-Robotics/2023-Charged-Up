@@ -42,7 +42,7 @@ public class AutoBalanceNew extends CommandBase {
         previousPitch = 50; // Set to a value that will never be reached
         i = 0;
         inRangeDuration = 10;
-        dropAngle = 15;
+        dropAngle = 14;
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -54,9 +54,9 @@ public class AutoBalanceNew extends CommandBase {
         switch (state) {
             case mount:
 
-            System.out.println("mount");
+            //System.out.println("mount");
 
-                double drivePower = (forward ? 1 : -1);
+                double drivePower = (forward ? 1 : -2);
 
                 s_Swerve.setModuleStates(
                     new SwerveModuleState[] {
@@ -74,7 +74,7 @@ public class AutoBalanceNew extends CommandBase {
             case drop:
 
 
-            System.out.println("drop");
+            //System.out.println("drop");
 
                 if (Conversions.isBetween(currentPitch, dropAngle - pitchThreshold, dropAngle + pitchThreshold)) {
                     i++;
@@ -90,9 +90,11 @@ public class AutoBalanceNew extends CommandBase {
 
             case balance:
 
-            System.out.println("balance");
+            //System.out.println("balance");
 
-                if (Math.abs(currentPitch) <9) state = State.finish;
+                if ((Math.abs(currentPitch) <10) && i >25) state = State.finish;
+
+                i++;
 
                 //if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
 
@@ -100,7 +102,8 @@ public class AutoBalanceNew extends CommandBase {
             
         }
 
-        System.out.println(currentPitch);
+        //System.out.println(Math.abs(currentPitch));
+        //System.out.println(i);
     }
     
     // Called once the command ends or is interrupted.

@@ -36,7 +36,7 @@ import com.pathplanner.lib.auto.SwerveAutoBuilder;
  */
 public class RobotContainer {
 
-    public static boolean isCompetitionBot = true;
+    public static boolean isCompetitionBot = false;
 
     public static boolean isCube = true;
 
@@ -85,7 +85,7 @@ public class RobotContainer {
     private final JoystickButton setCone = new JoystickButton(operator, Constants.OI.isCone);
     private final POVButton ZeroSlide = new POVButton(operator, Constants.OI.ZeroSlide);
     private final POVButton ZeroAll = new POVButton(operator, Constants.OI.ZeroAll);
-    private final POVButton AutoIntakeCone = new POVButton(operator, 0);
+    private final POVButton autoBalance = new POVButton(operator, 0);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -104,6 +104,7 @@ public class RobotContainer {
     private final swerveBuilderAuto m_SwerveBuilderAuto;
     private final ConeL3Auto m_ConeL3Auto;
     private final ConeL1Auto m_ConeL1Auto;
+    private final ConeL1Dual m_ConeL1Dual;
     private final ConeL1DualBalance m_ConeL1DualBalance;
     private final ConeM1Balance m_ConeM1Balance;
     private final CubeM2Balance m_CubeM2Balance;
@@ -114,7 +115,7 @@ public class RobotContainer {
     private final ConeM3ClearBalance m_ConeM3ClearBalance;
     private final ConeR3Dual m_ConeR3Dual;
     private final ConeR3DualBalance m_ConeR3DualBalance;
-    private final ConeScoreHigh m_ConeScoreHigh;
+    private final ConeScoreHighStow m_ConeScoreHighStow;
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -181,9 +182,11 @@ public class RobotContainer {
          * Initialize Autonomous Routines 
          * Do not move to prevent initialization race case
          */ 
+        /*AutoBuilder */
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
         m_ConeL3Auto = new ConeL3Auto(autoBuilder);
         m_ConeL1Auto = new ConeL1Auto(autoBuilder);
+        m_ConeL1Dual = new ConeL1Dual(autoBuilder);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder);
         m_ConeM1Balance = new ConeM1Balance(autoBuilder);
         m_CubeM2Balance = new CubeM2Balance(autoBuilder);
@@ -194,7 +197,8 @@ public class RobotContainer {
         m_ConeR3Balance = new ConeR3Balance(autoBuilder);
         m_ConeR3Dual = new ConeR3Dual(autoBuilder);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder);
-        m_ConeScoreHigh = new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake);
+        /*Command */
+        m_ConeScoreHighStow = new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake);
     }
 
     /**
@@ -211,10 +215,10 @@ public class RobotContainer {
             ResetMods.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
             /* Snap-to Swerve Angle */
             setCurrentAngle.onTrue(new InstantCommand(() -> s_Swerve.setCurrentAngle()));
-            Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
-            Angle90.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
-            Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
-            Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(270)));
+            Angle0.onTrue(new InstantCommand(() -> s_Swerve.setDesired(180)));
+            Angle90.onTrue(new InstantCommand(() -> s_Swerve.setDesired(270)));
+            Angle180.onTrue(new InstantCommand(() -> s_Swerve.setDesired(0)));
+            Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
             AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve));
@@ -241,7 +245,7 @@ public class RobotContainer {
             ZeroSlide.onTrue(new AutoZeroSlide(s_Slide));
             ZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
-            AutoIntakeCone.onTrue(new AutoIntakeCone(s_Intake));
+            autoBalance.onTrue(new AutoBalanceNew(s_Swerve, false));
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
@@ -263,6 +267,7 @@ public class RobotContainer {
         m_chooser.addOption("twomAuto", "twomAuto");   
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
         m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
+        m_chooser.addOption("ConeL1Dual", "ConeL1Dual");
         m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
         m_chooser.addOption("ConeM1Balance", "ConeM1Balance");
         m_chooser.addOption("CubeM2Balance", "CubeM2Balance");
@@ -273,7 +278,7 @@ public class RobotContainer {
         m_chooser.addOption("ConeR3Balance", "ConeR3Balance");
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
-        m_chooser.addOption("ConeScoreHigh", "ConeScoreHigh");
+        m_chooser.addOption("ConeScoreHighStow", "ConeScoreHighStow");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
         /* Populate Event Map */
@@ -311,6 +316,7 @@ public class RobotContainer {
         eventMap.put("ConeScoreHighStow", new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("CubeScoreHighStow", new CubeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeIntakeStow", new ConeIntakeStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreHighHalf", new ConeScoreHighHalf(s_Wrist, s_Elevator, s_Slide, s_Intake));
 
         /*Wait Times */
         eventMap.put("Wait5", new AutoWait(5));
@@ -383,6 +389,9 @@ public class RobotContainer {
             case "ConeL1Auto":
                 selected = m_ConeL1Auto;
                 break;
+            case "ConeL1Dual":
+                selected = m_ConeL1Dual;
+                break;
             case "ConeL1DualBalance":
                 selected = m_ConeL1DualBalance;
                 break;
@@ -413,8 +422,8 @@ public class RobotContainer {
             case "ConeR3DualBalance":
                 selected = m_ConeR3DualBalance;
                 break;
-            case "ConeScoreHigh":
-                selected = m_ConeScoreHigh;
+            case "ConeScoreHighStow":
+                selected = m_ConeScoreHighStow;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;

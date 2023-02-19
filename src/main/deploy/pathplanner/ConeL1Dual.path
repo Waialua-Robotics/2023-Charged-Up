@@ -13,7 +13,7 @@
       "holonomicAngle": 180.0,
       "isReversal": false,
       "velOverride": null,
-      "isLocked": false,
+      "isLocked": true,
       "isStopPoint": false,
       "stopEvent": {
         "names": [
@@ -53,15 +53,15 @@
     {
       "anchorPoint": {
         "x": 7.4,
-        "y": 4.7
+        "y": 4.55
       },
       "prevControl": {
         "x": 5.248829783373853,
-        "y": 4.773458761203237
+        "y": 4.623458761203237
       },
       "nextControl": {
         "x": 5.248829783373853,
-        "y": 4.773458761203237
+        "y": 4.623458761203237
       },
       "holonomicAngle": 0.01,
       "isReversal": true,
@@ -78,15 +78,15 @@
     {
       "anchorPoint": {
         "x": 3.15989331978664,
-        "y": 4.909956819913639
+        "y": 4.8
       },
       "prevControl": {
         "x": 3.9042599513770457,
-        "y": 4.952901048659241
+        "y": 4.842944228745601
       },
       "nextControl": {
         "x": 2.4155266881962345,
-        "y": 4.867012591168038
+        "y": 4.757055771254398
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -105,12 +105,12 @@
     },
     {
       "anchorPoint": {
-        "x": 2.1292318298922313,
-        "y": 3.306705613411227
+        "x": 2.3153234877898328,
+        "y": 4.85269784825284
       },
       "prevControl": {
-        "x": 2.186490801553032,
-        "y": 4.065386987916833
+        "x": 2.6899761633960084,
+        "y": 4.85269784825284
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -121,8 +121,7 @@
       "stopEvent": {
         "names": [
           "AutoLimelightAlign",
-          "ConeScoreMid",
-          "AutoBalanceNewBackward"
+          "ConeScoreMid"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",
@@ -130,31 +129,33 @@
       }
     }
   ],
-  "maxVelocity": 7.0,
-  "maxAcceleration": 4.0,
-  "isReversed": null,
   "markers": [
     {
-      "position": 0.1,
-      "names": [
-        "IntakeCone",
-        "SetStandPosition"
-      ]
-    },
-    {
-      "position": 2.536363636363639,
+      "position": 1.4181818181818184,
       "names": [
         "IntakeCone"
       ]
     },
     {
-      "position": 2.2909090909090897,
+      "position": 2.218181818181819,
       "names": [
         "IntakeCone"
       ]
     },
     {
-      "position": 3.1272727272727217,
+      "position": 2.909090909090905,
+      "names": [
+        "IntakeCone"
+      ]
+    },
+    {
+      "position": 2.1090909090909085,
+      "names": [
+        "IntakeCone"
+      ]
+    },
+    {
+      "position": 3.8545454545454456,
       "names": [
         "IntakeCone"
       ]

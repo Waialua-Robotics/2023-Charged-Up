@@ -17,7 +17,7 @@ import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = true; //#TODO: Change to true for competition Bot
+    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition Bot
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -142,7 +142,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 150000; 
-        public static final int reverseSoftLimit = -700;//1000
+        public static final int reverseSoftLimit = 0;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
