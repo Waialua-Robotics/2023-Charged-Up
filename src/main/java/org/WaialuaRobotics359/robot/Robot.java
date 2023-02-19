@@ -4,7 +4,6 @@
 
 package org.WaialuaRobotics359.robot;
 
-import org.WaialuaRobotics359.robot.commands.autonomous.InitializeRobot;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;

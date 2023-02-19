@@ -56,8 +56,8 @@ public class Swerve extends SubsystemBase {
                                     getYaw()
                                 )
                                 : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
+                                    -translation.getX(), //3FixMe possible fix for robot centric
+                                    -translation.getY(), 
                                     rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);

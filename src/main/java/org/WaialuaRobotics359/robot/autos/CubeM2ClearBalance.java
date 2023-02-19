@@ -14,7 +14,7 @@ public class CubeM2ClearBalance extends SequentialCommandGroup {
     public CubeM2ClearBalance (SwerveAutoBuilder autoBuilder) {
 
         List<PathPlannerTrajectory> CubeM2ClearBalance = PathPlanner.loadPathGroup("CubeM2ClearBalance", new PathConstraints(4, 1.5), new PathConstraints (3, 2));
-
+        //PathPlannerTrajectory.transformTrajectoryForAlliance
         addCommands(new SequentialCommandGroup(
             autoBuilder.fullAuto(CubeM2ClearBalance)
         ));

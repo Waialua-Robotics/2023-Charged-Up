@@ -1,24 +1,16 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
 import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Constants.Limelight.txAlign;
 import org.WaialuaRobotics359.robot.Constants.Limelight.tyAlign;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
-import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class AutoLimelightAlign extends CommandBase {
 

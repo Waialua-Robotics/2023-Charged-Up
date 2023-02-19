@@ -5,7 +5,6 @@ import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceNew extends CommandBase {
@@ -17,7 +16,7 @@ public class AutoBalanceNew extends CommandBase {
     private double pitchThreshold = 0.5;
 
     /* Variables for the drop case */
-        private double previousPitch; // Set to a value that will never be reached
+        //private double previousPitch; // Set to a value that will never be reached
         private int i;
         private int inRangeDuration;
     /* Variables for the balance case */ 
@@ -39,7 +38,7 @@ public class AutoBalanceNew extends CommandBase {
         state = State.mount;
 
         /* Initialize variables to their default values */
-        previousPitch = 50; // Set to a value that will never be reached
+        //previousPitch = 50; // Set to a value that will never be reached
         i = 0;
         inRangeDuration = 10;
         dropAngle = 14;
@@ -99,6 +98,9 @@ public class AutoBalanceNew extends CommandBase {
                 //if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
 
                 break;
+
+            case finish:
+            break;
             
         }
 

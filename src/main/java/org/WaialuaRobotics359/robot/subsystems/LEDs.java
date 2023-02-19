@@ -8,7 +8,6 @@ import org.WaialuaRobotics359.robot.Constants;
 import com.ctre.phoenix.led.*;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
 import com.ctre.phoenix.led.LarsonAnimation.BounceMode;
-import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 
 
 public class LEDs extends SubsystemBase {

@@ -26,7 +26,6 @@ public class InitializeRobot extends CommandBase {
 
     @Override
     public void execute() {
-        //s_Swerve.setGyroYaw(((180 - s_Swerve.getYaw360()) % 360)); //#TODO Remove for not spin spin
         s_Swerve.setDesired(s_Swerve.getYaw360());
     }
 

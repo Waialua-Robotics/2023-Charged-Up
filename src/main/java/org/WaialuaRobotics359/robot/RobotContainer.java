@@ -95,7 +95,7 @@ public class RobotContainer {
     private final Intake s_Intake = new Intake();
     private final LEDs s_LEDs = new LEDs();
     private final LimeLight s_LimeLight = new LimeLight();
-    private final Fork s_Fork = new Fork(); // #TODO: Change to true for competition Bot
+    private final Fork s_Fork = new Fork();
 
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
@@ -170,7 +170,7 @@ public class RobotContainer {
                 () -> driver.getRawAxis(ForkLowerTrigger),
                 () -> ForkDeploy.getAsBoolean()
                 )
-            ); // #TODO: Change to true for competition Bot
+            );
 
         /* Configure Button Bindings */
         configureButtonBindings();
