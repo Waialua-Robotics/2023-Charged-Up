@@ -85,6 +85,7 @@ public class RobotContainer {
     private final JoystickButton setCone = new JoystickButton(operator, Constants.OI.isCone);
     private final POVButton ZeroSlide = new POVButton(operator, Constants.OI.ZeroSlide);
     private final POVButton ZeroAll = new POVButton(operator, Constants.OI.ZeroAll);
+    private final POVButton BirdPosition = new POVButton(operator, Constants.OI.BirdPosition);
     private final POVButton autoBalance = new POVButton(operator, 0);
 
     /* Subsystems */
@@ -116,6 +117,7 @@ public class RobotContainer {
     private final ConeR3Dual m_ConeR3Dual;
     private final ConeR3DualBalance m_ConeR3DualBalance;
     private final ConeScoreHighStow m_ConeScoreHighStow;
+    private final DriveBack m_DriveBack;
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -197,6 +199,7 @@ public class RobotContainer {
         m_ConeR3Balance = new ConeR3Balance(autoBuilder);
         m_ConeR3Dual = new ConeR3Dual(autoBuilder);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder);
+        m_DriveBack = new DriveBack(autoBuilder);
         /*Command */
         m_ConeScoreHighStow = new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake);
     }
@@ -231,6 +234,7 @@ public class RobotContainer {
             LowPosition.onTrue(new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
             StowPosition.onTrue(new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
             StandPosition.onTrue(new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
+            BirdPosition.onTrue(new SetBirdPosition(s_Wrist, s_Elevator, s_Slide));
             /* Toggle Game Piece */
             setCube.onTrue(
                 new ParallelCommandGroup( new InstantCommand(() -> isCube = true),
@@ -278,6 +282,8 @@ public class RobotContainer {
         m_chooser.addOption("ConeR3Balance", "ConeR3Balance");
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
+        m_chooser.addOption("DriveBack", "DriveBack");
+
         m_chooser.addOption("ConeScoreHighStow", "ConeScoreHighStow");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
 
@@ -424,6 +430,9 @@ public class RobotContainer {
                 break;
             case "ConeScoreHighStow":
                 selected = m_ConeScoreHighStow;
+                break;
+            case "DriveBack":
+                selected = m_DriveBack;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;

@@ -56,7 +56,7 @@ public class Swerve extends SubsystemBase {
                                     getYaw()
                                 )
                                 : new ChassisSpeeds(
-                                    -translation.getX(), //3FixMe possible fix for robot centric
+                                    -translation.getX(),
                                     -translation.getY(), 
                                     rotation)
                                 );

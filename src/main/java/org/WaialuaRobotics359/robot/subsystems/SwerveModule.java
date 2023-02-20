@@ -27,7 +27,8 @@ public class SwerveModule {
     private TalonFX mDriveMotor;
     private CANCoder angleEncoder;
 
-    public double CANcoderInitTime = 0.1;
+    private Timer encodeTimer;
+    public double CANcoderInitTime = 0.0;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
@@ -92,6 +93,7 @@ public class SwerveModule {
          * CANcoder before we have received any position signal
          * from the CANcoder.
          */
+        //encodeTimer.start();
         for (int i = 0; i < 100; ++i) {
             angleEncoder.getAbsolutePosition();
             if (angleEncoder.getLastError() == ErrorCode.OK) {

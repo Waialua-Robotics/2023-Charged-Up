@@ -37,6 +37,7 @@ public final class Constants {
         public static final int outake = XboxController.Button.kLeftBumper.value;
         public static final int isCube = XboxController.Button.kLeftStick.value;
         public static final int isCone = XboxController.Button.kRightStick.value;
+        public static final int BirdPosition = 90;
         public static final int ZeroSlide = 270;
         public static final int ZeroAll = 180;
 
@@ -76,6 +77,7 @@ public final class Constants {
             public static final int HighPosition = 200000;
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
+            public static final int BirdPosition = 1000;
         }
 
         public static final class Cone {
@@ -84,6 +86,7 @@ public final class Constants {
             public static final int HighPosition = 204000;
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
+            public static final int BirdPosition = 1000;
         }
        
         /* soft limits */
@@ -129,6 +132,7 @@ public final class Constants {
             public static final int HighPosition = 145000;
             public static final int FeederPosition = 138000;
             public static final int standPosition = 21600;
+            public static final int BirdPosition = 49000;
         }
 
         public static final class Cone {
@@ -137,6 +141,7 @@ public final class Constants {
             public static final int HighPosition = 150000;
             public static final int FeederPosition = 135500;
             public static final int standPosition = 49000;
+            public static final int BirdPosition = 49000;
         }
 
         /* soft limits */
@@ -183,6 +188,7 @@ public final class Constants {
             public static final int HighPosition = 12000;
             public static final int FeederPosition = 13000;
             public static final int standPosition = 16500;
+            public static final int BirdPosition = 6980;
         }
 
         public static final class Cone {
@@ -191,6 +197,7 @@ public final class Constants {
             public static final int HighPosition = 9100;
             public static final int FeederPosition = 12000;
             public static final int standPosition = 16500;
+            public static final int BirdPosition = 6980;
         }
 
         /* soft limits */

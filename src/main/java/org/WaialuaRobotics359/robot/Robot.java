@@ -88,11 +88,19 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    
+    // If the elevator is not at the switch position, move it to the switch position
+ // If the elevator is at the switch position, move it to the home position
+ // This code is used to move the elevator to the switch position in autonomous
 
-    if(!m_robotContainer.getElevator().getSwitch()){
-      m_robotContainer.getElevator().SetPosition(64000);
-    }else{
-      m_robotContainer.getElevator().SetHomePosition();
+ if(Constants.isCompetitionRobot){
+      if(!m_robotContainer.getElevator().getSwitch()){
+        m_robotContainer.getElevator().SetPosition(65000);
+        m_robotContainer.getElevator().setDesiredPosition(65000);
+      }else{
+        m_robotContainer.getElevator().SetHomePosition();
+        m_robotContainer.getElevator().setDesiredPosition(0);
+      }
     }
 
     // schedule the autonomous command (example)

@@ -91,7 +91,7 @@ public class AutoBalanceNew extends CommandBase {
 
             //System.out.println("balance");
 
-                if ((Math.abs(currentPitch) <10) && i >25) state = State.finish;
+                if ((Math.abs(currentPitch) <14.5) && i >50) state = State.finish;
 
                 i++;
 
