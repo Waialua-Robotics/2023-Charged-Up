@@ -97,7 +97,7 @@ public class Robot extends TimedRobot {
       if(!m_robotContainer.getElevator().getSwitch()){
         m_robotContainer.getElevator().SetPosition(65000);
         m_robotContainer.getElevator().setDesiredPosition(65000);
-      }else{
+      } else {
         m_robotContainer.getElevator().SetHomePosition();
         m_robotContainer.getElevator().setDesiredPosition(0);
       }
