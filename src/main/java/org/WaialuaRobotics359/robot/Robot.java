@@ -95,9 +95,11 @@ public class Robot extends TimedRobot {
 
  if(Constants.isCompetitionRobot){
       if(!m_robotContainer.getElevator().getSwitch()){
+        System.out.println("65000");
         m_robotContainer.getElevator().SetPosition(65000);
         m_robotContainer.getElevator().setDesiredPosition(65000);
       } else {
+        System.out.println("0");
         m_robotContainer.getElevator().SetHomePosition();
         m_robotContainer.getElevator().setDesiredPosition(0);
       }

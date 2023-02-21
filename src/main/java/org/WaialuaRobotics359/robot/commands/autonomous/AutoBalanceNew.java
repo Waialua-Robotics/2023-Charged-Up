@@ -55,7 +55,7 @@ public class AutoBalanceNew extends CommandBase {
 
             //System.out.println("mount");
 
-                double drivePower = (forward ? 1 : -2);
+                double drivePower = (forward ? 2 : -2);
 
                 s_Swerve.setModuleStates(
                     new SwerveModuleState[] {

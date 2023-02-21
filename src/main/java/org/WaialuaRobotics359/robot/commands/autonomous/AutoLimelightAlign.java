@@ -54,8 +54,8 @@ public class AutoLimelightAlign extends CommandBase {
     }
 
     private void fetchValues() {
-       tx = -s_limelight.getTX();
-       ty = s_limelight.getTY();
+       tx = s_limelight.getTX();
+       ty = -s_limelight.getTY();
        omega = s_Swerve .getYaw().getDegrees();
     }
 
@@ -109,7 +109,7 @@ public class AutoLimelightAlign extends CommandBase {
             ); 
         }
 
-        if (teleop && timer.hasElapsed(3)) finished =true;  
+        if (teleop && timer.hasElapsed(1.5)) finished =true;  
 
 
         /* 

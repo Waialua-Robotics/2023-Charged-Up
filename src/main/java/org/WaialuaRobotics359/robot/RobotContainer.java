@@ -118,6 +118,7 @@ public class RobotContainer {
     private final ConeR3DualBalance m_ConeR3DualBalance;
     private final ConeScoreHighStow m_ConeScoreHighStow;
     private final DriveBack m_DriveBack;
+    private final DoNothing m_DoNothing;
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -202,6 +203,7 @@ public class RobotContainer {
         m_DriveBack = new DriveBack(autoBuilder);
         /*Command */
         m_ConeScoreHighStow = new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake);
+        m_DoNothing = new DoNothing();
     }
 
     /**
@@ -283,6 +285,7 @@ public class RobotContainer {
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
         m_chooser.addOption("DriveBack", "DriveBack");
+        m_chooser.addOption("DoNothing", "DoNothing");
 
         m_chooser.addOption("ConeScoreHighStow", "ConeScoreHighStow");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -433,6 +436,9 @@ public class RobotContainer {
                 break;
             case "DriveBack":
                 selected = m_DriveBack;
+                break;
+            case "DoNothing":
+                selected = m_DoNothing;
                 break;
             default:
                 selected =  m_SwerveBuilderAuto;

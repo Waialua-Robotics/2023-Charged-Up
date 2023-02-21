@@ -51,6 +51,10 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorR.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }
 
+    public void CurrentDisired(){
+        mElevatorMotorR.set(TalonFXControlMode.MotionMagic, mElevatorMotorR.getSelectedSensorPosition());
+    }
+
     public boolean inRange() {
         int encoder = (int) mElevatorMotorR.getSelectedSensorPosition();
         return (encoder > (desiredPosition - Constants.Elevator.threshold)) && (encoder < (desiredPosition + Constants.Elevator.threshold));
