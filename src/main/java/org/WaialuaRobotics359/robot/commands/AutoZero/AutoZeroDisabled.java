@@ -22,10 +22,20 @@ public class AutoZeroDisabled extends CommandBase {
     }
 
     public void initialize(){
-        s_Wrist.setDesiredPosition((int)s_Wrist.GetPosition());
+        //s_Wrist.setDesiredPosition(s_Wrist.GetPosition());
+        //s_Elevator.setDesiredPosition(s_Elevator.GetPosition());
+        //s_Slide.setDesiredPosition(s_Slide.GetPosition());
+
+    }
+
+    @Override
+    public void execute(){
+        s_Wrist.Stop();;
+        s_Elevator.Stop();;
+        s_Slide.Stop();
+        s_Wrist.setDesiredPosition(s_Wrist.GetPosition());
         s_Elevator.setDesiredPosition(s_Elevator.GetPosition());
         s_Slide.setDesiredPosition(s_Slide.GetPosition());
-
     }
     
     public boolean isFinished(){

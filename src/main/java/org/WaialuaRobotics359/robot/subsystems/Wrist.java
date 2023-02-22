@@ -46,8 +46,8 @@ public class Wrist extends SubsystemBase {
         return (encoder > (desiredPosition - Constants.Wrist.threshold)) && (encoder < (desiredPosition + Constants.Wrist.threshold));
     }
 
-    public double GetPosition() {
-        return (int) mWristMotor.getSelectedSensorPosition();
+    public int GetPosition() {
+        return  (int)mWristMotor.getSelectedSensorPosition();
      }
 
      public double GetPositionInches(){

@@ -4,6 +4,7 @@
 
 package org.WaialuaRobotics359.robot;
 
+import org.WaialuaRobotics359.robot.commands.AutoZero.AutoZeroDisabled;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
@@ -74,13 +75,19 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
-      m_robotContainer.getLEDs().setLEDAliance();
+    m_robotContainer.getWrist().Stop();;
+    m_robotContainer.getElevator(). Stop();
+    m_robotContainer.getSlide().Stop();
+    m_robotContainer.getWrist().setDesiredPosition(m_robotContainer.getWrist().GetPosition());
+    m_robotContainer.getElevator().setDesiredPosition(m_robotContainer.getElevator().GetPosition());
+    m_robotContainer.getSlide().setDesiredPosition(m_robotContainer.getSlide().GetPosition());
 
-      if(m_robotContainer.getElevator().getSwitch()){
-        LEDs.autoStartPose = false;
-      }else{
-        LEDs.autoStartPose = true;
-      }
+    m_robotContainer.getLEDs().setLEDAliance();
+    if(m_robotContainer.getElevator().getSwitch()){
+      LEDs.autoStartPose = false;
+    }else{
+      LEDs.autoStartPose = true;
+    }
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
