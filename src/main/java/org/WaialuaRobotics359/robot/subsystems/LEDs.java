@@ -16,11 +16,14 @@ public class LEDs extends SubsystemBase {
     private final StrobeAnimation PurpleStrobe;
     private final StrobeAnimation YellowStrobe;
 
+    private final StrobeAnimation WarningFlash;
+
     private final LarsonAnimation BlueLarson;
     private final LarsonAnimation RedLarson;
 
     public static Boolean hasObject = false; 
     public static Boolean autoStartPose = false; 
+    public static boolean reportWarning = true; 
 
     public static enum State {off,purple,yellow,Blue,Red}
     public State state = State.off;
@@ -34,9 +37,11 @@ public class LEDs extends SubsystemBase {
         BlueLarson = new LarsonAnimation(0, 0, 255, 0, .7, Constants.LEDs.LEDCount, BounceMode.Center, 15, 0);
         RedLarson = new LarsonAnimation(255, 0, 0, 0, .7, Constants.LEDs.LEDCount, BounceMode.Center, 15, 0);
 
+        WarningFlash = new StrobeAnimation(255, 64, 0, 0, .2, Constants.LEDs.LEDCount, 0);
+
         CANdleConfiguration config = new CANdleConfiguration();
         config.stripType = LEDStripType.RGB; // set the strip type to RGB
-        config.brightnessScalar = 1; // dim the LEDs to half brightness
+        config.brightnessScalar = 1; 
 
         candle.configAllSettings(config);
     }
@@ -64,7 +69,10 @@ public class LEDs extends SubsystemBase {
                 }
                 break;
             case Blue:
-                if(autoStartPose){
+                if (reportWarning){
+                    candle.animate(WarningFlash, 1);
+                }
+                else if(autoStartPose && !reportWarning){
                     candle.animate(BlueLarson, 1);
                 }else{
                     candle.setLEDs(0,0,255);
@@ -72,7 +80,10 @@ public class LEDs extends SubsystemBase {
                 }
                 break;
             case Red:
-                if(autoStartPose){
+                if (reportWarning){
+                    candle.animate(WarningFlash, 1);
+                }
+                else if(autoStartPose && !reportWarning){
                     candle.animate(RedLarson, 1);
                 }else{
                     candle.setLEDs(255,0,0);

@@ -91,7 +91,7 @@ public class AutoBalanceNew extends CommandBase {
 
             //System.out.println("balance");
 
-                if ((Math.abs(currentPitch) <14.5) && i >50) state = State.finish;
+                if ((Math.abs(currentPitch) <13.8) && i >40) state = State.finish;
 
                 i++;
 
@@ -104,8 +104,8 @@ public class AutoBalanceNew extends CommandBase {
             
         }
 
-        //System.out.println(Math.abs(currentPitch));
-        //System.out.println(i);
+        System.out.println(Math.abs(currentPitch));
+        System.out.println(i);
     }
     
     // Called once the command ends or is interrupted.

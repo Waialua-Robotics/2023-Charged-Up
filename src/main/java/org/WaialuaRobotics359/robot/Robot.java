@@ -4,7 +4,6 @@
 
 package org.WaialuaRobotics359.robot;
 
-import org.WaialuaRobotics359.robot.commands.AutoZero.AutoZeroDisabled;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
@@ -75,6 +74,12 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
 
+    if (m_robotContainer.getElevator().getSwitch()){
+      m_robotContainer.getElevator().SetHomePosition();
+      m_robotContainer.getElevator().HasSwitched = true;
+      LEDs.reportWarning = false; 
+    }
+
     m_robotContainer.getWrist().Stop();;
     m_robotContainer.getElevator(). Stop();
     m_robotContainer.getSlide().Stop();
@@ -97,18 +102,19 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
     // If the elevator is not at the switch position, move it to the switch position
- // If the elevator is at the switch position, move it to the home position
- // This code is used to move the elevator to the switch position in autonomous
+    // If the elevator is at the switch position, move it to the home position
+    // This code is used to move the elevator to the switch position in autonomous
 
- if(Constants.isCompetitionRobot){
-      if(!m_robotContainer.getElevator().getSwitch()){
-        System.out.println("65000");
-        m_robotContainer.getElevator().SetPosition(65000);
+    if(Constants.isCompetitionRobot){
+      if(!m_robotContainer.getElevator().getSwitch() && !m_robotContainer.getElevator().HasSwitched){
+        m_robotContainer.getElevator().SetPosition(63000);
         m_robotContainer.getElevator().setDesiredPosition(65000);
-      } else {
-        System.out.println("0");
+      } else if (m_robotContainer.getElevator().getSwitch() && !m_robotContainer.getElevator().HasSwitched) {
         m_robotContainer.getElevator().SetHomePosition();
         m_robotContainer.getElevator().setDesiredPosition(0);
+      }else{
+        //m_robotContainer.getElevator().SetPosition(m_robotContainer.getElevator().GetPosition());
+        //m_robotContainer.getElevator().setDesiredPosition(m_robotContainer.getElevator().GetPosition());
       }
     }
 

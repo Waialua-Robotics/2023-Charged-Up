@@ -18,6 +18,8 @@ public class Elevator extends SubsystemBase {
 
     private int desiredPosition = 0;
 
+    public boolean HasSwitched = false; 
+
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);
         mElevatorMotorR = new TalonFX(Constants.Elevator.rElevatorID);

@@ -36,6 +36,7 @@ public class Dashboard {
         tab.addBoolean("LimitSwitch", ()-> container.getElevator().getSwitch());
         tab.addNumber("yaw360", ()-> container.getSwerve().getYaw360());
         tab.addNumber("Pitch", ()-> container.getSwerve().GetGyroPitch());
+        tab.addBoolean("HasSwitched", ()-> container.getElevator().HasSwitched);
         
 
         //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");

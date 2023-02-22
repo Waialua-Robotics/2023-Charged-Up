@@ -179,7 +179,7 @@ public final class Constants {
 
         public static final int threshold = 500;
 
-        public static final int SafePosition = 4260;
+        public static final int SafePosition = 5300;
         public static final int StowPosition = 1200;
 
         public static final class Cube {
