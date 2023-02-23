@@ -22,6 +22,9 @@ public class AutoBalanceNew extends CommandBase {
     /* Variables for the balance case */ 
         private double dropAngle;
 
+        private int iThreshold;
+        private double brakeOverAngle;
+
     enum State {mount, drop, balance, finish}
     private State state = State.mount;
 
@@ -42,11 +45,22 @@ public class AutoBalanceNew extends CommandBase {
         i = 0;
         inRangeDuration = 10;
         dropAngle = 14;
+
+        iThreshold = 40;
+        brakeOverAngle = 13.8;
+
     }
     
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
+        
+        /*SmartDashboed Values */
+            /*if(true){
+            brakeOverAngle = SmartDashboard.getNumber("brakeOverAngle", 13.8);
+            iThreshold = (int)SmartDashboard.getNumber("iThreshold",40);
+        }*/
 
         currentPitch = s_Swerve.GetGyroPitch() - pitchOffset;
 
@@ -91,7 +105,7 @@ public class AutoBalanceNew extends CommandBase {
 
             //System.out.println("balance");
 
-                if ((Math.abs(currentPitch) <13.8) && i >40) state = State.finish;
+                if ((Math.abs(currentPitch) <brakeOverAngle) && i >iThreshold) state = State.finish;
 
                 i++;
 

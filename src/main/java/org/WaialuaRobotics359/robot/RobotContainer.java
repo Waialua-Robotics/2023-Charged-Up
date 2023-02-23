@@ -1,5 +1,6 @@
 package org.WaialuaRobotics359.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
 import org.WaialuaRobotics359.robot.autos.AutoCommandGroup.*;
+import org.WaialuaRobotics359.robot.autos.RedAuto.*;
 import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
@@ -116,8 +118,26 @@ public class RobotContainer {
     private final ConeM3ClearBalance m_ConeM3ClearBalance;
     private final ConeR3Dual m_ConeR3Dual;
     private final ConeR3DualBalance m_ConeR3DualBalance;
-    private final ConeScoreHighStow m_ConeScoreHighStow;
     private final DriveBack m_DriveBack;
+
+    /*RedAutos */
+    private final RedSwerveBuilderAuto m_RedSwerveBuilderAuto;
+    private final RedConeL3Auto m_RedConeL3Auto;
+    private final RedConeL1Auto m_RedConeL1Auto;
+    private final RedConeL1Dual m_RedConeL1Dual;
+    private final RedConeL1DualBalance m_RedConeL1DualBalance;
+    private final RedConeM1Balance m_RedConeM1Balance;
+    private final RedCubeM2Balance m_RedCubeM2Balance;
+    private final RedConeM3Balance m_RedConeM3Balance;
+    private final RedConeR3Balance m_RedConeR3Balance;
+    private final RedConeM1ClearBalance m_RedConeM1ClearBalance;
+    private final RedCubeM2ClearBalance m_RedCubeM2ClearBalance;
+    private final RedConeM3ClearBalance m_RedConeM3ClearBalance;
+    private final RedConeR3Dual m_RedConeR3Dual;
+    private final RedConeR3DualBalance m_RedConeR3DualBalance;
+    private final RedDriveBack m_RedDriveBack;
+
+    private final ConeScoreHighStow m_ConeScoreHighStow;
     private final DoNothing m_DoNothing;
     /* chooser for autonomous commands */
     SendableChooser<String> m_chooser = new SendableChooser<>();
@@ -201,6 +221,24 @@ public class RobotContainer {
         m_ConeR3Dual = new ConeR3Dual(autoBuilder);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder);
         m_DriveBack = new DriveBack(autoBuilder);
+
+        /*Red AutoBuilder */
+        m_RedSwerveBuilderAuto = new RedSwerveBuilderAuto(autoBuilder);
+        m_RedConeL3Auto = new RedConeL3Auto(autoBuilder);
+        m_RedConeL1Auto = new RedConeL1Auto(autoBuilder);
+        m_RedConeL1Dual = new RedConeL1Dual(autoBuilder);
+        m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder);
+        m_RedConeM1Balance = new RedConeM1Balance(autoBuilder);
+        m_RedCubeM2Balance = new RedCubeM2Balance(autoBuilder);
+        m_RedConeM3Balance = new RedConeM3Balance(autoBuilder);
+        m_RedConeM1ClearBalance = new RedConeM1ClearBalance(autoBuilder);
+        m_RedCubeM2ClearBalance = new RedCubeM2ClearBalance(autoBuilder);
+        m_RedConeM3ClearBalance = new RedConeM3ClearBalance(autoBuilder);
+        m_RedConeR3Balance = new RedConeR3Balance(autoBuilder);
+        m_RedConeR3Dual = new RedConeR3Dual(autoBuilder);
+        m_RedConeR3DualBalance = new RedConeR3DualBalance(autoBuilder);
+        m_RedDriveBack = new RedDriveBack(autoBuilder);
+
         /*Command */
         m_ConeScoreHighStow = new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake);
         m_DoNothing = new DoNothing();
@@ -390,61 +428,61 @@ public class RobotContainer {
 
         switch (m_chooser.getSelected()) {
             case "swerveBuilderAuto":
-                selected = m_SwerveBuilderAuto;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_SwerveBuilderAuto : m_RedSwerveBuilderAuto;
                 break;
             case "twomAuto":
-                selected = m_SwerveBuilderAuto;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_SwerveBuilderAuto : m_RedSwerveBuilderAuto;
                 break;
             case "ConeL3Auto":
-                selected = m_ConeL3Auto;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL3Auto : m_RedConeL3Auto;
                 break;
             case "ConeL1Auto":
-                selected = m_ConeL1Auto;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1Auto : m_RedConeL1Auto;
                 break;
             case "ConeL1Dual":
-                selected = m_ConeL1Dual;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1Dual : m_RedConeL1Dual;
                 break;
             case "ConeL1DualBalance":
-                selected = m_ConeL1DualBalance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1DualBalance : m_RedConeL1DualBalance;
                 break;
             case "ConeM1Balance":
-                selected = m_ConeM1Balance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM1Balance : m_RedConeM1Balance;
                 break;
             case "CubeM2Balance":
-                selected = m_CubeM2Balance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_CubeM2Balance : m_RedCubeM2Balance;
                 break;
             case "ConeM3Balance":
-                selected = m_ConeM3Balance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM3Balance : m_RedConeM3Balance;
                 break;
             case "ConeM1ClearBalance":
-                selected = m_ConeM1ClearBalance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM1ClearBalance : m_RedConeM1ClearBalance;
                 break;
             case "CubeM2ClearBalance":
-                selected = m_CubeM2ClearBalance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_CubeM2ClearBalance : m_RedCubeM2ClearBalance;
                 break;
             case "ConeM3ClearBalance":
-                selected = m_ConeM3ClearBalance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM3ClearBalance : m_RedConeM3ClearBalance;
                 break;
             case "ConeR3Balance":
-                selected = m_ConeR3Balance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Balance : m_RedConeR3Balance;
                 break;
             case "ConeR3Dual":
-                selected = m_ConeR3Dual;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Dual : m_RedConeR3Dual;
                 break;
             case "ConeR3DualBalance":
-                selected = m_ConeR3DualBalance;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3DualBalance : m_RedConeR3DualBalance;
                 break;
             case "ConeScoreHighStow":
                 selected = m_ConeScoreHighStow;
                 break;
             case "DriveBack":
-                selected = m_DriveBack;
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_DriveBack : m_RedDriveBack;
                 break;
             case "DoNothing":
                 selected = m_DoNothing;
                 break;
             default:
-                selected =  m_SwerveBuilderAuto;
+                selected =  m_DoNothing;
                 break;
         }
 
