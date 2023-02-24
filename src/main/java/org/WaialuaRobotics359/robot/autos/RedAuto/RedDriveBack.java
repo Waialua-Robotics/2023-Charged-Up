@@ -12,7 +12,7 @@ public class RedDriveBack extends SequentialCommandGroup {
 
     public RedDriveBack (SwerveAutoBuilder autoBuilder) {
 
-        PathPlannerTrajectory RedDriveBack= PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(1, 1)), Alliance.Red);
+        PathPlannerTrajectory RedDriveBack= PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(1, 1)), Alliance.Blue);
 
         //PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(1, 1)), Alliance.Blue);
         //PathPlanner.loadPath ("twomLine", new PathConstraints(1, 1));
