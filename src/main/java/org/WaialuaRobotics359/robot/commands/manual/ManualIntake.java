@@ -51,7 +51,7 @@ public class ManualIntake extends CommandBase {
                 LEDs.hasObject = true;
             }
         } else if (lBumperValue) {
-            s_Intake.outake(intakeSpeed);
+            s_Intake.outake(outtakeSpeed);
             LEDs.hasObject = false;
         } else {
             s_Intake.stop();  

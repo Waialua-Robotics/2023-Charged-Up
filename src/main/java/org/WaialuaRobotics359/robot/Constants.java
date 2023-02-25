@@ -77,7 +77,7 @@ public final class Constants {
             public static final int HighPosition = 200000;
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 1000;
+            public static final int BirdPosition = 0;
         }
 
         public static final class Cone {
@@ -86,7 +86,7 @@ public final class Constants {
             public static final int HighPosition = 204000;
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 1000;
+            public static final int BirdPosition = 0;
         }
        
         /* soft limits */
@@ -232,8 +232,8 @@ public final class Constants {
         public static final Boolean intakeMotorInvert = false;
         public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
-        public static final double speedIn = 0.5;
-        public static final double speedOut = 0.3;
+        public static final double speedIn = .8;//.5
+        public static final double speedOut = .5;//.3
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
