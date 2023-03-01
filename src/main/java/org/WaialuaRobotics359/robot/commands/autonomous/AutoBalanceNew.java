@@ -46,8 +46,8 @@ public class AutoBalanceNew extends CommandBase {
         inRangeDuration = 10;
         dropAngle = 14;
 
-        iThreshold = 40;
-        brakeOverAngle = 13.8;
+        iThreshold = 45;
+        brakeOverAngle = 13.5;
 
     }
     
@@ -104,6 +104,17 @@ public class AutoBalanceNew extends CommandBase {
             case balance:
 
             //System.out.println("balance");
+
+            drivePower = (forward ? 1 : -1);
+
+            s_Swerve.setModuleStates(
+                new SwerveModuleState[] {
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0))
+                }
+            );
 
                 if ((Math.abs(currentPitch) <brakeOverAngle) && i >iThreshold) state = State.finish;
 
