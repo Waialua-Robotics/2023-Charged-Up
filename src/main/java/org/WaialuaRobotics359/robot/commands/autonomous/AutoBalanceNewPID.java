@@ -1,23 +1,26 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
 import org.WaialuaRobotics359.lib.math.Conversions;
+import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoBalanceNew extends CommandBase {
+public class AutoBalanceNewPID extends CommandBase {
     private Swerve s_Swerve; 
     private Boolean forward;
 
     private double currentPitch;
     private double pitchOffset;
     private double pitchThreshold = 0.5;
+    private double error;
 
     /* Variables for the drop case */
         //private double previousPitch; // Set to a value that will never be reached
         private int i;
+        private int n;
         private int inRangeDuration;
     /* Variables for the balance case */ 
         private double dropAngle;
@@ -28,7 +31,7 @@ public class AutoBalanceNew extends CommandBase {
     enum State {mount, drop, balance, finish}
     private State state = State.mount;
 
-    public AutoBalanceNew(Swerve s_Swerve, Boolean forward) {
+    public AutoBalanceNewPID(Swerve s_Swerve, Boolean forward) {
         this.s_Swerve = s_Swerve;
         this.forward = forward;
         addRequirements(s_Swerve);
@@ -105,7 +108,9 @@ public class AutoBalanceNew extends CommandBase {
 
             //System.out.println("balance");
 
-            drivePower = (forward ? 1 : -1);
+            error = Constants.AutoConstants.BalanceGoal - currentPitch;
+
+            drivePower = Constants.AutoConstants.BalanceKp * error; //errror -12 
 
             s_Swerve.setModuleStates(
                 new SwerveModuleState[] {
@@ -116,9 +121,17 @@ public class AutoBalanceNew extends CommandBase {
                 }
             );
 
-                if ((Math.abs(currentPitch) <brakeOverAngle) && i >iThreshold) state = State.finish;
+                if (error < Constants.AutoConstants.BalanceThreshold){
+                    n++;
+                    System.out.println("here");
+                } 
+                
+                if( n > 10) {
+                    System.out.println("finish");
+                    state = State.finish;
+                };
 
-                i++;
+                //i++;
 
                 //if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
 
@@ -131,6 +144,8 @@ public class AutoBalanceNew extends CommandBase {
 
         System.out.println(Math.abs(currentPitch));
         System.out.println(i);
+        System.out.println(n);
+        System.out.println(error);
     }
     
     // Called once the command ends or is interrupted.

@@ -15,6 +15,7 @@ public class ManualIntake extends CommandBase {
     private BooleanSupplier Outake;
 
     private double currentLimit = 30;
+    private int i;
 
     //private int percentIncrement = ;
 
@@ -47,15 +48,18 @@ public class ManualIntake extends CommandBase {
 
         if(rBumperValue) {
             s_Intake.intake(intakeSpeed);
-            if (s_Intake.getCurrent() > currentLimit){
+            if (s_Intake.getCurrent() > currentLimit && i> 15){
                 LEDs.hasObject = true;
             }
+            i++;
         } else if (lBumperValue) {
             s_Intake.outake(outtakeSpeed);
             LEDs.hasObject = false;
+            i=0;
         } else {
             s_Intake.stop();  
         }
+
     }
 
 
