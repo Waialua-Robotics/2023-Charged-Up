@@ -46,6 +46,7 @@ public class AutoBalanceNewPID extends CommandBase {
         /* Initialize variables to their default values */
         //previousPitch = 50; // Set to a value that will never be reached
         i = 0;
+        n = 0;
         inRangeDuration = 10;
         dropAngle = 14;
 
@@ -68,9 +69,10 @@ public class AutoBalanceNewPID extends CommandBase {
         currentPitch = s_Swerve.GetGyroPitch() - pitchOffset;
 
         switch (state) {
+
             case mount:
 
-            //System.out.println("mount");
+                //System.out.println("mount");
 
                 double drivePower = (forward ? 2 : -2);
 
@@ -89,8 +91,7 @@ public class AutoBalanceNewPID extends CommandBase {
 
             case drop:
 
-
-            //System.out.println("drop");
+                //System.out.println("drop");
 
                 if (Conversions.isBetween(currentPitch, dropAngle - pitchThreshold, dropAngle + pitchThreshold)) {
                     i++;
@@ -106,39 +107,43 @@ public class AutoBalanceNewPID extends CommandBase {
 
             case balance:
 
-            //System.out.println("balance");
+                //System.out.println("balance");
 
-            error = Constants.AutoConstants.BalanceGoal - currentPitch;
+                error = -currentPitch; //positive or negative, idk?
 
-            drivePower = Constants.AutoConstants.BalanceKp * error; //errror -12 
+                drivePower = Constants.AutoConstants.BalanceKp * error; //errror -12 
 
-            s_Swerve.setModuleStates(
-                new SwerveModuleState[] {
-                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
-                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
-                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
-                    new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0))
-                }
-            );
+                s_Swerve.setModuleStates(
+                    new SwerveModuleState[] {
+                        new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                        new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                        new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0)),
+                        new SwerveModuleState(drivePower, Rotation2d.fromDegrees(0))
+                    }
+                );
 
+                if ( Math.abs(error) < Constants.AutoConstants.BalanceThreshold ) n++;
+                
+                if ( n > 10 ) state = State.finish;
+
+                /* 
                 if (error < Constants.AutoConstants.BalanceThreshold){
                     n++;
-                    System.out.println("here");
+                    //System.out.println("here");
                 } 
-                
                 if( n > 10) {
-                    System.out.println("finish");
+                    //System.out.println("finish");
                     state = State.finish;
                 };
-
                 //i++;
-
                 //if (Math.abs(currentPitch - dropAngle) > pitchThreshold) state = State.finish;
+                */
 
                 break;
 
             case finish:
-            break;
+
+                break;
             
         }
 
