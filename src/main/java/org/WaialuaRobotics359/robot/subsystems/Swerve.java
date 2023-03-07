@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -39,6 +40,9 @@ public class Swerve extends SubsystemBase {
             new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
 
+        Timer.delay(1.0);
+        resetModulesToAbsolute();
+
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
 
         for(SwerveModule mod : mSwerveMods){
@@ -56,8 +60,8 @@ public class Swerve extends SubsystemBase {
                                     getYaw()
                                 )
                                 : new ChassisSpeeds(
-                                    translation.getX(), 
-                                    translation.getY(), 
+                                    -translation.getX(),
+                                    -translation.getY(), 
                                     rotation)
                                 );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
@@ -77,7 +81,7 @@ public class Swerve extends SubsystemBase {
     }    
 
     public void stop(){
-        drive(new Translation2d(0,0), 0, true, false);
+        drive(new Translation2d(0,0), Constants.Swerve.algorithmTickler, true, false);
     }
 
     public void setCurrentAngle(){
@@ -151,10 +155,6 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
-
-        SmartDashboard.putNumber("Pitch", GetGyroPitch());
-        SmartDashboard.putNumber("prevPitch", PreviousPitch);
-        SmartDashboard.putBoolean("Changedpitch", gyroPitchHasChanged());
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

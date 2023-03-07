@@ -9,13 +9,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LimeLight extends SubsystemBase {
     private NetworkTable NetworkTable;
 
+    private boolean DriverMode = false;
+    private int previousPipeline;
+
     public LimeLight() {
         NetworkTable = edu.wpi.first.networktables.NetworkTableInstance.getDefault().getTable("limelight");
         ConfigStart();
+        System.out.println("LimelightConfig");
     }
 
     public void ConfigStart(){
-        setPipeline(Constants.Limelight.Options.RetroReflective);
+        setPipeline(2);
         setLEDs(Constants.Limelight.Options.LEDPipe);
         setCAM(Constants.Limelight.Options.CAMVision);
 
@@ -38,6 +42,10 @@ public class LimeLight extends SubsystemBase {
         NetworkTable.getEntry("pipeline").setNumber(pipeline);
     }
 
+    public double getPipeline(){
+        return NetworkTable.getEntry("pipeline").getDouble(0);
+    }
+
     public void setLEDs(int LEDmode){
         NetworkTable.getEntry("ledMode").setNumber(LEDmode);
     }
@@ -48,6 +56,26 @@ public class LimeLight extends SubsystemBase {
 
     public Double getDistance() {
         return (Limelight.limelightHeight - Limelight.nodeHeight) / Math.tan(Math.toRadians(getTY()));
+    }
+
+    public void toggleDriver(){
+        if((int)getPipeline() != 4 && DriverMode){
+            DriverMode = false; 
+        }
+        
+        if(!DriverMode){previousPipeline = (int)getPipeline();}
+
+        if(!DriverMode){
+            setPipeline(4);
+            DriverMode = true; 
+        } else {
+            setPipeline(previousPipeline);
+            DriverMode = false; 
+        }
+    }
+
+    public boolean GetDriverMode(){
+        return DriverMode;
     }
 
     @Override

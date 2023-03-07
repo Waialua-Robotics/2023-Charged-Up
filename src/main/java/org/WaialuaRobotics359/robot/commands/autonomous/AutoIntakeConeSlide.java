@@ -27,7 +27,7 @@ public class AutoIntakeConeSlide extends CommandBase {
 
     @Override
     public void execute() {
-        s_intake.intake(Constants.Intake.speed);
+        s_intake.intake(Constants.Intake.speedIn);
 
         slidePose += 1000;
         s_slide.setDesiredPosition(slidePose);

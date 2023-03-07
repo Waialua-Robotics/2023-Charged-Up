@@ -24,12 +24,12 @@ public class AutoOuttakeCone extends CommandBase {
 
     @Override
     public void execute() {
-        s_intake.outake((.5)*Constants.Intake.speed);
+        s_intake.outake((.5)*Constants.Intake.speedIn);
     }
     
     @Override
     public boolean isFinished(){
-        return Timer.hasElapsed(.75);
+        return Timer.hasElapsed(.5);
     }
 
     @Override 

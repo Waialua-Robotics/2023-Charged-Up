@@ -1,38 +1,39 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
+import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Constants.Limelight.txAlign;
 import org.WaialuaRobotics359.robot.Constants.Limelight.tyAlign;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
-import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 public class AutoLimelightAlign extends CommandBase {
 
     private LimeLight s_limelight;
-    private Swerve s_swerve;
+    private Swerve s_Swerve;
 
     //ProfiledPIDController txPid;
     //ProfiledPIDController tyPid;
     //PIDController txPid;
     //PIDController tyPid;
 
-    double KPX =.2;
-    double KPY =.2;
+    double KPX =.15;//.2
+    double KPY =.15;//.2
+    double KPO =.1;
 
     double tx;
     double ty;
+    double omega;
+
+    boolean teleop = false;
+    boolean finished = false;
+    Timer timer = new Timer();
 
     /* 
     DoubleSupplier translationSup = () -> tyPid.calculate(ty, 0);
@@ -40,9 +41,9 @@ public class AutoLimelightAlign extends CommandBase {
     DoubleSupplier rotationSup = () -> {return 0;};
     BooleanSupplier robotCentricSup = () -> {return false;};*/
 
-    public AutoLimelightAlign(LimeLight s_limelight, Swerve s_swerve) {
+    public AutoLimelightAlign(LimeLight s_limelight, Swerve s_Swerve) {
         this.s_limelight = s_limelight;
-        this.s_swerve = s_swerve;
+        this.s_Swerve = s_Swerve;
         //txPid = new ProfiledPIDController(txAlign.kp, txAlign.ki, txAlign.kd, txAlign.profile);
         //tyPid = new ProfiledPIDController(tyAlign.kp, tyAlign.ki, tyAlign.kd, tyAlign.profile);
         //txPid = new PIDController(txAlign.kp, txAlign.ki, txAlign.kd);
@@ -52,13 +53,23 @@ public class AutoLimelightAlign extends CommandBase {
     }
 
     private void fetchValues() {
-       tx = -s_limelight.getTX();
-       ty = s_limelight.getTY();
+       tx = s_limelight.getTX();
+       ty = -s_limelight.getTY();
+       omega = s_Swerve .getYaw().getDegrees();
     }
 
     @Override
     public void initialize() {
-        s_limelight.setPipeline(Constants.Limelight.Options.RetroReflective);
+        if (DriverStation.isTeleopEnabled()){
+            s_limelight.setPipeline(Constants.Limelight.Options.RetroReflective);
+            teleop = true;
+        }else{
+            s_limelight.setPipeline(Constants.Limelight.Options.RetroReflectiveStand);
+            teleop = false;
+        }
+        finished = false;
+        timer.reset();
+        timer.start();
         fetchValues();
 
         //txPid.reset(tx);
@@ -74,6 +85,10 @@ public class AutoLimelightAlign extends CommandBase {
 
        double Xerr = tx;
        double Yerr = ty;
+       double Oerr  =-Conversions.wrap(s_Swerve.getYaw360(), 0); //angle 2 = desired 
+
+       double rotationVal = Oerr / 90;
+
 
 
        
@@ -83,10 +98,18 @@ public class AutoLimelightAlign extends CommandBase {
        SmartDashboard.putNumber("txPid",  Xerr*(KPX));
        SmartDashboard.putNumber("tyPid", Yerr*(KPY));
 
-        
-        s_swerve.drive(
-            translation, 0, false, true
-        ); 
+        if (teleop && timer.hasElapsed(.2)){
+            s_Swerve.drive(
+                translation, rotationVal * Constants.Swerve.maxAngularVelocity, false, true
+            );
+        }else{
+            s_Swerve.drive(
+                translation, rotationVal * Constants.Swerve.maxAngularVelocity, false, true
+            ); 
+        }
+
+        if (teleop && timer.hasElapsed(1.5)) finished =true;  
+
 
         /* 
        CommandScheduler.getInstance().schedule(
@@ -103,11 +126,11 @@ public class AutoLimelightAlign extends CommandBase {
     @Override
     public boolean isFinished(){        
         //SmartDashboard.putBoolean("at setpoint", (Math.abs(tx) < txAlign.threshold) && (Math.abs(ty) < tyAlign.threshold));
-        return (Math.abs(tx) < txAlign.threshold) && (Math.abs(ty) < tyAlign.threshold);
+        return (Math.abs(tx) < txAlign.threshold) && (Math.abs(ty) < tyAlign.threshold) || finished;
     }
 
     @Override 
     public void end(boolean interupted) {
-        s_swerve.stop();
+        s_Swerve.stop();
     }
 }

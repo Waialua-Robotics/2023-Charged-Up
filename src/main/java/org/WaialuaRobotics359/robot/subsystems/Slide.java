@@ -30,6 +30,11 @@ public class Slide extends SubsystemBase{
         return desiredPosition;
     }
 
+    public void currentToDisired(){
+        setDesiredPosition(GetPosition());
+    }
+
+
     public void goToPosition() {
         mSlideMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
     }

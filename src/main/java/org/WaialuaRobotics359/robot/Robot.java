@@ -4,7 +4,7 @@
 
 package org.WaialuaRobotics359.robot;
 
-import org.WaialuaRobotics359.robot.commands.autonomous.InitializeRobot;
+import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
 
@@ -73,13 +73,50 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+
+    if (m_robotContainer.getElevator().getSwitch()){
+      m_robotContainer.getElevator().SetHomePosition();
+      m_robotContainer.getElevator().HasSwitched = true;
+      LEDs.reportWarning = false; 
+    }
+
+    m_robotContainer.getWrist().Stop();;
+    m_robotContainer.getElevator(). Stop();
+    m_robotContainer.getSlide().Stop();
+    m_robotContainer.getWrist().setDesiredPosition(m_robotContainer.getWrist().GetPosition());
+    m_robotContainer.getElevator().setDesiredPosition(m_robotContainer.getElevator().GetPosition());
+    m_robotContainer.getSlide().setDesiredPosition(m_robotContainer.getSlide().GetPosition());
+
     m_robotContainer.getLEDs().setLEDAliance();
+    if(m_robotContainer.getElevator().getSwitch()){
+      LEDs.autoStartPose = false;
+    }else{
+      LEDs.autoStartPose = true;
+    }
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    
+    // If the elevator is not at the switch position, move it to the switch position
+    // If the elevator is at the switch position, move it to the home position
+    // This code is used to move the elevator to the switch position in autonomous
+
+    if(Constants.isCompetitionRobot){
+      if(!m_robotContainer.getElevator().getSwitch() && !m_robotContainer.getElevator().HasSwitched){
+        m_robotContainer.getElevator().SetPosition(63000);
+        m_robotContainer.getElevator().setDesiredPosition(65000);
+      } else if (m_robotContainer.getElevator().getSwitch() && !m_robotContainer.getElevator().HasSwitched) {
+        m_robotContainer.getElevator().SetHomePosition();
+        m_robotContainer.getElevator().setDesiredPosition(0);
+      }else{
+        //m_robotContainer.getElevator().SetPosition(m_robotContainer.getElevator().GetPosition());
+        //m_robotContainer.getElevator().setDesiredPosition(m_robotContainer.getElevator().GetPosition());
+      }
+    }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -100,9 +137,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    CommandScheduler.getInstance().schedule(
+    /*CommandScheduler.getInstance().schedule(
       new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())
-    );
+    );*/
   }
   /** This function is called periodically during operator control. */
   @Override

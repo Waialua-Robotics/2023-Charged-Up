@@ -1,11 +1,8 @@
 package org.WaialuaRobotics359.robot.util;
 
-import java.util.Map;
-
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
 
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -13,12 +10,8 @@ public class Dashboard {
     public Dashboard(RobotContainer container) {
         ShuffleboardTab tab = Shuffleboard.getTab("Subsystem");
 
-        tab.addNumber("elevator Height", () -> container.getElevator().GetPositionInches()).withSize(2, 2)
-                .withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 49));
-        tab.addNumber("slide Height", () -> container.getSlide().GetPositionInches()).withSize(2, 2)
-                .withWidget(BuiltInWidgets.kNumberBar).withProperties(Map.of("min" , 0 , "max" , 25));
-        tab.addNumber("Wrist Angle", () -> container.getWrist().GetPositionInches()).withSize(2, 2)
-                .withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 25));
+        /*tab.addNumber("elevator Height", () -> container.getElevator().GetPositionInches()).withSize(2, 2)
+                .withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min" , 0 , "max" , 49)); */
         tab.addNumber("Wrist value", () -> container.getWrist().GetPosition());
         tab.addNumber("Slide value", () -> container.getSlide().GetPosition());
         tab.addNumber("Elevator value", () -> container.getElevator().GetPosition());
@@ -40,6 +33,10 @@ public class Dashboard {
         tab.addNumber("Distace to pull",()-> container.getLimelight().getDistance());
         tab.addNumber("tx", ()-> container.getLimelight().getTX());
         tab.addNumber("ty", ()-> container.getLimelight().getTY());
+        tab.addBoolean("LimitSwitch", ()-> container.getElevator().getSwitch());
+        tab.addNumber("yaw360", ()-> container.getSwerve().getYaw360());
+        tab.addNumber("Pitch", ()-> container.getSwerve().GetGyroPitch());
+        tab.addBoolean("HasSwitched", ()-> container.getElevator().HasSwitched);
         
 
         //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");

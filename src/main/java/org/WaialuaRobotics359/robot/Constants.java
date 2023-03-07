@@ -37,12 +37,16 @@ public final class Constants {
         public static final int outake = XboxController.Button.kLeftBumper.value;
         public static final int isCube = XboxController.Button.kLeftStick.value;
         public static final int isCone = XboxController.Button.kRightStick.value;
+        public static final int BirdPosition = 90;
+        public static final int ZeroSlide = 270;
+        public static final int ZeroAll = 180;
 
         public static final double deadband = 0.1;
     }
 
     public static final class LEDs {
         public static final int CANdleID = 0; 
+        public static final int LEDCount = 128; 
 
     }
 
@@ -72,6 +76,8 @@ public final class Constants {
             public static final int MidPosition = 4600;
             public static final int HighPosition = 200000;
             public static final int FeederPosition = 1400;
+            public static final int standPosition = 4300;
+            public static final int BirdPosition = 0;
         }
 
         public static final class Cone {
@@ -80,6 +86,7 @@ public final class Constants {
             public static final int HighPosition = 204000;
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
+            public static final int BirdPosition = 0;
         }
        
         /* soft limits */
@@ -112,6 +119,8 @@ public final class Constants {
         public static final int lElevatorID = 11; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+
+        public static final int MagElevatorID = 0;
         
         public static final int Ratio = 30;
 
@@ -122,6 +131,8 @@ public final class Constants {
             public static final int MidPosition = 80000;
             public static final int HighPosition = 145000;
             public static final int FeederPosition = 138000;
+            public static final int standPosition = 21600;
+            public static final int BirdPosition = 49000;
         }
 
         public static final class Cone {
@@ -130,11 +141,12 @@ public final class Constants {
             public static final int HighPosition = 150000;
             public static final int FeederPosition = 135500;
             public static final int standPosition = 49000;
+            public static final int BirdPosition = 49000;
         }
 
         /* soft limits */
         public static final int forwardSoftLimit = 150000; 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = 0;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -167,7 +179,7 @@ public final class Constants {
 
         public static final int threshold = 500;
 
-        public static final int SafePosition = 4260;
+        public static final int SafePosition = 5300;
         public static final int StowPosition = 1200;
 
         public static final class Cube {
@@ -175,6 +187,8 @@ public final class Constants {
             public static final int MidPosition = 9700;
             public static final int HighPosition = 12000;
             public static final int FeederPosition = 13000;
+            public static final int standPosition = 16500;
+            public static final int BirdPosition = 6980;
         }
 
         public static final class Cone {
@@ -183,6 +197,7 @@ public final class Constants {
             public static final int HighPosition = 9100;
             public static final int FeederPosition = 12000;
             public static final int standPosition = 16500;
+            public static final int BirdPosition = 6980;
         }
 
         /* soft limits */
@@ -217,7 +232,8 @@ public final class Constants {
         public static final Boolean intakeMotorInvert = false;
         public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
-        public static final double speed = 0.5;
+        public static final double speedIn = .8;//.5
+        public static final double speedOut = .5;//.3
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -242,7 +258,7 @@ public final class Constants {
     
             public static final int AprilTag = 0;
             public static final int RetroReflective = 1;
-            public static final int Driver = 2;
+            public static final int RetroReflectiveStand = 2;
             public static final int PIPELINE_3 = 3;
             public static final int PIPELINE_4 = 4;
             public static final int PIPELINE_5 = 5;
@@ -259,8 +275,8 @@ public final class Constants {
 
         public static final class txAlign {
             public static final TrapezoidProfile.Constraints profile = new TrapezoidProfile.Constraints(0.0001, 0.1); 
-            public static final double threshold = .5;
-            public static final double kp = 0.080;//.08
+            public static final double threshold = 1;
+            public static final double kp = 0.08;//.08
             public static final double ki = 0.1;
             public static final double kd = 0.0;
         }
@@ -286,6 +302,8 @@ public final class Constants {
         public static final double trackWidth = Units.inchesToMeters(18.5);
         public static final double wheelBase = Units.inchesToMeters(18.5); 
         public static final double wheelCircumference = chosenModule.wheelCircumference;
+
+        public static final double algorithmTickler = 0.0001;
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
@@ -336,9 +354,9 @@ public final class Constants {
 
         /* Drive Motor Characterization Values 
          * Divide SYSID values by 12 to convert from volts to percent output for CTRE */
-        public static final double driveKS = (0.32 / 12); 
-        public static final double driveKV = (1.51 / 12);
-        public static final double driveKA = (0.27 / 12);
+        public static final double driveKS = (0.16 / 12); //.32
+        public static final double driveKV = (.024 / 12); //1.51
+        public static final double driveKA = (0.01 / 12); // .27
 
         /* Swerve Profiling Values */
         /** Meters per Second */

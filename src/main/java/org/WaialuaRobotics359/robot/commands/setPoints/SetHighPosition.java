@@ -61,12 +61,12 @@ public class SetHighPosition extends CommandBase {
             s_Elevator.goToPosition();
         }
 
-        if (Timer.hasElapsed(1)){
+        if (Timer.hasElapsed(.8)){
             s_Slide.setDesiredPosition(SlidePosition);
         s_Slide.goToPosition();
         }
 
-        if (Timer.hasElapsed(1.5)){
+        if (Timer.hasElapsed(1.2)){
         s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
         finished = true;

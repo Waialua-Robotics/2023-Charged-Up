@@ -36,6 +36,8 @@ public class ManualElevator extends CommandBase {
         }
         
         s_Elevator.goToPosition();
+
+        //if(s_Elevator.getSwitch()) s_Elevator.SetHomePosition();
     }
 
     @Override

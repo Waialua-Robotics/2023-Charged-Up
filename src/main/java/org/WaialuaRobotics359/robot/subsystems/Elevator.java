@@ -8,13 +8,17 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
     private TalonFX mElevatorMotorR;
+    private DigitalInput mMagSwitch;
 
     private int desiredPosition = 0;
+
+    public boolean HasSwitched = false; 
 
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);
@@ -29,6 +33,8 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorL.setInverted(TalonFXInvertType.OpposeMaster);
 
         mElevatorMotorR.setSelectedSensorPosition(0);
+
+        mMagSwitch = new DigitalInput(Constants.Elevator.MagElevatorID);
     }
 
     public void setDesiredPosition(int position) {
@@ -39,8 +45,16 @@ public class Elevator extends SubsystemBase {
         return desiredPosition;
     }
 
+    public void currentToDisired(){
+        setDesiredPosition(GetPosition());
+    }
+
     public void goToPosition() {
         mElevatorMotorR.set(TalonFXControlMode.MotionMagic, desiredPosition);
+    }
+
+    public void CurrentDisired(){
+        mElevatorMotorR.set(TalonFXControlMode.MotionMagic, mElevatorMotorR.getSelectedSensorPosition());
     }
 
     public boolean inRange() {
@@ -64,7 +78,6 @@ public class Elevator extends SubsystemBase {
         return mElevatorMotorR.getStatorCurrent();
     }
 
-
     public void SetPosition(double position){
         mElevatorMotorR.setSelectedSensorPosition(position);
     }
@@ -79,6 +92,10 @@ public class Elevator extends SubsystemBase {
 
     public void SetPrecentOut(double percent){
         mElevatorMotorR.set(TalonFXControlMode.PercentOutput, percent);
+    }
+
+    public boolean getSwitch(){
+        return !mMagSwitch.get();
     }
 
 

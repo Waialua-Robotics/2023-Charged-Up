@@ -92,9 +92,10 @@ public class SwerveModule {
          * CANcoder before we have received any position signal
          * from the CANcoder.
          */
+        //encodeTimer.start();
         for (int i = 0; i < 100; ++i) {
             angleEncoder.getAbsolutePosition();
-            if (angleEncoder.getLastError() == ErrorCode.OK) {
+            if (angleEncoder.getLastError() == ErrorCode.OK && mAngleMotor.getLastError() == ErrorCode.OK) {
                 break;
             }
             Timer.delay(0.010);            

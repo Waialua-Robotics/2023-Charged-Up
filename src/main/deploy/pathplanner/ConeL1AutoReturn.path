@@ -26,16 +26,16 @@
     },
     {
       "anchorPoint": {
-        "x": 4.906291955441054,
-        "y": 5.096048477811242
+        "x": 5.49319641496426,
+        "y": 4.89564207699844
       },
       "prevControl": {
-        "x": 5.435937443303458,
-        "y": 5.282140135708842
+        "x": 5.936953445335462,
+        "y": 4.9242715628288405
       },
       "nextControl": {
-        "x": 3.4197172413066657,
-        "y": 4.573738443115378
+        "x": 5.027889740866741,
+        "y": 4.865622291572794
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -51,12 +51,12 @@
     },
     {
       "anchorPoint": {
-        "x": 2.716136289415436,
-        "y": 4.437570303712036
+        "x": 3.918574694292246,
+        "y": 4.88132733408324
       },
       "prevControl": {
-        "x": 3.23146703436264,
-        "y": 4.394626074966435
+        "x": 4.433905439239451,
+        "y": 4.838383105337639
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -69,8 +69,8 @@
           "AutoLimelightAlign",
           "ConeScoreMid"
         ],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
+        "executionBehavior": "sequential",
+        "waitBehavior": "before",
         "waitTime": 0
       }
     }

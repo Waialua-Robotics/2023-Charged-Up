@@ -5,6 +5,7 @@ import java.util.function.BooleanSupplier;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Intake;
+import org.WaialuaRobotics359.robot.subsystems.LEDs;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -12,6 +13,9 @@ public class ManualIntake extends CommandBase {
     private Intake s_Intake;
     private BooleanSupplier Intake;
     private BooleanSupplier Outake;
+
+    private double currentLimit = 30;
+    private int i;
 
     //private int percentIncrement = ;
 
@@ -23,6 +27,7 @@ public class ManualIntake extends CommandBase {
     }
 
     double intakeSpeed;
+    double outtakeSpeed;
 
     public void initialize(){}
 
@@ -30,21 +35,31 @@ public class ManualIntake extends CommandBase {
     public void execute(){
 
         if(RobotContainer.isCube){
-            intakeSpeed = -Constants.Intake.speed;
+            intakeSpeed = -Constants.Intake.speedIn;
+            outtakeSpeed = -Constants.Intake.speedOut;
         } else {
-            intakeSpeed = Constants.Intake.speed;
+            intakeSpeed = Constants.Intake.speedIn;
+            outtakeSpeed = Constants.Intake.speedOut;
         }
+
         //trigger control 
         boolean rBumperValue = Intake.getAsBoolean();
         boolean lBumperValue = Outake.getAsBoolean();
 
         if(rBumperValue) {
             s_Intake.intake(intakeSpeed);
+            if (s_Intake.getCurrent() > currentLimit && i> 15){
+                LEDs.hasObject = true;
+            }
+            i++;
         } else if (lBumperValue) {
-            s_Intake.outake(intakeSpeed);
+            s_Intake.outake(outtakeSpeed);
+            LEDs.hasObject = false;
+            i=0;
         } else {
             s_Intake.stop();  
         }
+
     }
 
 

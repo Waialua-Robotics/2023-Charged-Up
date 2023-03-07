@@ -20,7 +20,7 @@ public class AutoIntakeCube extends CommandBase {
 
     @Override
     public void execute() {
-        s_intake.outake(Constants.Intake.speed);
+        s_intake.outake(Constants.Intake.speedIn);
     }
     
     @Override

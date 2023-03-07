@@ -31,8 +31,8 @@ public class Fork extends SubsystemBase {
     }
 
     public void openLatch() {
-        leftServo.set(.25);
-        rightServo.set(.75);
+        leftServo.set(0);
+        rightServo.set(1);
     }
 
     public void closeLatch() {
