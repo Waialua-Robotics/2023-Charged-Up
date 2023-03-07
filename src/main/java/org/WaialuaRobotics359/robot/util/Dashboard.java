@@ -28,8 +28,8 @@ public class Dashboard {
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
-        tab.addNumber("posex", ()-> container.getSwerve().getPose().getX());
-        tab.addNumber("posey", ()-> container.getSwerve().getPose().getY());
+        //tab.addNumber("posex", ()-> container.getSwerve().getPose().getX());
+        //tab.addNumber("posey", ()-> container.getSwerve().getPose().getY());
         tab.addNumber("Distace to pull",()-> container.getLimelight().getDistance());
         tab.addNumber("tx", ()-> container.getLimelight().getTX());
         tab.addNumber("ty", ()-> container.getLimelight().getTY());

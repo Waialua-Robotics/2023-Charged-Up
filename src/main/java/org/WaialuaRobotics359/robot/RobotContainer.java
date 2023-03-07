@@ -1,5 +1,7 @@
 package org.WaialuaRobotics359.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +25,7 @@ import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
+import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
 import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
@@ -62,9 +65,10 @@ public class RobotContainer {
     private final JoystickButton setDriveSlowMode = new JoystickButton(driver, XboxController.Button.kRightBumper.value); 
     private final JoystickButton Angle90 = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton Angle270 = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
+     /*POV Buttons */
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
-    private final JoystickButton setCurrentAngle = new JoystickButton(driver, XboxController.Button.kRightStick.value);
     private final POVButton AutoAlign = new POVButton(driver, 270);
     private final POVButton toggleCam = new POVButton(driver, 0);
 
@@ -99,6 +103,7 @@ public class RobotContainer {
     private final LEDs s_LEDs = new LEDs();
     private final LimeLight s_LimeLight = new LimeLight();
     private final Fork s_Fork = new Fork();
+    private final PoseEstimator s_PoseEstimator = new PoseEstimator(s_LimeLight, s_Swerve);
 
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
@@ -266,6 +271,7 @@ public class RobotContainer {
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
             AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve));
             toggleCam.onTrue( new InstantCommand(() -> s_LimeLight.toggleDriver()));
+
         /* Operator Buttons */
             /* Elevator System Positions */
             HighPosition.onTrue(new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
@@ -300,6 +306,7 @@ public class RobotContainer {
             SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
             SmartDashboard.putData("setElivatorToStart", new InstantCommand(()-> s_Elevator.SetPosition(66500)));
             SmartDashboard.putData("midFast", new MidScoreFast(s_Wrist, s_Elevator, s_Slide));
+            SmartDashboard.putData("pose", new InstantCommand(() -> s_PoseEstimator.resetPose(new Pose2d(10,10, new Rotation2d(90)))));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
             //SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
@@ -378,8 +385,8 @@ public class RobotContainer {
 
         /* Auto Builder */
         autoBuilder = new SwerveAutoBuilder(
-            s_Swerve::getPose,
-            s_Swerve::resetOdometry,
+            s_PoseEstimator::getPose,
+            s_PoseEstimator::resetPose,
             Constants.Swerve.swerveKinematics,
             new PIDConstants(Constants.AutoConstants.translationPID.kP, Constants.AutoConstants.translationPID.kI,
                 Constants.AutoConstants.translationPID.kD),

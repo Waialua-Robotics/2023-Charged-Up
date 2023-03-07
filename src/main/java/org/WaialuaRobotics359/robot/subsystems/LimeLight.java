@@ -1,9 +1,13 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
+import org.WaialuaRobotics359.lib.math.Conversions;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Constants.Limelight;
+import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimeLight extends SubsystemBase {
@@ -45,6 +49,15 @@ public class LimeLight extends SubsystemBase {
     public double getPipeline(){
         return NetworkTable.getEntry("pipeline").getDouble(0);
     }
+
+    public Pose2d getPose2d(){
+        if (Conversions.isBetween((LimelightHelpers.getFiducialID("limelight")), 0, 12) && LimelightHelpers.getTV("limelight") == 1){
+            return DriverStation.getAlliance() == DriverStation.Alliance.Red ? LimelightHelpers.getBotPose2d_wpiRed("limelight") : LimelightHelpers.getBotPose2d_wpiBlue("limelight");
+        }else{
+            return null;
+        }
+    }
+
 
     public void setLEDs(int LEDmode){
         NetworkTable.getEntry("ledMode").setNumber(LEDmode);

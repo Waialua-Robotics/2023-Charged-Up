@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
-    public SwerveDriveOdometry swerveOdometry;
+    //public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
 
@@ -43,7 +43,7 @@ public class Swerve extends SubsystemBase {
         Timer.delay(1.0);
         resetModulesToAbsolute();
 
-        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
+        //swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
 
         for(SwerveModule mod : mSwerveMods){
             System.out.println("CANcoder on Module " + mod.moduleNumber + " took " + mod.CANcoderInitTime + " ms to be ready.");
@@ -88,13 +88,14 @@ public class Swerve extends SubsystemBase {
         desiredAngle = getYaw().getDegrees();
     }
 
-    public Pose2d getPose() {
+    /*public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }
 
     public void resetOdometry(Pose2d pose) {
         swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
     }
+    */
 
     public SwerveModuleState[] getModuleStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
@@ -154,7 +155,7 @@ public class Swerve extends SubsystemBase {
 
     @Override
     public void periodic(){
-        swerveOdometry.update(getYaw(), getModulePositions());  
+        //swerveOdometry.update(getYaw(), getModulePositions());  
 
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
