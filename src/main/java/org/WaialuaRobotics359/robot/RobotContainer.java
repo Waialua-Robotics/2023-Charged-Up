@@ -213,7 +213,7 @@ public class RobotContainer {
         /*AutoBuilder */
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
         m_ConeL3Auto = new ConeL3Auto(autoBuilder);
-        m_ConeL1Auto = new ConeL1Auto(autoBuilder);
+        m_ConeL1Auto = new ConeL1Auto(autoBuilder, s_PoseEstimator);
         m_ConeL1Dual = new ConeL1Dual(autoBuilder);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder);
         m_ConeM1Balance = new ConeM1Balance(autoBuilder);
@@ -230,7 +230,7 @@ public class RobotContainer {
         /*Red AutoBuilder */
         m_RedSwerveBuilderAuto = new RedSwerveBuilderAuto(autoBuilder);
         m_RedConeL3Auto = new RedConeL3Auto(autoBuilder);
-        m_RedConeL1Auto = new RedConeL1Auto(autoBuilder);
+        m_RedConeL1Auto = new RedConeL1Auto(autoBuilder, s_PoseEstimator);
         m_RedConeL1Dual = new RedConeL1Dual(autoBuilder);
         m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder);
         m_RedConeM1Balance = new RedConeM1Balance(autoBuilder);
