@@ -4,12 +4,16 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.pathplanner.lib.auto.PIDConstants;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
@@ -417,6 +421,54 @@ public final class Constants {
             public static final Rotation2d angleOffsetPractice = Rotation2d.fromDegrees(68.55);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset, angleOffsetPractice);
+        }
+    }
+
+    public static final class ScoringPoses{
+        public static final class Cone{
+            public static final List<Pose2d> BluePoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(196.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(152.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(130.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(86.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(64.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(20.19), new Rotation2d(0)));
+                }
+            };
+            
+            public static final List<Pose2d> RedPoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(295.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(251.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(229.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(185.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(163.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(119.56), new Rotation2d(0)));
+                }
+            };
+        }
+
+        public static final class Cube{
+            public static final List<Pose2d> BluePoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(174.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(108.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(42.19), new Rotation2d(0)));
+                }
+            };
+            
+            public static final List<Pose2d> RedPoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(273.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(207.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(141.56), new Rotation2d(0)));
+                }
+            };
         }
     }
 

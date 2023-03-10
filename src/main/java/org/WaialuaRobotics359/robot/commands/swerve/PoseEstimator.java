@@ -1,9 +1,14 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.Constants.Limelight;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
+import org.WaialuaRobotics359.robot.util.Dashboard;
 import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import edu.wpi.first.math.Matrix;
@@ -14,7 +19,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.InterpolatingTreeMap;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -80,14 +88,28 @@ public class PoseEstimator extends SubsystemBase {
     return SwerveposeEstimator.getEstimatedPosition();
   }
 
+  public Pose2d ClosestSelectedNode(){
+    if(DriverStation.getAlliance() == Alliance.Red){
+     return RobotContainer.isCube ? getPose().nearest(Constants.ScoringPoses.Cube.RedPoses) : getPose().nearest(Constants.ScoringPoses.Cone.RedPoses);
+    }else{
+      return RobotContainer.isCube ? getPose().nearest(Constants.ScoringPoses.Cube.BluePoses) : getPose().nearest(Constants.ScoringPoses.Cone.BluePoses);
+    }
+  }
+
+  public double getXtoClosestSelectedNode(){
+    return ClosestSelectedNode().getX() - getPose().getX(); //#FIXME maybe invert if drive wrong direction
+  }
+
   public void periodic(){
     SwerveposeEstimator.updateWithTime(Timer.getFPGATimestamp(),s_Swerve.getYaw(), s_Swerve.getModulePositions());
     //VisionMessure(s_LimeLight.getPose2d(), true);
     CurrentPose = SwerveposeEstimator.getEstimatedPosition();
     field2d.setRobotPose(CurrentPose);
+    field2d.getObject("TargetNode").setPose(ClosestSelectedNode());
     SmartDashboard.putNumber("X", CurrentPose.getX());
     SmartDashboard.putNumber("y", CurrentPose.getY());
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
+    SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
   }
     
 }

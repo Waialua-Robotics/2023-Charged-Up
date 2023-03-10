@@ -212,37 +212,37 @@ public class RobotContainer {
          */ 
         /*AutoBuilder */
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
-        m_ConeL3Auto = new ConeL3Auto(autoBuilder);
+        m_ConeL3Auto = new ConeL3Auto(autoBuilder, s_PoseEstimator);
         m_ConeL1Auto = new ConeL1Auto(autoBuilder, s_PoseEstimator);
-        m_ConeL1Dual = new ConeL1Dual(autoBuilder);
-        m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder);
-        m_ConeM1Balance = new ConeM1Balance(autoBuilder);
-        m_CubeM2Balance = new CubeM2Balance(autoBuilder);
-        m_ConeM3Balance = new ConeM3Balance(autoBuilder);
-        m_ConeM1ClearBalance = new ConeM1ClearBalance(autoBuilder);
-        m_CubeM2ClearBalance = new CubeM2ClearBalance(autoBuilder);
-        m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder);
-        m_ConeR3Balance = new ConeR3Balance(autoBuilder);
-        m_ConeR3Dual = new ConeR3Dual(autoBuilder);
-        m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder);
+        m_ConeL1Dual = new ConeL1Dual(autoBuilder, s_PoseEstimator);
+        m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder, s_PoseEstimator);
+        m_ConeM1Balance = new ConeM1Balance(autoBuilder, s_PoseEstimator);
+        m_CubeM2Balance = new CubeM2Balance(autoBuilder, s_PoseEstimator);
+        m_ConeM3Balance = new ConeM3Balance(autoBuilder, s_PoseEstimator);
+        m_ConeM1ClearBalance = new ConeM1ClearBalance(autoBuilder, s_PoseEstimator);
+        m_CubeM2ClearBalance = new CubeM2ClearBalance(autoBuilder, s_PoseEstimator);
+        m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_ConeR3Balance = new ConeR3Balance(autoBuilder, s_PoseEstimator);
+        m_ConeR3Dual = new ConeR3Dual(autoBuilder, s_PoseEstimator);
+        m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder, s_PoseEstimator);
         m_DriveBack = new DriveBack(autoBuilder);
 
         /*Red AutoBuilder */
         m_RedSwerveBuilderAuto = new RedSwerveBuilderAuto(autoBuilder);
-        m_RedConeL3Auto = new RedConeL3Auto(autoBuilder);
+        m_RedConeL3Auto = new RedConeL3Auto(autoBuilder, s_PoseEstimator);
         m_RedConeL1Auto = new RedConeL1Auto(autoBuilder, s_PoseEstimator);
-        m_RedConeL1Dual = new RedConeL1Dual(autoBuilder);
-        m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder);
-        m_RedConeM1Balance = new RedConeM1Balance(autoBuilder);
-        m_RedCubeM2Balance = new RedCubeM2Balance(autoBuilder);
-        m_RedConeM3Balance = new RedConeM3Balance(autoBuilder);
-        m_RedConeM1ClearBalance = new RedConeM1ClearBalance(autoBuilder);
-        m_RedCubeM2ClearBalance = new RedCubeM2ClearBalance(autoBuilder);
-        m_RedConeM3ClearBalance = new RedConeM3ClearBalance(autoBuilder);
-        m_RedConeR3Balance = new RedConeR3Balance(autoBuilder);
-        m_RedConeR3Dual = new RedConeR3Dual(autoBuilder);
-        m_RedConeR3DualBalance = new RedConeR3DualBalance(autoBuilder);
-        m_RedDriveBack = new RedDriveBack(autoBuilder);
+        m_RedConeL1Dual = new RedConeL1Dual(autoBuilder, s_PoseEstimator);
+        m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder, s_PoseEstimator);
+        m_RedConeM1Balance = new RedConeM1Balance(autoBuilder, s_PoseEstimator);
+        m_RedCubeM2Balance = new RedCubeM2Balance(autoBuilder, s_PoseEstimator);
+        m_RedConeM3Balance = new RedConeM3Balance(autoBuilder, s_PoseEstimator);
+        m_RedConeM1ClearBalance = new RedConeM1ClearBalance(autoBuilder, s_PoseEstimator);
+        m_RedCubeM2ClearBalance = new RedCubeM2ClearBalance(autoBuilder, s_PoseEstimator);
+        m_RedConeM3ClearBalance = new RedConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_RedConeR3Balance = new RedConeR3Balance(autoBuilder, s_PoseEstimator);
+        m_RedConeR3Dual = new RedConeR3Dual(autoBuilder, s_PoseEstimator);
+        m_RedConeR3DualBalance = new RedConeR3DualBalance(autoBuilder, s_PoseEstimator);
+        m_RedDriveBack = new RedDriveBack(autoBuilder, s_PoseEstimator);
 
         /*Command */
         m_ConeScoreHighStow = new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake);
@@ -424,6 +424,14 @@ public class RobotContainer {
 
     public LimeLight getLimelight(){
         return s_LimeLight;
+    }
+
+    public PoseEstimator getPoseEstimator(){
+        return s_PoseEstimator;
+    }
+
+    public SwerveAutoBuilder getAutoBuilder(){
+        return autoBuilder;
     }
 
     /**

@@ -86,7 +86,7 @@ public class LimeLight extends SubsystemBase {
             DriverMode = false; 
         }
     }
-
+    
     public boolean GetDriverMode(){
         return DriverMode;
     }
