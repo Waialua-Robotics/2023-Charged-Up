@@ -140,7 +140,7 @@ public final class Constants {
             public static final int MidPosition = 136000;
             public static final int HighPosition = 150000;
             public static final int FeederPosition = 135500;
-            public static final int standPosition = 49000;
+            public static final int standPosition = 51240;
             public static final int BirdPosition = 49000;
         }
 
@@ -186,7 +186,7 @@ public final class Constants {
             public static final int LowPosition = 14000;
             public static final int MidPosition = 9700;
             public static final int HighPosition = 12000;
-            public static final int FeederPosition = 13000;
+            public static final int FeederPosition = 13360;
             public static final int standPosition = 16500;
             public static final int BirdPosition = 6980;
         }

@@ -53,15 +53,15 @@
     {
       "anchorPoint": {
         "x": 7.4,
-        "y": 4.45
+        "y": 4.5
       },
       "prevControl": {
         "x": 5.248829783373853,
-        "y": 4.523458761203237
+        "y": 4.573458761203237
       },
       "nextControl": {
         "x": 5.248829783373853,
-        "y": 4.523458761203237
+        "y": 4.573458761203237
       },
       "holonomicAngle": 0.01,
       "isReversal": true,
@@ -133,7 +133,7 @@
     {
       "position": 1.4181818181818184,
       "names": [
-        "IntakeCone"
+        "IntakeConeTime"
       ]
     },
     {

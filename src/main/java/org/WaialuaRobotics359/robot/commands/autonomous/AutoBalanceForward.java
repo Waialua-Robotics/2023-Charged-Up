@@ -5,6 +5,7 @@ import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceForward extends CommandBase {
@@ -28,13 +29,15 @@ public class AutoBalanceForward extends CommandBase {
     balancing = false;
     finished = false;
     pitchOffset = s_Swerve.GetGyroPitch();
+    SmartDashboard.putNumber("angle1", 0);
   }
 
   @Override
   public void execute() {
 
     // Uncomment the line below this to simulate the gyroscope axis with a controller joystick
-    // Double currentAngle = -1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
+    //Double currentAngle = 1 * Robot.controller.getRawAxis(Constants.LEFT_VERTICAL_JOYSTICK_AXIS) * 45;
+    //currentAngle = SmartDashboard.getNumber("angle1", 0);
     currentAngle = s_Swerve.GetGyroPitch() - pitchOffset;
 
     error = Constants.AutoConstants.BalanceGoal - currentAngle;
@@ -72,7 +75,7 @@ public class AutoBalanceForward extends CommandBase {
 
         timebalaced =0;
 
-        drivePower = -Math.min(0.04 * error, 1);
+        drivePower = -Constants.AutoConstants.BalanceKp * error;
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {
@@ -80,8 +83,8 @@ public class AutoBalanceForward extends CommandBase {
         }
 
         // Limit the max power
-        if (Math.abs(drivePower) > 0.5) {
-          drivePower = Math.copySign(0.5, drivePower);
+        if (Math.abs(drivePower) > 0.8) {
+          drivePower = Math.copySign(0.8, drivePower);
         }
 
         s_Swerve.setModuleStates(

@@ -111,7 +111,7 @@ public class AutoBalanceNewPID extends CommandBase {
 
                 error = -currentPitch; //positive or negative, idk?
 
-                drivePower = Constants.AutoConstants.BalanceKp * error; //errror -12 
+                drivePower = Math.min(Constants.AutoConstants.BalanceKp * error, 1); // Constants.AutoConstants.BalanceKp * error; //errror -12 
 
                 s_Swerve.setModuleStates(
                     new SwerveModuleState[] {
@@ -122,9 +122,9 @@ public class AutoBalanceNewPID extends CommandBase {
                     }
                 );
 
-                if ( Math.abs(error) < Constants.AutoConstants.BalanceThreshold ) n++;
+                //if ( Math.abs(error) < Constants.AutoConstants.BalanceThreshold ) n++;
                 
-                if ( n > 10 ) state = State.finish;
+                if ( n > 50 ) state = State.finish;
 
                 /* 
                 if (error < Constants.AutoConstants.BalanceThreshold){
