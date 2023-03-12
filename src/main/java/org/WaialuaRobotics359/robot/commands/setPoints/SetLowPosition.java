@@ -33,9 +33,9 @@ public class SetLowPosition extends CommandBase {
 
     public void initialize(){
         if (RobotContainer.isCube){
-            ElevatorPosition = Constants.Elevator.Cube.standPosition;
-            SlidePosition = Constants.Slide.Cube.standPosition;
-            WristPosition = Constants.Wrist.Cube.standPosition;
+            ElevatorPosition = Constants.Elevator.Cube.LowPosition;
+            SlidePosition = Constants.Slide.Cube.LowPosition;
+            WristPosition = Constants.Wrist.Cube.LowPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.LowPosition;
             SlidePosition = Constants.Slide.Cone.LowPosition;
@@ -65,6 +65,21 @@ public class SetLowPosition extends CommandBase {
                 finished =true; 
             }
         }else{
+            s_Wrist.setDesiredPosition(WristPosition);
+            s_Wrist.goToPosition();
+            
+            if (Timer.hasElapsed(0.2)){
+                s_Slide.setDesiredPosition(SlidePosition);
+                s_Slide.goToPosition();
+            }
+
+            if (Timer.hasElapsed(.5)){
+                    s_Elevator.setDesiredPosition(ElevatorPosition);
+                s_Elevator.goToPosition();
+                finished =true; 
+            }
+            
+            /* 
             s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
             s_Wrist.goToPosition();
         
@@ -82,7 +97,7 @@ public class SetLowPosition extends CommandBase {
                 s_Wrist.setDesiredPosition(WristPosition);
                 s_Wrist.goToPosition();
                 finished = true;
-            }
+            }*/
         }
 
     }
