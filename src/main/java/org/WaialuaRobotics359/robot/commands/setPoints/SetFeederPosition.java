@@ -62,7 +62,7 @@ public class SetFeederPosition extends CommandBase {
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
-        if (Timer.hasElapsed(1.5)){
+        if (Timer.hasElapsed(1.1)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;
