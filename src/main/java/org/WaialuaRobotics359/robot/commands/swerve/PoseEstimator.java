@@ -1,14 +1,10 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
-import java.util.HashMap;
-import java.util.List;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
-import org.WaialuaRobotics359.robot.Constants.Limelight;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
-import org.WaialuaRobotics359.robot.util.Dashboard;
 import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import edu.wpi.first.math.Matrix;
@@ -19,7 +15,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.util.InterpolatingTreeMap;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -27,7 +22,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PoseEstimator extends SubsystemBase {
@@ -42,7 +36,7 @@ public class PoseEstimator extends SubsystemBase {
   // "trust" the estimate from that particular component more than the others. 
   // This in turn means the particualr component will have a stronger influence
   // on the final pose estimate.
-  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(1));
+  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(1));
   private static final Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(15));
   private final SwerveDrivePoseEstimator SwerveposeEstimator;
 

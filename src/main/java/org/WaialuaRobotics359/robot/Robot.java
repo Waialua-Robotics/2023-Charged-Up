@@ -7,6 +7,7 @@ package org.WaialuaRobotics359.robot;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
+import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
@@ -139,6 +140,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     new InstantCommand(() -> m_robotContainer.getLimelight().setPipeline(0));
+    //LimelightHelpers.setPipelineIndex("limelight", 0); #FIXME use this pipeline set
+
     /*CommandScheduler.getInstance().schedule(
       new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())
     );*/

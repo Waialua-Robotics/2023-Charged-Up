@@ -269,7 +269,7 @@ public class RobotContainer {
             Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
-            AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve));
+            AutoAlign.onTrue(new AutoLimelightAlign(s_LimeLight, s_Swerve)); //#FIXME change to use different command POV 270
             toggleCam.onTrue( new InstantCommand(() -> s_LimeLight.toggleDriver()));
 
         /* Operator Buttons */

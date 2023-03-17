@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoAlignX extends CommandBase {
+public class AutoAlignXApril extends CommandBase {
 
     private PoseEstimator s_PoseEstimator;
     private Swerve s_swerve;
@@ -28,7 +28,7 @@ public class AutoAlignX extends CommandBase {
     private double xDistance;
     private Timer  Timer;
 
-    public AutoAlignX(PoseEstimator s_poseEstimator, Swerve s_swerve) {
+    public AutoAlignXApril(PoseEstimator s_poseEstimator, Swerve s_swerve) {
         this.s_PoseEstimator = s_poseEstimator;
         this.s_swerve = s_swerve;
         Timer = new Timer();
