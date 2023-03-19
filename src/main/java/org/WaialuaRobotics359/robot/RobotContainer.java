@@ -25,6 +25,7 @@ import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
+import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignXApril;
 import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;

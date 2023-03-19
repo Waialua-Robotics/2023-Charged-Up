@@ -57,6 +57,7 @@ public class PoseEstimator extends SubsystemBase {
       visionMeasurementStdDevs);
   }
 
+  /*PoseEst */
   public void VisionMessure(Pose2d robotPose, boolean soft){
     if(robotPose != null){
       if (soft){
@@ -67,7 +68,6 @@ public class PoseEstimator extends SubsystemBase {
       }
     }
   }
-
 
   public void resetPoseToZero(){
     Pose2d pose = new Pose2d(0,0, new Rotation2d(0));
@@ -93,6 +93,14 @@ public class PoseEstimator extends SubsystemBase {
   public double getXtoClosestSelectedNode(){
     return ClosestSelectedNode().getX() - getPose().getX(); //#FIXME maybe invert if drive wrong direction
   }
+
+  /*return Movement */
+  public static double RetroReflectiveX(){ // #FIXME very experimental 
+    return LimelightHelpers.getTX("limelight")* .15;
+  }
+
+
+
 
   public void periodic(){
     SwerveposeEstimator.updateWithTime(Timer.getFPGATimestamp(),s_Swerve.getYaw(), s_Swerve.getModulePositions());
