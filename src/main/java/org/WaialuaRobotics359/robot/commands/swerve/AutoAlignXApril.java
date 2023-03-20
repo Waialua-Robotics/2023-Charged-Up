@@ -2,6 +2,7 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
 import java.lang.ModuleLayer.Controller;
+import java.util.function.BooleanSupplier;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
@@ -18,6 +19,7 @@ public class AutoAlignXApril extends CommandBase {
 
     private PoseEstimator s_PoseEstimator;
     private Swerve s_swerve;
+    private BooleanSupplier alignButton;
 
     // Create a PID controller whose setpoint's change is subject to maximum
     // velocity and acceleration constraints.
@@ -28,9 +30,10 @@ public class AutoAlignXApril extends CommandBase {
     private double xDistance;
     private Timer  Timer;
 
-    public AutoAlignXApril(PoseEstimator s_poseEstimator, Swerve s_swerve) {
+    public AutoAlignXApril(PoseEstimator s_poseEstimator, Swerve s_swerve, BooleanSupplier alignButton ) {
         this.s_PoseEstimator = s_poseEstimator;
         this.s_swerve = s_swerve;
+        this.alignButton = alignButton;
         Timer = new Timer();
         constraints = new TrapezoidProfile.Constraints(1, 0.5);
         controller=  new ProfiledPIDController(.1, 0.0, 0, constraints, kDt);
@@ -64,7 +67,7 @@ public class AutoAlignXApril extends CommandBase {
     
     @Override
     public boolean isFinished(){        
-        return (controller.atSetpoint() || Timer.hasElapsed(2));
+        return (controller.atSetpoint() || Timer.hasElapsed(2) || !alignButton.getAsBoolean());
     }
 
     @Override 
