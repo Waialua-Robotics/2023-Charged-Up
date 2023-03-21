@@ -2,12 +2,14 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
 import java.lang.ModuleLayer.Controller;
+import java.util.function.BooleanSupplier;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -19,27 +21,29 @@ public class AutoAlignXRetro extends CommandBase {
 
     private PoseEstimator s_PoseEstimator;
     private Swerve s_swerve;
+    private BooleanSupplier alignButton;
 
     // Create a PID controller whose setpoint's change is subject to maximum
     // velocity and acceleration constraints.
     private static double period = .02; //0.02
     private final TrapezoidProfile.Constraints constraints;
-    private final ProfiledPIDController controller;
+    private final PIDController controller;
 
     private double xDistance;
     private Timer  Timer;
 
-    public AutoAlignXRetro(PoseEstimator s_poseEstimator, Swerve s_swerve) {
+    public AutoAlignXRetro(PoseEstimator s_poseEstimator, Swerve s_swerve, BooleanSupplier alignButton) {
         this.s_PoseEstimator = s_poseEstimator;
         this.s_swerve = s_swerve;
+        this.alignButton = alignButton;
         Timer = new Timer();
-        constraints = new TrapezoidProfile.Constraints(1, 0.5);
-        controller=  new ProfiledPIDController(.15, 0.0, 0, constraints, period);
-        controller.setTolerance(0.5);
+        constraints = new TrapezoidProfile.Constraints(1, .3);
+        controller=  new PIDController(.08, .03, 0, period);
+        controller.setTolerance(0.01);
     }
 
     private void fetchValues() {
-       xDistance = LimelightHelpers.getTX("limelight");
+       xDistance = -LimelightHelpers.getTX("limelight");
     }
 
     @Override
@@ -47,25 +51,28 @@ public class AutoAlignXRetro extends CommandBase {
         fetchValues();
         Timer.reset();
         Timer.start();
-        controller.reset(xDistance);
+        controller.reset();
     }
 
     @Override
     public void execute() {
        fetchValues();
        
-       Translation2d translation = new Translation2d(controller.calculate(xDistance, 0), 0); // only drive x value
+       Translation2d translation = new Translation2d(0, (controller.calculate(xDistance, 0))); // only drive x value
        SmartDashboard.putNumber("xDistanceRetro", controller.calculate(xDistance, 0));
        
         s_swerve.drive(
-            translation, 0, true, true //#FIXME open loop? feild relitive? 
+            translation, 0, false, true //#FIXME open loop? feild relitive? 
         ); 
+
+        //System.out.println(translation.getY());
+        //System.out.println(xDistance);
 
     }
     
     @Override
     public boolean isFinished(){        
-        return (controller.atSetpoint() || Timer.hasElapsed(2));
+        return (!alignButton.getAsBoolean());
     }
 
     @Override 

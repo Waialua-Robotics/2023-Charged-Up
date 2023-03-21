@@ -51,9 +51,7 @@ public final class Constants {
     public static final class LEDs {
         public static final int CANdleID = 0; 
         public static final int LEDCount = 128; 
-
     }
-
 
     public static final class Fork {
 
@@ -78,7 +76,7 @@ public final class Constants {
         public static final class Cube {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 4600;
-            public static final int HighPosition = 200000;
+            public static final int HighPosition = 200000; //200000
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
             public static final int BirdPosition = 0;
@@ -87,14 +85,14 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 85000;
-            public static final int HighPosition = 204000;
+            public static final int HighPosition = 204000; //204000
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
             public static final int BirdPosition = 0;
         }
        
         /* soft limits */
-        public static final int forwardSoftLimit = 208000; 
+        public static final int forwardSoftLimit = 208000; //208000 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
@@ -142,14 +140,14 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 136000;
-            public static final int HighPosition = 150000;
+            public static final int HighPosition = 185000;
             public static final int FeederPosition = 135500;
             public static final int standPosition = 51240;
             public static final int BirdPosition = 49000;
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 150000; 
+        public static final int forwardSoftLimit = 187700; 
         public static final int reverseSoftLimit = 0;//1000
 
         /* current limiting */
@@ -198,7 +196,7 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 14000;
             public static final int MidPosition = 13242;
-            public static final int HighPosition = 9100;
+            public static final int HighPosition = 12100;
             public static final int FeederPosition = 12000;
             public static final int standPosition = 16500;
             public static final int BirdPosition = 6980;

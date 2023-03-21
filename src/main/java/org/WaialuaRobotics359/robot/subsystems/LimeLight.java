@@ -51,13 +51,13 @@ public class LimeLight extends SubsystemBase {
     }
 
     public Pose2d getPose2d(){
-        if (Conversions.isBetween((LimelightHelpers.getFiducialID("limelight")), 0, 12) && LimelightHelpers.getTV("limelight") == 1){
+        if (Conversions.isBetween((LimelightHelpers.getFiducialID("limelight")), 0, 16) && LimelightHelpers.getTV("limelight") == 1){
             return DriverStation.getAlliance() == DriverStation.Alliance.Red ? LimelightHelpers.getBotPose2d_wpiRed("limelight") : LimelightHelpers.getBotPose2d_wpiBlue("limelight");
         }else{
             return null;
         }
     }
-
+    // if (Conversions.isBetween((LimelightHelpers.getFiducialID("limelight")), 0, 12) && LimelightHelpers.getTV("limelight") == 1)
 
     public void setLEDs(int LEDmode){
         NetworkTable.getEntry("ledMode").setNumber(LEDmode);

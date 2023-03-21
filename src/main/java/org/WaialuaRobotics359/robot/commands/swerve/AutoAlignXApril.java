@@ -5,6 +5,7 @@ import java.lang.ModuleLayer.Controller;
 import java.util.function.BooleanSupplier;
 
 import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
@@ -35,9 +36,9 @@ public class AutoAlignXApril extends CommandBase {
         this.s_swerve = s_swerve;
         this.alignButton = alignButton;
         Timer = new Timer();
-        constraints = new TrapezoidProfile.Constraints(1, 0.5);
-        controller=  new ProfiledPIDController(.1, 0.0, 0, constraints, kDt);
-        controller.setTolerance(0.5);
+        constraints = new TrapezoidProfile.Constraints(2, 1);
+        controller = RobotContainer.isCube ? new ProfiledPIDController(2, 0.5, 0, constraints, kDt) : new ProfiledPIDController(2.5, 1, 0, constraints, kDt) ;
+        controller.setTolerance(0.01);
     }
 
     private void fetchValues() {
@@ -56,18 +57,19 @@ public class AutoAlignXApril extends CommandBase {
     public void execute() {
        fetchValues();
        
-       Translation2d translation = new Translation2d(controller.calculate(xDistance, 0), 0); // only drive y value
+       Translation2d translation = new Translation2d(0, controller.calculate(xDistance, 0) +.22); // only drive y value
        SmartDashboard.putNumber("xDistance", controller.calculate(xDistance, 0));
        
         s_swerve.drive(
             translation, 0, true, true //open loop?
         ); 
 
+        //System.out.println(translation.getY());
     }
     
     @Override
     public boolean isFinished(){        
-        return (controller.atSetpoint() || Timer.hasElapsed(2) || !alignButton.getAsBoolean());
+        return (!alignButton.getAsBoolean()); //Timer.hasElapsed(2) || controller.atGoal() && !alignButton.getAsBoolean()
     }
 
     @Override 

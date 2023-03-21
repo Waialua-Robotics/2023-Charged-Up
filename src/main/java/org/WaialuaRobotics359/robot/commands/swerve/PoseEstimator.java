@@ -36,8 +36,8 @@ public class PoseEstimator extends SubsystemBase {
   // "trust" the estimate from that particular component more than the others. 
   // This in turn means the particualr component will have a stronger influence
   // on the final pose estimate.
-  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(1));
-  private static final Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(0.1, 0.1, Units.degreesToRadians(15));
+  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(.1)); //.1
+  private static final Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(180));
   private final SwerveDrivePoseEstimator SwerveposeEstimator;
 
   private final Field2d field2d = new Field2d();
@@ -59,14 +59,20 @@ public class PoseEstimator extends SubsystemBase {
 
   /*PoseEst */
   public void VisionMessure(Pose2d robotPose, boolean soft){
+    /*if (soft){
+      SwerveposeEstimator.addVisionMeasurement
+      (robotPose, Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight")+ LimelightHelpers.getLatency_Capture("limelight")));
+    } else{
+      SwerveposeEstimator.resetPosition(robotPose.getRotation(), s_Swerve.getModulePositions(), robotPose);
+    }*/
     if(robotPose != null){
       if (soft){
         SwerveposeEstimator.addVisionMeasurement
-        (robotPose, Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight")+ LimelightHelpers.getLatency_Capture("limelight")));
+        (robotPose, (Timer.getFPGATimestamp() - ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight"))) /*- (LimelightHelpers.getLatency_Pipeline("limelight")+ LimelightHelpers.getLatency_Capture("limelight"))*/);
       } else{
         SwerveposeEstimator.resetPosition(robotPose.getRotation(), s_Swerve.getModulePositions(), robotPose);
       }
-    }
+    } 
   }
 
   public void resetPoseToZero(){
@@ -91,7 +97,7 @@ public class PoseEstimator extends SubsystemBase {
   }
 
   public double getXtoClosestSelectedNode(){
-    return ClosestSelectedNode().getX() - getPose().getX(); //#FIXME maybe invert if drive wrong direction
+    return ClosestSelectedNode().getY() - getPose().getY(); //#FIXME maybe invert if drive wrong direction
   }
 
   /*return Movement */
@@ -103,8 +109,8 @@ public class PoseEstimator extends SubsystemBase {
 
 
   public void periodic(){
-    SwerveposeEstimator.updateWithTime(Timer.getFPGATimestamp(),s_Swerve.getYaw(), s_Swerve.getModulePositions());
-    //VisionMessure(s_LimeLight.getPose2d(), true);
+    SwerveposeEstimator.updateWithTime(Timer.getFPGATimestamp(),s_Swerve.getYawflip(), s_Swerve.getModulePositions());
+    VisionMessure(s_LimeLight.getPose2d(), true); //true
     CurrentPose = SwerveposeEstimator.getEstimatedPosition();
     field2d.setRobotPose(CurrentPose);
     field2d.getObject("TargetNode").setPose(ClosestSelectedNode());
@@ -112,6 +118,7 @@ public class PoseEstimator extends SubsystemBase {
     SmartDashboard.putNumber("y", CurrentPose.getY());
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
     SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
+    SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
   }
     
 }

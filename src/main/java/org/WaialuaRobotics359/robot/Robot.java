@@ -139,8 +139,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    new InstantCommand(() -> m_robotContainer.getLimelight().setPipeline(0));
-    //LimelightHelpers.setPipelineIndex("limelight", 0); #FIXME use this pipeline set
+    //new InstantCommand(() -> m_robotContainer.getLimelight().setPipeline(0));
+    LimelightHelpers.setPipelineIndex("limelight", 0); //#FIXME use this pipeline set
 
     /*CommandScheduler.getInstance().schedule(
       new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())

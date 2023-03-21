@@ -26,10 +26,12 @@ import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignXApril;
+import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignXRetro;
 import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
 import org.WaialuaRobotics359.robot.subsystems.LEDs.State;
+import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
@@ -59,7 +61,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton AutoAlign = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);//robotCentric
     private final JoystickButton ResetMods = new JoystickButton(driver, XboxController.Button.kBack.value); 
     private final JoystickButton Angle0 = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton Angle180 = new JoystickButton(driver, XboxController.Button.kA.value);
@@ -70,7 +72,7 @@ public class RobotContainer {
      /*POV Buttons */
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
-    private final POVButton AutoAlign = new POVButton(driver, 270);
+    private final POVButton robotCentric = new POVButton(driver, 270);//AutoAlign
     private final POVButton toggleCam = new POVButton(driver, 0);
 
     /* Operator Controls */
@@ -308,7 +310,8 @@ public class RobotContainer {
             SmartDashboard.putData("AutoIntakeConeSlide", new AutoIntakeConeSlide(s_Intake, s_Slide));
             SmartDashboard.putData("setElivatorToStart", new InstantCommand(()-> s_Elevator.SetPosition(66500)));
             SmartDashboard.putData("midFast", new MidScoreFast(s_Wrist, s_Elevator, s_Slide));
-            SmartDashboard.putData("pose", new InstantCommand(() -> s_PoseEstimator.resetPose(new Pose2d(10,10, new Rotation2d(90)))));
+            SmartDashboard.putData("pose", new InstantCommand(() -> s_PoseEstimator.resetPose(new Pose2d(1.76,2.12, new Rotation2d(0)))));
+            SmartDashboard.putData("HardVision", new InstantCommand(() -> s_PoseEstimator.VisionMessure(s_LimeLight.getPose2d(), false)));
             //SmartDashboard.putData("AutoZeroslide", new AutoZeroSlide(s_Slide));
             //SmartDashboard.putData("AutoZeroElevator", new AutoZeroElevator(s_Elevator));
             //SmartDashboard.putData("AutoZeroWrist", new AutoZeroWrist(s_Wrist));
