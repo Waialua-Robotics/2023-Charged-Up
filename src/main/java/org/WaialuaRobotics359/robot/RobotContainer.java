@@ -116,7 +116,9 @@ public class RobotContainer {
     private final ConeL3Auto m_ConeL3Auto;
     private final ConeL1Auto m_ConeL1Auto;
     private final ConeL1Dual m_ConeL1Dual;
+    private final ConeL1DualCube m_ConeL1DualCube;
     private final ConeL1DualBalance m_ConeL1DualBalance;
+    private final ConeL1DualCubeBalance m_ConeL1DualCubeBalance;
     private final ConeM1Balance m_ConeM1Balance;
     private final CubeM2Balance m_CubeM2Balance;
     private final ConeM3Balance m_ConeM3Balance;
@@ -134,6 +136,8 @@ public class RobotContainer {
     private final RedConeL1Auto m_RedConeL1Auto;
     private final RedConeL1Dual m_RedConeL1Dual;
     private final RedConeL1DualBalance m_RedConeL1DualBalance;
+    private final RedConeL1DualCubeBalance m_RedConeL1DualCubeBalance;
+    private final RedConeL1DualCube m_RedConeL1DualCube;
     private final RedConeM1Balance m_RedConeM1Balance;
     private final RedCubeM2Balance m_RedCubeM2Balance;
     private final RedConeM3Balance m_RedConeM3Balance;
@@ -218,7 +222,9 @@ public class RobotContainer {
         m_ConeL3Auto = new ConeL3Auto(autoBuilder, s_PoseEstimator);
         m_ConeL1Auto = new ConeL1Auto(autoBuilder, s_PoseEstimator);
         m_ConeL1Dual = new ConeL1Dual(autoBuilder, s_PoseEstimator);
+        m_ConeL1DualCube = new ConeL1DualCube(autoBuilder, s_PoseEstimator);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder, s_PoseEstimator);
+        m_ConeL1DualCubeBalance = new ConeL1DualCubeBalance(autoBuilder, s_PoseEstimator);
         m_ConeM1Balance = new ConeM1Balance(autoBuilder, s_PoseEstimator);
         m_CubeM2Balance = new CubeM2Balance(autoBuilder, s_PoseEstimator);
         m_ConeM3Balance = new ConeM3Balance(autoBuilder, s_PoseEstimator);
@@ -236,6 +242,8 @@ public class RobotContainer {
         m_RedConeL1Auto = new RedConeL1Auto(autoBuilder, s_PoseEstimator);
         m_RedConeL1Dual = new RedConeL1Dual(autoBuilder, s_PoseEstimator);
         m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder, s_PoseEstimator);
+        m_RedConeL1DualCube = new RedConeL1DualCube(autoBuilder, s_PoseEstimator);
+        m_RedConeL1DualCubeBalance =new RedConeL1DualCubeBalance(autoBuilder, s_PoseEstimator);
         m_RedConeM1Balance = new RedConeM1Balance(autoBuilder, s_PoseEstimator);
         m_RedCubeM2Balance = new RedCubeM2Balance(autoBuilder, s_PoseEstimator);
         m_RedConeM3Balance = new RedConeM3Balance(autoBuilder, s_PoseEstimator);
@@ -327,7 +335,9 @@ public class RobotContainer {
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
         m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
         m_chooser.addOption("ConeL1Dual", "ConeL1Dual");
+        m_chooser.addOption("ConeL1DualCube", "ConeL1DualCube");
         m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
+        m_chooser.addOption("ConeL1DualCubeBalance", "ConeL1DualCubeBalance");
         m_chooser.addOption("ConeM1Balance", "ConeM1Balance");
         m_chooser.addOption("CubeM2Balance", "CubeM2Balance");
         m_chooser.addOption("ConeM3Balance", "ConeM3Balance");
@@ -357,8 +367,12 @@ public class RobotContainer {
         eventMap.put("IntakeConeTime", new AutoIntakeConeTime(s_Intake));
 
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("HighPosition", new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("StowPosition",new SetStowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("BirdPosition", new SetBirdPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("FeedPosition", new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("HalfUpHigh", new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
         eventMap.put("AutoBalanceNewForward", new AutoBalanceForward(s_Swerve));
         eventMap.put("AutoBalanceNewBackward", new AutoBalanceNewPID(s_Swerve, false));
@@ -378,6 +392,8 @@ public class RobotContainer {
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighStow", new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreHighHalfCube", new ConeScoreHighHalfCube(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("CubeScoreHighHalfCube", new CubeScoreHighHalfCube(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("CubeScoreHighStow", new CubeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeIntakeStow", new ConeIntakeStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighHalf", new ConeScoreHighHalf(s_Wrist, s_Elevator, s_Slide, s_Intake));
@@ -463,6 +479,12 @@ public class RobotContainer {
                 break;
             case "ConeL1Dual":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1Dual : m_RedConeL1Dual;
+                break;
+            case"ConeL1DualCube":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1DualCube : m_RedConeL1DualCube;
+                break;
+            case"ConeL1DualCubeBalance":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1DualCubeBalance : m_RedConeL1DualCubeBalance;
                 break;
             case "ConeL1DualBalance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1DualBalance : m_RedConeL1DualBalance;

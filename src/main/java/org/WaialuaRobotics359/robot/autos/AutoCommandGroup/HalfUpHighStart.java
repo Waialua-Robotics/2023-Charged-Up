@@ -37,9 +37,9 @@ public class HalfUpHighStart extends CommandBase {
             SlidePosition = Constants.Slide.Cube.HighPosition;
             WristPosition = Constants.Wrist.Cube.HighPosition;
         }else{
-            ElevatorPosition = Constants.Elevator.Cone.HighPosition;
+            ElevatorPosition = 150000;
             SlidePosition = Constants.Slide.Cone.HighPosition;
-            WristPosition = Constants.Wrist.Cone.HighPosition;
+            WristPosition = 9100;
         }
         
         finished = false;
@@ -60,15 +60,15 @@ public class HalfUpHighStart extends CommandBase {
             s_Elevator.goToPosition();
         }
 
-        if (s_Elevator.GetPosition() >70000){
+        if (RobotContainer.isCube ? s_Elevator.GetPosition() >50000 : s_Elevator.GetPosition() > 70000){
             s_Slide.setDesiredPosition(SlidePosition);
-        s_Slide.goToPosition();
+            s_Slide.goToPosition();
         }
 
-        if (s_Slide.GetPosition() >20000 ){
-        s_Wrist.setDesiredPosition(WristPosition);
-        s_Wrist.goToPosition();
-        finished = true;
+        if (RobotContainer.isCube ? s_Slide.GetPosition() >10000 : s_Slide.GetPosition() >20000 ){
+            s_Wrist.setDesiredPosition(WristPosition);
+            s_Wrist.goToPosition();
+            finished = true;
         }
 
     }

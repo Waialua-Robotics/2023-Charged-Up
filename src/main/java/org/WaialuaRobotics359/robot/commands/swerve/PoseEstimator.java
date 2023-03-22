@@ -36,7 +36,7 @@ public class PoseEstimator extends SubsystemBase {
   // "trust" the estimate from that particular component more than the others. 
   // This in turn means the particualr component will have a stronger influence
   // on the final pose estimate.
-  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(.1)); //.1
+  private static final Matrix<N3, N1> stateStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(.01)); //.1
   private static final Matrix<N3, N1> visionMeasurementStdDevs = VecBuilder.fill(.1, .1, Units.degreesToRadians(180));
   private final SwerveDrivePoseEstimator SwerveposeEstimator;
 
@@ -59,12 +59,6 @@ public class PoseEstimator extends SubsystemBase {
 
   /*PoseEst */
   public void VisionMessure(Pose2d robotPose, boolean soft){
-    /*if (soft){
-      SwerveposeEstimator.addVisionMeasurement
-      (robotPose, Timer.getFPGATimestamp() - (LimelightHelpers.getLatency_Pipeline("limelight")+ LimelightHelpers.getLatency_Capture("limelight")));
-    } else{
-      SwerveposeEstimator.resetPosition(robotPose.getRotation(), s_Swerve.getModulePositions(), robotPose);
-    }*/
     if(robotPose != null){
       if (soft){
         SwerveposeEstimator.addVisionMeasurement
@@ -104,8 +98,6 @@ public class PoseEstimator extends SubsystemBase {
   public static double RetroReflectiveX(){ // #FIXME very experimental 
     return LimelightHelpers.getTX("limelight")* .15;
   }
-
-
 
 
   public void periodic(){

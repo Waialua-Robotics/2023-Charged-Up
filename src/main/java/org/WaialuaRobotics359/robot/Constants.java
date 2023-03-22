@@ -148,7 +148,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 187700; 
-        public static final int reverseSoftLimit = 0;//1000
+        public static final int reverseSoftLimit = 1000;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -158,7 +158,7 @@ public final class Constants {
 
         /*Motion Magic */
         public static final int velocity = 70000;
-        public static final int acceleration = 50000;
+        public static final int acceleration = 45000; //50000
         public static final int smoothing = 0; // 0-8
 
         /* PID */

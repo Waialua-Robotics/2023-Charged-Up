@@ -1,18 +1,19 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
+
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutoIntakeCube extends CommandBase {
+public class AutoIntakeCubeTime extends CommandBase {
     private Intake s_intake;
 
     private double currentLimit = 30;
     private Timer Timer = new Timer();
 
-    public AutoIntakeCube(Intake s_intake) {
+    public AutoIntakeCubeTime(Intake s_intake) {
         this.s_intake = s_intake;
         addRequirements(s_intake);
     }
@@ -20,17 +21,20 @@ public class AutoIntakeCube extends CommandBase {
     @Override
     public void initialize() {
         Timer.reset();
-        Timer.start();
     }
 
     @Override
     public void execute() {
         s_intake.outake(Constants.Intake.speedIn);
+
+        if (s_intake.getCurrent() > currentLimit){
+            Timer.start();
+        }
     }
     
     @Override
     public boolean isFinished(){
-        return s_intake.getCurrent() > currentLimit && Timer.hasElapsed(2);
+        return Timer.hasElapsed(2);
     }
 
     @Override 
