@@ -21,20 +21,18 @@ public class AutoIntakeConeTime extends CommandBase {
     @Override
     public void initialize() {
         Timer.reset();
+        Timer.start();
     }
 
     @Override
     public void execute() {
         s_intake.intake(Constants.Intake.speedIn);
 
-        if (s_intake.getCurrent() > currentLimit){
-            Timer.start();
-        }
     }
     
     @Override
     public boolean isFinished(){
-        return Timer.hasElapsed(2);
+        return  s_intake.getCurrent() > currentLimit && Timer.hasElapsed(2);
     }
 
     @Override 

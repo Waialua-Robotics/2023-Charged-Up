@@ -14,7 +14,7 @@ public class ConeScoreHighHalf extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide),
-            new AutoWait(.8),
+            new AutoWait(.9),
             new AutoOuttakeCone(s_Intake),
             new SetStandPosition(s_Wrist, s_Elevator, s_Slide)
             //new AutoWait(.1)  new InstantCommand(() -> isCube = true)

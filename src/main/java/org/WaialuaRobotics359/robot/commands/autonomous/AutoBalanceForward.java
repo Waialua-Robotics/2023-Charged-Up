@@ -60,10 +60,10 @@ public class AutoBalanceForward extends CommandBase {
         if(!balancing){
           s_Swerve.setModuleStates(
             new SwerveModuleState[] {
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0))
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0))
             }
         );
         }

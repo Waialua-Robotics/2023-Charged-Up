@@ -306,7 +306,7 @@ public class RobotContainer {
             ZeroSlide.onTrue(new AutoZeroSlide(s_Slide));
             ZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
-            autoBalance.onTrue(new AutoBalanceNew(s_Swerve, false));
+            autoBalance.onTrue(new AutoBalanceForward(s_Swerve));
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
