@@ -37,9 +37,9 @@ public class HalfUpHighStart extends CommandBase {
             SlidePosition = Constants.Slide.Cube.HighPosition;
             WristPosition = Constants.Wrist.Cube.HighPosition;
         }else{
-            ElevatorPosition = 150000;
+            ElevatorPosition = Constants.Elevator.Cone.HighPosition;
             SlidePosition = Constants.Slide.Cone.HighPosition;
-            WristPosition = 9100;
+            WristPosition = Constants.Wrist.Cone.HighPosition;
         }
         
         finished = false;
