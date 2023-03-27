@@ -111,6 +111,9 @@ public class RobotContainer {
     /* auto Builder */
     private SwerveAutoBuilder autoBuilder; 
 
+    /*Test Auto */
+    private final OneTwentyAuto m_OneTwentyAuto;
+
     /* The autonomous routines */
     private final swerveBuilderAuto m_SwerveBuilderAuto;
     private final ConeL3Auto m_ConeL3Auto;
@@ -217,6 +220,9 @@ public class RobotContainer {
          * Initialize Autonomous Routines 
          * Do not move to prevent initialization race case
          */ 
+        /*Test Auto */
+        m_OneTwentyAuto = new OneTwentyAuto(autoBuilder, s_PoseEstimator);
+
         /*AutoBuilder */
         m_SwerveBuilderAuto = new swerveBuilderAuto(autoBuilder);
         m_ConeL3Auto = new ConeL3Auto(autoBuilder, s_PoseEstimator);
@@ -331,6 +337,9 @@ public class RobotContainer {
     public void configAuto() {
         /* Populate Sendable Chooser */
         m_chooser.setDefaultOption("swerveBuilderAuto",  "SwerveBuilderAuto");
+
+        m_chooser.addOption("OneTwentyAuto", "OneTwentyAuto");
+
         m_chooser.addOption("twomAuto", "twomAuto");   
         m_chooser.addOption("ConeL3Auto", "ConeL3Auto");
         m_chooser.addOption("ConeL1Auto", "ConeL1Auto");
@@ -387,6 +396,8 @@ public class RobotContainer {
         eventMap.put("AutoBalanceInstantForward", new AutoBalanceInstantForward(s_Swerve));
 
         eventMap.put("AutoLimelightAlign", new AutoLimelightAlign(s_LimeLight, s_Swerve));
+
+        eventMap.put("TeleopZero", new InstantCommand(()-> s_Swerve.desiredAngle = 0));
 
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
@@ -467,6 +478,9 @@ public class RobotContainer {
         switch (m_chooser.getSelected()) {
             case "swerveBuilderAuto":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_SwerveBuilderAuto : m_RedSwerveBuilderAuto;
+                break;
+            case "OneTwentyAuto":
+                selected = m_OneTwentyAuto;
                 break;
             case "twomAuto":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_SwerveBuilderAuto : m_RedSwerveBuilderAuto;
