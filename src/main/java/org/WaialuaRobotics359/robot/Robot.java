@@ -7,12 +7,14 @@ package org.WaialuaRobotics359.robot;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.util.CTREConfigs;
 import org.WaialuaRobotics359.robot.util.Dashboard;
+import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -137,6 +139,9 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    //new InstantCommand(() -> m_robotContainer.getLimelight().setPipeline(0));
+    LimelightHelpers.setPipelineIndex("limelight", 0); //#FIXME use this pipeline set
+
     /*CommandScheduler.getInstance().schedule(
       new InitializeRobot(m_robotContainer.getWrist(), m_robotContainer.getElevator(), m_robotContainer.getSlide(), m_robotContainer.getSwerve())
     );*/

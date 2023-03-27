@@ -11,16 +11,18 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class ConeR3Balance extends SequentialCommandGroup {
+public class ConeL1DualCubeBalance extends SequentialCommandGroup {
 
-    public ConeR3Balance (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
+    public ConeL1DualCubeBalance (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory ConeR3Balance = PathPlanner.loadPath("ConeR3Balance", new PathConstraints(2, 1));
-        Pose2d startpose = ConeR3Balance.getInitialHolonomicPose();
+        PathPlannerTrajectory ConeL1Dual = PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(5, 3.5));
+        PathPlannerTrajectory ConeL1DualLinkBridge = PathPlanner.loadPath("ConeL1DualLinkBridge", new PathConstraints(5, 3));
+        Pose2d startpose = ConeL1Dual.getInitialHolonomicPose();
 
         addCommands(new SequentialCommandGroup(
             new InstantCommand(()-> s_poseEstimator.resetPose(startpose)),
-            autoBuilder.fullAuto(ConeR3Balance)
+            autoBuilder.fullAuto(ConeL1Dual),
+            autoBuilder.fullAuto(ConeL1DualLinkBridge)
         ));
     }
 }

@@ -110,7 +110,6 @@ public class AutoLimelightAlign extends CommandBase {
 
         if (teleop && timer.hasElapsed(1.5)) finished =true;  
 
-
         /* 
        CommandScheduler.getInstance().schedule(
            new TeleopSwerve(

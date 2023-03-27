@@ -60,10 +60,10 @@ public class AutoBalanceForward extends CommandBase {
         if(!balancing){
           s_Swerve.setModuleStates(
             new SwerveModuleState[] {
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0)),
-              new SwerveModuleState(1, Rotation2d.fromDegrees(0))
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0)),
+              new SwerveModuleState(2, Rotation2d.fromDegrees(0))
             }
         );
         }
@@ -75,7 +75,7 @@ public class AutoBalanceForward extends CommandBase {
 
         timebalaced =0;
 
-        drivePower = -Constants.AutoConstants.BalanceKp * error;
+        drivePower = -.06 * error; //-Constants.AutoConstants.BalanceKp //.04
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {

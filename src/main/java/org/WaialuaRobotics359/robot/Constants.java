@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.pathplanner.lib.auto.PIDConstants;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -11,12 +12,15 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.WaialuaRobotics359.lib.util.COTSFalconSwerveConstants;
 import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = true; //#TODO: Change to true for competition Bot
+    public static final boolean isCompetitionRobot = false; //#TODO: Change to true for competition Bot
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -47,9 +51,7 @@ public final class Constants {
     public static final class LEDs {
         public static final int CANdleID = 0; 
         public static final int LEDCount = 128; 
-
     }
-
 
     public static final class Fork {
 
@@ -74,7 +76,7 @@ public final class Constants {
         public static final class Cube {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 4600;
-            public static final int HighPosition = 200000;
+            public static final int HighPosition = 200000; //200000
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
             public static final int BirdPosition = 0;
@@ -83,14 +85,14 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 85000;
-            public static final int HighPosition = 204000;
+            public static final int HighPosition = 211100; //204000
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
             public static final int BirdPosition = 0;
         }
        
         /* soft limits */
-        public static final int forwardSoftLimit = 208000; 
+        public static final int forwardSoftLimit = 211170; //208000 
         public static final int reverseSoftLimit = 1000;
 
         /* current limiting */
@@ -138,15 +140,15 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 136000;
-            public static final int HighPosition = 150000;
+            public static final int HighPosition = 185000;
             public static final int FeederPosition = 135500;
             public static final int standPosition = 51240;
             public static final int BirdPosition = 49000;
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 150000; 
-        public static final int reverseSoftLimit = 0;//1000
+        public static final int forwardSoftLimit = 187700; 
+        public static final int reverseSoftLimit = 1000;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -156,7 +158,7 @@ public final class Constants {
 
         /*Motion Magic */
         public static final int velocity = 70000;
-        public static final int acceleration = 50000;
+        public static final int acceleration = 45000; //50000
         public static final int smoothing = 0; // 0-8
 
         /* PID */
@@ -194,7 +196,7 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 14000;
             public static final int MidPosition = 13242;
-            public static final int HighPosition = 9100;
+            public static final int HighPosition = 12100;
             public static final int FeederPosition = 12000;
             public static final int standPosition = 16500;
             public static final int BirdPosition = 6980;
@@ -420,6 +422,54 @@ public final class Constants {
         }
     }
 
+    public static final class ScoringPoses{
+        public static final class Cone{
+            public static final List<Pose2d> BluePoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(196.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(152.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(130.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(86.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(64.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(20.19), new Rotation2d(0)));
+                }
+            };
+            
+            public static final List<Pose2d> RedPoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(295.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(251.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(229.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(185.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(163.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(119.56), new Rotation2d(0)));
+                }
+            };
+        }
+
+        public static final class Cube{
+            public static final List<Pose2d> BluePoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(174.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(108.19), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(42.19), new Rotation2d(0)));
+                }
+            };
+            
+            public static final List<Pose2d> RedPoses =
+            new ArrayList<>() {
+                {
+                add(new Pose2d(1.85, Units.inchesToMeters(273.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(207.56), new Rotation2d(0)));
+                add(new Pose2d(1.85, Units.inchesToMeters(141.56), new Rotation2d(0)));
+                }
+            };
+        }
+    }
+
 
 
     public static final class AutoConstants { 
@@ -434,7 +484,7 @@ public final class Constants {
 
         /*Auto Builder Const */
         public static final PIDConstants translationPID = new PIDConstants(2, 0, 0); //p.5, 1.2
-        public static final PIDConstants rotationPID = new PIDConstants(8, 0, 0); //d.05 p15  
+        public static final PIDConstants rotationPID = new PIDConstants(8, .5, 0); //d.05 p15  
     
         /* Constraint for the motion profilied robot angle controller */
 

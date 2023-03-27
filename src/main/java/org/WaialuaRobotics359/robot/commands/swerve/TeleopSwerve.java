@@ -58,6 +58,12 @@ public class TeleopSwerve extends CommandBase {
             strafeVal *= ControllerGain;
             omega *= ControllerGain;
 
+            /*Auto Align*/ //#FIXME Very Experimental
+            /*if(AlignSup.getAsBoolean()){
+                translationVal = 0;
+                strafeVal = PoseEstimator.RetroReflectiveX();
+            }*/
+
             if (omega != 0 && !feedbackNode) {
                 s_Swerve.desiredAngle = s_Swerve.getYaw360();
                 feedbackNode = true;
