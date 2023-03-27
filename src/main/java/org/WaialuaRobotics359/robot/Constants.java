@@ -484,7 +484,7 @@ public final class Constants {
 
         /*Auto Builder Const */
         public static final PIDConstants translationPID = new PIDConstants(2, 0, 0); //p.5, 1.2
-        public static final PIDConstants rotationPID = new PIDConstants(8, 0, 0); //d.05 p15  
+        public static final PIDConstants rotationPID = new PIDConstants(8, .5, 0); //d.05 p15  
     
         /* Constraint for the motion profilied robot angle controller */
 
