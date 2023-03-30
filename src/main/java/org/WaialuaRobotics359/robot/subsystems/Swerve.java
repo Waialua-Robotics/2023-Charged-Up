@@ -159,6 +159,18 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public void setFortyFive(){
+        for(SwerveModule mod: mSwerveMods){
+            if(mod.moduleNumber == 0){
+                mod.ForceAngle(-45);
+            }else if(mod.moduleNumber == 3){
+                mod.ForceAngle(-45);
+            }else{
+                mod.ForceAngle(45);
+            }
+        }
+    }
+
     @Override
     public void periodic(){
         //swerveOdometry.update(getYaw(), getModulePositions());  

@@ -50,7 +50,7 @@ public class AutoBalanceForward extends CommandBase {
          * the robot has balanced on the platform. return from the execute
          * and initiate the ending sequence.
          */
-        if (balancing && timebalaced > 10) {
+        if (balancing && timebalaced > 15) {
           finished = true;
           return;
         } else if (balancing) {
@@ -75,7 +75,7 @@ public class AutoBalanceForward extends CommandBase {
 
         timebalaced =0;
 
-        drivePower = -.06 * error; //-Constants.AutoConstants.BalanceKp //.04
+        drivePower = -.04 * error; //-Constants.AutoConstants.BalanceKp //.04
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {
@@ -109,6 +109,7 @@ public class AutoBalanceForward extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     s_Swerve.stop();
+    s_Swerve.setFortyFive();
   }
  
    // Returns true when the command should end.
