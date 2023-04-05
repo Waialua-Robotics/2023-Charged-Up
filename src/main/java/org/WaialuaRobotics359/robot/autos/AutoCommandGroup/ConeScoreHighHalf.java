@@ -4,7 +4,6 @@ import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
 import org.WaialuaRobotics359.robot.subsystems.*;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class ConeScoreHighHalf extends SequentialCommandGroup {

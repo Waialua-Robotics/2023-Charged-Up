@@ -91,11 +91,11 @@ public class PoseEstimator extends SubsystemBase {
   }
 
   public double getXtoClosestSelectedNode(){
-    return ClosestSelectedNode().getY() - getPose().getY(); //#FIXME maybe invert if drive wrong direction
+    return ClosestSelectedNode().getY() - getPose().getY();
   }
 
   /*return Movement */
-  public static double RetroReflectiveX(){ // #FIXME very experimental 
+  public static double RetroReflectiveX(){ 
     return LimelightHelpers.getTX("limelight")* .15;
   }
 

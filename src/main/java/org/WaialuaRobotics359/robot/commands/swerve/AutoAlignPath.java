@@ -1,12 +1,6 @@
 
 package org.WaialuaRobotics359.robot.commands.swerve;
 
-import java.lang.ModuleLayer.Controller;
-import java.nio.file.Path;
-
-import org.WaialuaRobotics359.robot.Constants;
-import org.WaialuaRobotics359.robot.RobotContainer;
-import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import com.pathplanner.lib.PathConstraints;
@@ -15,13 +9,10 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.PathPoint;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoAlignPath extends CommandBase {

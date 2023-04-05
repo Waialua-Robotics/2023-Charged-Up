@@ -58,7 +58,7 @@ public class TeleopSwerve extends CommandBase {
             strafeVal *= ControllerGain;
             omega *= ControllerGain;
 
-            /*Auto Align*/ //#FIXME Very Experimental
+            /*Auto Align*/ 
             /*if(AlignSup.getAsBoolean()){
                 translationVal = 0;
                 strafeVal = PoseEstimator.RetroReflectiveX();

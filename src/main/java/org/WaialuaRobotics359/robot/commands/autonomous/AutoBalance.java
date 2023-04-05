@@ -12,7 +12,6 @@ public class AutoBalance extends CommandBase {
 
   private boolean balancing = false;
   private boolean finished = false;
-  private boolean inRange = false;
 
   private double error;
   private double currentAngle;
@@ -29,7 +28,6 @@ public class AutoBalance extends CommandBase {
     balancing = false;
     finished = false;
     pitchOffset = s_Swerve.GetGyroPitch();
-    inRange = false; 
   }
 
   @Override
@@ -72,8 +70,6 @@ public class AutoBalance extends CommandBase {
         // indicates that the balancing sequence has begun
         balancing = true;
 
-        inRange = Math.abs(error) < Constants.AutoConstants.BalanceThreshold;
-
         timebalaced =0;
 
         drivePower = -Math.min(Constants.AutoConstants.BalanceKp * error, 1); 
@@ -87,8 +83,6 @@ public class AutoBalance extends CommandBase {
         if (Math.abs(drivePower) > 0.8) {
           drivePower = Math.copySign(0.8, drivePower);
         }
-
-        //if (inRange) drivePower = 0;
 
         s_Swerve.setModuleStates(
                   new SwerveModuleState[] {

@@ -25,9 +25,6 @@ public class AutoBalanceNewPID extends CommandBase {
     /* Variables for the balance case */ 
         private double dropAngle;
 
-        private int iThreshold;
-        private double brakeOverAngle;
-
     enum State {mount, drop, balance, finish}
     private State state = State.mount;
 
@@ -49,9 +46,6 @@ public class AutoBalanceNewPID extends CommandBase {
         n = 0;
         inRangeDuration = 10;
         dropAngle = 14;
-
-        iThreshold = 45;
-        brakeOverAngle = 13.1;
 
     }
     
