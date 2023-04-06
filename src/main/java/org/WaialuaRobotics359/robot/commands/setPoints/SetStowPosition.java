@@ -55,7 +55,7 @@ public class SetStowPosition extends CommandBase {
             s_Slide.goToPosition();
         }
 
-        if (s_Slide.GetPosition() < 87000 || Timer.hasElapsed(.5)){
+        if (s_Slide.GetPosition() < 80000 || Timer.hasElapsed(.6)){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
             

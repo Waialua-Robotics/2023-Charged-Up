@@ -54,7 +54,7 @@ public class SetBirdPosition extends CommandBase {
 
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
-        if (Timer.hasElapsed(0.5)){
+        if (s_Wrist.inSafe()){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }

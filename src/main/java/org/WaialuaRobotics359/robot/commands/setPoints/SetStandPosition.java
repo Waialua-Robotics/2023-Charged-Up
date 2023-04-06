@@ -53,7 +53,7 @@ public class SetStandPosition extends CommandBase {
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
     
-        if (Timer.hasElapsed(0.1)){
+        if (s_Wrist.inSafe()){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
@@ -63,7 +63,7 @@ public class SetStandPosition extends CommandBase {
             s_Elevator.goToPosition();
         }
 
-        if (s_Elevator.GetPosition() > 20000 && Timer.hasElapsed(.4)|| Timer.hasElapsed(.8)){
+        if (s_Elevator.GetPosition() > 1000 && Timer.hasElapsed(.3)|| Timer.hasElapsed(.8)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;
