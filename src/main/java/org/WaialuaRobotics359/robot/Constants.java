@@ -20,7 +20,7 @@ import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = true; 
+    public static final boolean isCompetitionRobot = false; 
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -124,7 +124,7 @@ public final class Constants {
 
         public static final int MagElevatorID = 0;
         
-        public static final int Ratio = 30;
+        public static final int Ratio = 12;
 
         public static final int threshold = 500;
 
@@ -147,7 +147,7 @@ public final class Constants {
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 187700; 
+        public static final int forwardSoftLimit = 115100; //187700 diffrence 72,600
         public static final int reverseSoftLimit = 1000;//1000
 
         /* current limiting */
@@ -362,7 +362,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; 
+        public static final double maxSpeed = 4.9; //#FIXME 4.5
         /** Radians per Second */
         public static final double maxAngularVelocity = 10; 
 
