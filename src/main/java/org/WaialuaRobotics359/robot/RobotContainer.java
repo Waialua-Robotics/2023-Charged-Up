@@ -117,6 +117,7 @@ public class RobotContainer {
     private final ConeL1DualCube m_ConeL1DualCube;
     private final ConeL1DualBalance m_ConeL1DualBalance;
     private final ConeL1DualCubeBalance m_ConeL1DualCubeBalance;
+    private final ConeL1Tri m_ConeL1Tri;
     private final ConeM1Balance m_ConeM1Balance;
     private final CubeM2Balance m_CubeM2Balance;
     private final ConeM3Balance m_ConeM3Balance;
@@ -223,6 +224,7 @@ public class RobotContainer {
         m_ConeL1DualCube = new ConeL1DualCube(autoBuilder, s_PoseEstimator);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder, s_PoseEstimator);
         m_ConeL1DualCubeBalance = new ConeL1DualCubeBalance(autoBuilder, s_PoseEstimator);
+        m_ConeL1Tri =new ConeL1Tri(autoBuilder, s_PoseEstimator);
         m_ConeM1Balance = new ConeM1Balance(autoBuilder, s_PoseEstimator);
         m_CubeM2Balance = new CubeM2Balance(autoBuilder, s_PoseEstimator);
         m_ConeM3Balance = new ConeM3Balance(autoBuilder, s_PoseEstimator);
@@ -304,7 +306,7 @@ public class RobotContainer {
             ZeroSlide.onTrue(new AutoZeroSlide(s_Slide));
             ZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
-            autoBalance.onTrue(new AutoBalanceForward(s_Swerve));
+            autoBalance.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
@@ -336,6 +338,7 @@ public class RobotContainer {
         m_chooser.addOption("ConeL1DualCube", "ConeL1DualCube");
         m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
         m_chooser.addOption("ConeL1DualCubeBalance", "ConeL1DualCubeBalance");
+        m_chooser.addOption("ConeL1Tri", "ConeL1Tri");
         m_chooser.addOption("ConeM1Balance", "ConeM1Balance");
         m_chooser.addOption("CubeM2Balance", "CubeM2Balance");
         m_chooser.addOption("ConeM3Balance", "ConeM3Balance");
@@ -362,7 +365,10 @@ public class RobotContainer {
         eventMap.put("IntakeCone", new AutoIntakeCone(s_Intake));
         eventMap.put("IntakeCube", new AutoIntakeCube(s_Intake));
         eventMap.put("IntakeStop", new InstantCommand(()-> s_Intake.stop()));
+        eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
+        eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("IntakeConeTime", new AutoIntakeConeTime(s_Intake));
+        eventMap.put("ThrowCube", new ThrowCube(s_Wrist, s_Intake));
 
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("HighPosition", new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
@@ -370,15 +376,13 @@ public class RobotContainer {
         eventMap.put("BirdPosition", new SetBirdPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("FeedPosition", new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("HalfUpHigh", new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
         eventMap.put("AutoBalanceNewForward", new AutoBalanceForward(s_Swerve));
         eventMap.put("AutoBalanceNewBackward", new AutoBalanceNewPID(s_Swerve, false));
         eventMap.put("AutoBalanceForward",new AutoBalanceForward(s_Swerve));
-        eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
-        eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("StopSwerve", new InstantCommand( () -> s_Swerve.stop()));
-        eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("MidScoreFast", new MidScoreFast(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("ConeSlideIntake",new AutoIntakeConeSlide(s_Intake, s_Slide));
         eventMap.put("AutoBalanceInstant", new AutoBalanceInstant(s_Swerve));
@@ -388,6 +392,7 @@ public class RobotContainer {
 
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreMidStart", new ConeScoreMidStart(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighStow", new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighHalfCube", new ConeScoreHighHalfCube(s_Wrist, s_Elevator, s_Slide, s_Intake));
@@ -516,6 +521,9 @@ public class RobotContainer {
                 break;
             case "ConeScoreHighStow":
                 selected = m_ConeScoreHighStow;
+                break;
+            case "ConeL1Tri":
+                selected = m_ConeL1Tri;
                 break;
             case "DriveBack":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_DriveBack : m_RedDriveBack;

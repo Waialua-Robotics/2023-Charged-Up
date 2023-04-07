@@ -79,7 +79,7 @@ public final class Constants {
             public static final int HighPosition = 200000; //200000
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 0;
+            public static final int BirdPosition = 1400;
         }
 
         public static final class Cone {
@@ -88,7 +88,7 @@ public final class Constants {
             public static final int HighPosition = 211100; //204000
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 0;
+            public static final int BirdPosition = 1400;
         }
        
         /* soft limits */

@@ -34,11 +34,11 @@ public class SetFeederPosition extends CommandBase {
     public void initialize(){
         if (RobotContainer.isCube){
             ElevatorPosition = Constants.Elevator.Cube.FeederPosition;
-            SlidePosition = 0;
+            SlidePosition = Constants.Elevator.Cube.FeederPosition;
             WristPosition = Constants.Wrist.Cube.FeederPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.FeederPosition;
-            SlidePosition = 0;
+            SlidePosition = Constants.Elevator.Cone.FeederPosition;
             WristPosition = Constants.Wrist.Cone.FeederPosition;
         }
 
