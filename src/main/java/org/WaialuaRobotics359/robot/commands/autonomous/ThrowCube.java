@@ -44,7 +44,7 @@ public class ThrowCube extends CommandBase {
 
         s_Wrist.SetPrecentOut(1);
 
-        if(Timer.hasElapsed(.1)){
+        if(Timer.hasElapsed(.1)){ //Timer.hasElapsed(.1)
         s_Intake.outake(-1);
         }
         

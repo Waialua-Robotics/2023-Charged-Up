@@ -70,8 +70,8 @@ public class RobotContainer {
      /*POV Buttons */
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
-    private final POVButton robotCentric = new POVButton(driver, 270);//AutoAlign
-    private final POVButton toggleCam = new POVButton(driver, 0);
+    private final POVButton robotCentric = new POVButton(driver, 270);
+    private final POVButton ThrowCube = new POVButton(driver, 0);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -126,6 +126,7 @@ public class RobotContainer {
     private final CubeM2ClearBalance m_CubeM2ClearBalance;
     private final ConeM3ClearBalance m_ConeM3ClearBalance;
     private final ConeR3Dual m_ConeR3Dual;
+    private final ConeR3DualCube m_ConeR3DualCube;
     private final ConeR3DualBalance m_ConeR3DualBalance;
     private final DriveBack m_DriveBack;
 
@@ -233,6 +234,7 @@ public class RobotContainer {
         m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder, s_PoseEstimator);
         m_ConeR3Balance = new ConeR3Balance(autoBuilder, s_PoseEstimator);
         m_ConeR3Dual = new ConeR3Dual(autoBuilder, s_PoseEstimator);
+        m_ConeR3DualCube = new ConeR3DualCube(autoBuilder, s_PoseEstimator);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder, s_PoseEstimator);
         m_DriveBack = new DriveBack(autoBuilder);
 
@@ -281,7 +283,7 @@ public class RobotContainer {
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
             AutoAlign.onTrue(new AutoAlignXApril(s_PoseEstimator, s_Swerve, ()-> AutoAlign.getAsBoolean())); //#FIXME change to use different command POV 270
-            toggleCam.onTrue( new InstantCommand(() -> s_LimeLight.toggleDriver()));
+            ThrowCube.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
         /* Operator Buttons */
             /* Elevator System Positions */
@@ -347,6 +349,7 @@ public class RobotContainer {
         m_chooser.addOption("CubeM2ClearBalance", "CubeM2ClearBalance");
         m_chooser.addOption("ConeR3Balance", "ConeR3Balance");
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
+        m_chooser.addOption("ConeR3DualCube", "ConeR3DualCube");
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
         m_chooser.addOption("DriveBack", "DriveBack");
         m_chooser.addOption("DoNothing", "DoNothing");
@@ -515,6 +518,9 @@ public class RobotContainer {
                 break;
             case "ConeR3Dual":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Dual : m_RedConeR3Dual;
+                break;
+            case "ConeR3DualCube":
+                selected = (m_ConeR3DualCube);
                 break;
             case "ConeR3DualBalance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3DualBalance : m_RedConeR3DualBalance;

@@ -58,18 +58,18 @@ public class SetStandPosition extends CommandBase {
 
         SlideSafe = s_Slide.GetPosition() < 20000;
     
-        if (s_Wrist.inSafe()){
+        if (Timer.hasElapsed(.1)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
 
         }
 
-        if (Timer.hasElapsed(.2) && SlideSafe){
+        if (Timer.hasElapsed(.4) || SlideSafe){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (s_Elevator.GetPosition() > 4000 && Timer.hasElapsed(.3) && SlideSafe){
+        if (s_Elevator.GetPosition() > 2000 && Timer.hasElapsed(.4)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;

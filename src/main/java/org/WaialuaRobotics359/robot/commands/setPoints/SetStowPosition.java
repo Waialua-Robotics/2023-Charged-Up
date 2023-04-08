@@ -55,18 +55,17 @@ public class SetStowPosition extends CommandBase {
             s_Slide.goToPosition();
         }
 
-        if (s_Slide.GetPosition() < 80000 || Timer.hasElapsed(.6)){
+        if (s_Slide.GetPosition() < 160000 || Timer.hasElapsed(.6)){ //s_Slide.GetPosition() < 160000 || Timer.hasElapsed(.6)
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
             
         }
 
-        if (s_Elevator.GetPosition()< 60000 && Timer.hasElapsed(.2)){
+        if (s_Elevator.GetPosition()< 60000){ //&& Timer.hasElapsed(.2)
             s_Wrist.setDesiredPosition(Constants.Wrist.StowPosition);
             s_Wrist.goToPosition();
             finished = true;
         }
-
 
     }
     
@@ -74,4 +73,5 @@ public class SetStowPosition extends CommandBase {
         //return (s_Elevator.inRange() && s_Wrist.inRange() && s_Slide.inRange() && finished);
         return finished;
     }
+
 }
