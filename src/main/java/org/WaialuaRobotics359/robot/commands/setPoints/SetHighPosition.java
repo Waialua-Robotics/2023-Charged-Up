@@ -61,7 +61,7 @@ public class SetHighPosition extends CommandBase {
             s_Elevator.goToPosition();
         }
 
-        if (Timer.hasElapsed(.5)){
+        if (Timer.hasElapsed(.55)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }

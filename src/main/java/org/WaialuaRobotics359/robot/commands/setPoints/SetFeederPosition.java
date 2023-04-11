@@ -34,11 +34,11 @@ public class SetFeederPosition extends CommandBase {
     public void initialize(){
         if (RobotContainer.isCube){
             ElevatorPosition = Constants.Elevator.Cube.FeederPosition;
-            SlidePosition = Constants.Elevator.Cube.FeederPosition;
+            SlidePosition = Constants.Slide.Cube.FeederPosition;
             WristPosition = Constants.Wrist.Cube.FeederPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.FeederPosition;
-            SlidePosition = Constants.Elevator.Cone.FeederPosition;
+            SlidePosition = Constants.Slide.Cube.FeederPosition;
             WristPosition = Constants.Wrist.Cone.FeederPosition;
         }
 
@@ -53,16 +53,16 @@ public class SetFeederPosition extends CommandBase {
     public void execute(){
 
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
-        s_Wrist.goToPosition();
-        if (s_Wrist.inSafe()){
+        s_Wrist.goToPosition(); 
+        if (Timer.hasElapsed(0)){ //s_Wrist.inSafe()
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
-        if (Timer.hasElapsed(1)){
+        if (Timer.hasElapsed(.1)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
-        if (s_Wrist.inSafe()){
+        if (Timer.hasElapsed(.1)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;

@@ -93,7 +93,7 @@ public final class Constants {
        
         /* soft limits */
         public static final int forwardSoftLimit = 211170; //208000 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = 0;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -204,7 +204,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 16500; 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = 0;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
