@@ -362,7 +362,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.9; //#FIXME 4.5
+        public static final double maxSpeed = 4.8; //#FIXME 4.5
         /** Radians per Second */
         public static final double maxAngularVelocity = 10; 
 
