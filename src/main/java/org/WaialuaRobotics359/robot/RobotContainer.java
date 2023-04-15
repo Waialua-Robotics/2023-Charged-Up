@@ -25,6 +25,7 @@ import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
+import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignRetro;
 import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignXApril;
 import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
@@ -286,7 +287,7 @@ public class RobotContainer {
             Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
-            AutoAlign.onTrue(new AutoAlignXApril(s_PoseEstimator, s_Swerve, ()-> AutoAlign.getAsBoolean())); //#FIXME change to use different command POV 270
+            AutoAlign.onTrue(new AutoAlignRetro(s_Swerve, ()-> AutoAlign.getAsBoolean(), s_Wrist, s_Elevator, s_Slide)); //#FIXME change to use different command POV 270 ()-> AutoAlign.getAsBoolean()
             ThrowCube.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
         /* Operator Buttons */

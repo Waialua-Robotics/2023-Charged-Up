@@ -1,10 +1,6 @@
 package org.WaialuaRobotics359.robot.commands.autonomous;
 
-import org.WaialuaRobotics359.robot.Constants;
-import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.Intake;
-import org.WaialuaRobotics359.robot.subsystems.Elevator;
-import org.WaialuaRobotics359.robot.subsystems.Slide;
 import org.WaialuaRobotics359.robot.subsystems.Wrist;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -14,7 +10,6 @@ public class ThrowCube extends CommandBase {
     private Wrist s_Wrist;
     private Intake s_Intake;
 
-    private static int WristPosition;
     private static int StowPosition;
 
     public ThrowCube(Wrist s_Wrist, Intake s_Intake) {
@@ -28,7 +23,6 @@ public class ThrowCube extends CommandBase {
     private Timer Timer = new Timer();
 
     public void initialize(){
-        WristPosition = Constants.Wrist.Cube.LowPosition;
         StowPosition = 1200;
 
         finished = false;
@@ -38,9 +32,6 @@ public class ThrowCube extends CommandBase {
 
     @Override
     public void execute(){
-
-        //s_Wrist.setDesiredPosition(WristPosition);
-        //s_Wrist.goToPosition();
 
         s_Wrist.SetPrecentOut(1);
 

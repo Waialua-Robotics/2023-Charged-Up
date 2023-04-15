@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
       LEDs.reportWarning = false; 
     }
 
-    m_robotContainer.getWrist().Stop();;
+    m_robotContainer.getWrist().Stop();
     m_robotContainer.getElevator(). Stop();
     m_robotContainer.getSlide().Stop();
     m_robotContainer.getWrist().setDesiredPosition(m_robotContainer.getWrist().GetPosition());

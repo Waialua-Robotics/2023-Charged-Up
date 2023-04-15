@@ -3,59 +3,67 @@ package org.WaialuaRobotics359.robot.commands.swerve;
 
 import java.util.function.BooleanSupplier;
 
+import org.WaialuaRobotics359.robot.commands.setPoints.SetStowPosition;
+import org.WaialuaRobotics359.robot.subsystems.Elevator;
+import org.WaialuaRobotics359.robot.subsystems.Slide;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
+import org.WaialuaRobotics359.robot.subsystems.Wrist;
 import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class AutoAlignXRetro extends CommandBase {
+public class AutoAlignRetro extends CommandBase {
 
-    private PoseEstimator s_PoseEstimator;
     private Swerve s_swerve;
     private BooleanSupplier alignButton;
 
     // Create a PID controller whose setpoint's change is subject to maximum
     // velocity and acceleration constraints.
     private static double period = .02; //0.02
-    private final TrapezoidProfile.Constraints constraints;
-    private final PIDController controller;
+    private final PIDController xController;
+    private final PIDController yController;
 
     private double xDistance;
+    private double yDistance;
     private Timer  Timer;
 
-    public AutoAlignXRetro(PoseEstimator s_poseEstimator, Swerve s_swerve, BooleanSupplier alignButton) {
-        this.s_PoseEstimator = s_poseEstimator;
+    public AutoAlignRetro( Swerve s_swerve, BooleanSupplier alignButton , Wrist s_Wrist,Elevator s_Elevator, Slide s_Slide) {
         this.s_swerve = s_swerve;
         this.alignButton = alignButton;
         Timer = new Timer();
-        constraints = new TrapezoidProfile.Constraints(1, .3);
-        controller=  new PIDController(.08, .03, 0, period);
-        controller.setTolerance(0.01);
+        xController = new PIDController(.08, .03, 0, period);
+        xController.setTolerance(0.01);
+        yController = new PIDController(.08, .03, 0, period);
+        yController.setTolerance(0.01);
     }
 
     private void fetchValues() {
        xDistance = -LimelightHelpers.getTX("limelight");
+       yDistance = LimelightHelpers.getTY("limelight");
     }
 
     @Override
     public void initialize() {
+        new SetStowPosition(null, null, null);
+        LimelightHelpers.setPipelineIndex("limelight", 1);
         fetchValues();
         Timer.reset();
         Timer.start();
-        controller.reset();
+        xController.reset();
+        yController.reset();
     }
 
     @Override
     public void execute() {
        fetchValues();
        
-       Translation2d translation = new Translation2d(0, (controller.calculate(xDistance, 0))); // only drive x value
-       SmartDashboard.putNumber("xDistanceRetro", controller.calculate(xDistance, 0));
+       Translation2d translation = new Translation2d((yController.calculate(yDistance, 0)), (xController.calculate(xDistance, 0)));
+       SmartDashboard.putNumber("xDistanceRetro", xController.calculate(xDistance, 0));
+       SmartDashboard.putNumber("yDistanceRetro", xController.calculate(yDistance, 0));
        
         s_swerve.drive(
             translation, 0, false, true //#FIXME open loop? feild relitive? 
@@ -74,5 +82,6 @@ public class AutoAlignXRetro extends CommandBase {
     @Override 
     public void end(boolean interupted) {
         s_swerve.stop();
+        LimelightHelpers.setPipelineIndex("limelight", 0);
     }
 }
