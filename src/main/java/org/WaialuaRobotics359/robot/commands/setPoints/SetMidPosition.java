@@ -58,11 +58,11 @@ public class SetMidPosition extends CommandBase {
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
-        if (Timer.hasElapsed(.6)){
+        if (Timer.hasElapsed(.5)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
-        if (Timer.hasElapsed(.8)){
+        if (Timer.hasElapsed(.6)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;

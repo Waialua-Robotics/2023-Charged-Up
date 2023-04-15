@@ -287,7 +287,7 @@ public class RobotContainer {
             Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
-            AutoAlign.onTrue(new AutoAlignRetro(s_Swerve, ()-> AutoAlign.getAsBoolean(), s_Wrist, s_Elevator, s_Slide)); //#FIXME change to use different command POV 270 ()-> AutoAlign.getAsBoolean()
+            AutoAlign.onTrue(new AutoAlignRetro(s_Swerve, ()-> AutoAlign.getAsBoolean(), s_Wrist, s_Elevator, s_Slide, s_LEDs)); //#FIXME change to use different command POV 270 ()-> AutoAlign.getAsBoolean()
             ThrowCube.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
         /* Operator Buttons */
