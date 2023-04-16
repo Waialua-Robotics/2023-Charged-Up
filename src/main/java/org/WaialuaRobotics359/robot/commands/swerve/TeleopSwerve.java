@@ -74,15 +74,15 @@ public class TeleopSwerve extends CommandBase {
             s_Swerve.desiredAngle += omega * rotationalIncrement;
             s_Swerve.desiredAngle = (s_Swerve.desiredAngle + 360) % 360;
 
-            SmartDashboard.putNumber("desired", s_Swerve.desiredAngle);
-            SmartDashboard.putNumber("current", s_Swerve.getYaw360());
+            //SmartDashboard.putNumber("desired", s_Swerve.desiredAngle);
+            //SmartDashboard.putNumber("current", s_Swerve.getYaw360());
 
             double angleToDesired = -Conversions.wrap(s_Swerve.getYaw360(), s_Swerve.desiredAngle);
             double rotationVal = angleToDesired / 90;
             if (rotationVal > 1) rotationVal = 1;
             if (rotationVal < -1) rotationVal = -1;
 
-            SmartDashboard.putNumber("rotationval", rotationVal);
+            //SmartDashboard.putNumber("rotationval", rotationVal);
 
             /* Drive */
             s_Swerve.drive(

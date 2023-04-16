@@ -29,7 +29,7 @@ public class AutoBalanceForward extends CommandBase {
     balancing = false;
     finished = false;
     pitchOffset = s_Swerve.GetGyroPitch();
-    SmartDashboard.putNumber("angle1", 0);
+    //SmartDashboard.putNumber("angle1", 0);
   }
 
   @Override

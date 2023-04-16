@@ -95,8 +95,8 @@ public class AutoLimelightAlign extends CommandBase {
        //Translation2d translation = new Translation2d(txPid.calculate(-tx, 0), tyPid.calculate(-ty, 0));
        //Translation2d translation = new Translation2d(tyPid.calculate(-ty, 0), 0);
        Translation2d translation = new Translation2d(Yerr*(KPY), Xerr*(KPX));
-       SmartDashboard.putNumber("txPid",  Xerr*(KPX));
-       SmartDashboard.putNumber("tyPid", Yerr*(KPY));
+       //SmartDashboard.putNumber("txPid",  Xerr*(KPX));
+       //SmartDashboard.putNumber("tyPid", Yerr*(KPY));
 
         if (teleop && timer.hasElapsed(.2)){
             s_Swerve.drive(

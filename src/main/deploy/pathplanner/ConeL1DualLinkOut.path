@@ -16,7 +16,9 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "StowPosition"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
@@ -49,12 +51,37 @@
     },
     {
       "anchorPoint": {
-        "x": 7.8,
-        "y": 2.6768569251424217
+        "x": 7.125077107297073,
+        "y": 3.7075184150368306
       },
       "prevControl": {
-        "x": 7.8,
-        "y": 2.6768569251424217
+        "x": 7.840747340569198,
+        "y": 3.270164383592754
+      },
+      "nextControl": {
+        "x": 4.548423382561051,
+        "y": 5.282140135708842
+      },
+      "holonomicAngle": 180.0,
+      "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 2.7590805181610363,
+        "y": 4.3
+      },
+      "prevControl": {
+        "x": 2.7590805181610363,
+        "y": 4.3
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -72,12 +99,6 @@
   ],
   "markers": [
     {
-      "position": 0.3454545454545455,
-      "names": [
-        "StandPosition"
-      ]
-    },
-    {
       "position": 0.5363636363636364,
       "names": [
         "IntakeCube"
@@ -87,6 +108,18 @@
       "position": 1.0,
       "names": [
         "StowPosition"
+      ]
+    },
+    {
+      "position": 0.21818181818181825,
+      "names": [
+        "StandPosition"
+      ]
+    },
+    {
+      "position": 2.8,
+      "names": [
+        "ThrowCube"
       ]
     }
   ]

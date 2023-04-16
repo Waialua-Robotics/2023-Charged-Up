@@ -15,7 +15,7 @@ public class ConeL1Tri extends SequentialCommandGroup {
 
     public ConeL1Tri (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory ConeL1Tri = PathPlanner.loadPath("ConeL12.5", new PathConstraints(5, 2.5));
+        PathPlannerTrajectory ConeL1Tri = PathPlanner.loadPath("ConeL12.5", new PathConstraints(4.5, 3));
         PathPlannerTrajectory ConeL1TriTwo = PathPlanner.loadPath("ConeL12.5PartTwo", new PathConstraints(5, 3));
         Pose2d startpose = ConeL1Tri.getInitialHolonomicPose();
 
@@ -26,8 +26,8 @@ public class ConeL1Tri extends SequentialCommandGroup {
 
         addCommands(new SequentialCommandGroup(
             new InstantCommand(()-> s_poseEstimator.resetPose(startpose)),
-            autoBuilder.fullAuto(ConeL1Tri),
-            autoBuilder.fullAuto(ConeL1TriTwo)
+            autoBuilder.fullAuto(ConeL1Tri)
+            //autoBuilder.fullAuto(ConeL1TriTwo)
         ));
     }
 }

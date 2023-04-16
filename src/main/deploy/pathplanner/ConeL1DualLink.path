@@ -106,12 +106,12 @@
     },
     {
       "anchorPoint": {
-        "x": 1.45,
-        "y": 4.7
+        "x": 1.6,
+        "y": 4.65
       },
       "prevControl": {
-        "x": 1.824652675606177,
-        "y": 4.7
+        "x": 1.974652675606177,
+        "y": 4.65
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -121,7 +121,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "CubeScoreHighStow"
+          "OuttakeCube"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",
@@ -149,6 +149,12 @@
       "position": 2.2181818181818183,
       "names": [
         "StowPosition"
+      ]
+    },
+    {
+      "position": 2.654545454545456,
+      "names": [
+        "HighPosition"
       ]
     }
   ]

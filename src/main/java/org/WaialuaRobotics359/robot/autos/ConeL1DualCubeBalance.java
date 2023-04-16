@@ -15,8 +15,8 @@ public class ConeL1DualCubeBalance extends SequentialCommandGroup {
 
     public ConeL1DualCubeBalance (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory ConeL1Dual = PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(5, 3.5));
-        PathPlannerTrajectory ConeL1DualLinkBridge = PathPlanner.loadPath("ConeL1DualLinkBridge", new PathConstraints(5, 3));
+        PathPlannerTrajectory ConeL1Dual = PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(4.5, 3.5));
+        PathPlannerTrajectory ConeL1DualLinkBridge = PathPlanner.loadPath("ConeL1DualLinkBridge", new PathConstraints(3, 1.5));
         Pose2d startpose = ConeL1Dual.getInitialHolonomicPose();
 
         addCommands(new SequentialCommandGroup(

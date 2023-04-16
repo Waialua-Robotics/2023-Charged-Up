@@ -109,8 +109,8 @@ public class PoseEstimator extends SubsystemBase {
     SmartDashboard.putNumber("X", CurrentPose.getX());
     SmartDashboard.putNumber("y", CurrentPose.getY());
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
-    SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
-    SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
+    //SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
+    //SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
   }
     
 }

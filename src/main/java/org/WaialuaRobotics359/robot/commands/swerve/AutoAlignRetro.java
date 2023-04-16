@@ -70,8 +70,8 @@ public class AutoAlignRetro extends CommandBase {
        fetchValues();
        
        Translation2d translation = new Translation2d((yController.calculate(yDistance, 0)), (xController.calculate(xDistance, 0)));
-       SmartDashboard.putNumber("xDistanceRetro", xController.calculate(xDistance, 0));
-       SmartDashboard.putNumber("yDistanceRetro", xController.calculate(yDistance, 0));
+       //SmartDashboard.putNumber("xDistanceRetro", xController.calculate(xDistance, 0));
+       //SmartDashboard.putNumber("yDistanceRetro", xController.calculate(yDistance, 0));
        
         s_swerve.drive(
             translation, 0, false, true //#FIXME open loop? feild relitive? 

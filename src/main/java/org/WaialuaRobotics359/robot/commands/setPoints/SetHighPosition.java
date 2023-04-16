@@ -35,7 +35,7 @@ public class SetHighPosition extends CommandBase {
         if (RobotContainer.isCube){
             ElevatorPosition = Constants.Elevator.Cube.HighPosition;
             SlidePosition = Constants.Slide.Cube.HighPosition;
-            WristPosition = Constants.Wrist.Cube.HighPosition;
+            WristPosition = Constants.Wrist.Cube.MidPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.HighPosition;
             SlidePosition = Constants.Slide.Cone.HighPosition;
