@@ -75,6 +75,7 @@ public class AutoBalance extends CommandBase {
         drivePower = -.04 * error;
 
         if(error< 12 && error>0) drivePower = 0;
+        //if (Math.abs(error)< 12) drivePower = 0;
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower > 0) {
