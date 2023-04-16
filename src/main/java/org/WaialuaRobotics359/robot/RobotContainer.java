@@ -126,6 +126,7 @@ public class RobotContainer {
     private final ConeM1ClearBalance m_ConeM1ClearBalance;
     private final CubeM2ClearBalance m_CubeM2ClearBalance;
     private final ConeM3ClearBalance m_ConeM3ClearBalance;
+    private final CubeM2ClearBalancePlusOne m_CubeM2ClearBalancePlusOne;
     private final ConeR3Dual m_ConeR3Dual;
     private final ConeR3DualCube m_ConeR3DualCube;
     private final ConeR3DualBalance m_ConeR3DualBalance;
@@ -147,6 +148,7 @@ public class RobotContainer {
     private final RedConeM1ClearBalance m_RedConeM1ClearBalance;
     private final RedCubeM2ClearBalance m_RedCubeM2ClearBalance;
     private final RedConeM3ClearBalance m_RedConeM3ClearBalance;
+    private final RedCubeM2ClearBalancePlusOne m_RedCubeM2ClearBalancePlusOne;
     private final RedConeR3Dual m_RedConeR3Dual;
     private final RedConeR3DualCube m_RedConeR3DualCube;
     private final RedConeR3DualBalance m_RedConeR3DualBalance;
@@ -235,6 +237,7 @@ public class RobotContainer {
         m_ConeM1ClearBalance = new ConeM1ClearBalance(autoBuilder, s_PoseEstimator);
         m_CubeM2ClearBalance = new CubeM2ClearBalance(autoBuilder, s_PoseEstimator);
         m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_CubeM2ClearBalancePlusOne = new CubeM2ClearBalancePlusOne(autoBuilder, s_PoseEstimator);
         m_ConeR3Balance = new ConeR3Balance(autoBuilder, s_PoseEstimator);
         m_ConeR3Dual = new ConeR3Dual(autoBuilder, s_PoseEstimator);
         m_ConeR3DualCube = new ConeR3DualCube(autoBuilder, s_PoseEstimator);
@@ -256,6 +259,7 @@ public class RobotContainer {
         m_RedConeM1ClearBalance = new RedConeM1ClearBalance(autoBuilder, s_PoseEstimator);
         m_RedCubeM2ClearBalance = new RedCubeM2ClearBalance(autoBuilder, s_PoseEstimator);
         m_RedConeM3ClearBalance = new RedConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_RedCubeM2ClearBalancePlusOne = new RedCubeM2ClearBalancePlusOne(autoBuilder, s_PoseEstimator);
         m_RedConeR3Balance = new RedConeR3Balance(autoBuilder, s_PoseEstimator);
         m_RedConeR3Dual = new RedConeR3Dual(autoBuilder, s_PoseEstimator);
         m_RedConeR3DualCube = new RedConeR3DualCube(autoBuilder, s_PoseEstimator);
@@ -352,6 +356,7 @@ public class RobotContainer {
         m_chooser.addOption("ConeM1ClearBalance", "ConeM1ClearBalance");
         m_chooser.addOption("ConeM3ClearBalance", "ConeM3ClearBalance");
         m_chooser.addOption("CubeM2ClearBalance", "CubeM2ClearBalance");
+        m_chooser.addOption("CubeM2ClearBalancePlusOne", "CubeM2ClearBalancePlusOne");
         m_chooser.addOption("ConeR3Balance", "ConeR3Balance");
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
         m_chooser.addOption("ConeR3DualCube", "ConeR3DualCube");
@@ -518,6 +523,8 @@ public class RobotContainer {
             case "ConeM3ClearBalance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM3ClearBalance : m_RedConeM3ClearBalance;
                 break;
+            case "CubeM2ClearBalancePlusOne":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_CubeM2ClearBalancePlusOne : m_RedCubeM2ClearBalancePlusOne;
             case "ConeR3Balance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Balance : m_RedConeR3Balance;
                 break;
