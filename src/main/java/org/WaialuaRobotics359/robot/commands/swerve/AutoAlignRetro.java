@@ -4,7 +4,6 @@ package org.WaialuaRobotics359.robot.commands.swerve;
 import java.util.function.BooleanSupplier;
 
 import org.WaialuaRobotics359.robot.RobotContainer;
-import org.WaialuaRobotics359.robot.commands.setPoints.SetStowPosition;
 import org.WaialuaRobotics359.robot.subsystems.Elevator;
 import org.WaialuaRobotics359.robot.subsystems.LEDs;
 import org.WaialuaRobotics359.robot.subsystems.Slide;
@@ -16,9 +15,8 @@ import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class AutoAlignRetro extends CommandBase {
 
@@ -74,7 +72,7 @@ public class AutoAlignRetro extends CommandBase {
        //SmartDashboard.putNumber("yDistanceRetro", xController.calculate(yDistance, 0));
        
         s_swerve.drive(
-            translation, 0, false, true //#FIXME open loop? feild relitive? 
+            translation, 0, false, true 
         ); 
 
         //System.out.println(translation.getY());
