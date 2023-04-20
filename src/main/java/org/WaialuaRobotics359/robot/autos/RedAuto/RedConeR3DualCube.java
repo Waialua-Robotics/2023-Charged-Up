@@ -16,7 +16,7 @@ public class RedConeR3DualCube extends SequentialCommandGroup {
 
     public RedConeR3DualCube (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory PathOne = PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("ConeR3DualCube", new PathConstraints(3, 2)), Alliance.Red);
+        PathPlannerTrajectory PathOne = PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("ConeR3DualCube", new PathConstraints(3.3, 2)), Alliance.Red);
         Pose2d startpose = PathOne.getInitialHolonomicPose();
 
         addCommands(new SequentialCommandGroup(

@@ -46,8 +46,8 @@ public class AutoAlignRetro extends CommandBase {
     }
 
     private void fetchValues() {
-       xDistance = LimelightHelpers.getTX("limelight");
-       yDistance = -LimelightHelpers.getTY("limelight");
+       xDistance = -LimelightHelpers.getTX("limelight");
+       yDistance = LimelightHelpers.getTY("limelight");
     }
 
     @Override

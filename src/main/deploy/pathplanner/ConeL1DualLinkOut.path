@@ -51,11 +51,11 @@
     },
     {
       "anchorPoint": {
-        "x": 1.8,
+        "x": 1.7,
         "y": 3.936554301680032
       },
       "prevControl": {
-        "x": 4.6629413258826515,
+        "x": 4.562941325882651,
         "y": 4.938586305744041
       },
       "nextControl": null,
@@ -97,6 +97,12 @@
       "position": 1.1,
       "names": [
         "MidPosition"
+      ]
+    },
+    {
+      "position": 0.03636363636363636,
+      "names": [
+        "StandPosition"
       ]
     }
   ]

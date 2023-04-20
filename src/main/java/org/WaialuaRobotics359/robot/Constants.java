@@ -20,7 +20,7 @@ import org.WaialuaRobotics359.lib.util.SwerveModuleConstants;
 
 public final class Constants {
 
-    public static final boolean isCompetitionRobot = false; 
+    public static final boolean isCompetitionRobot = true; 
 
     public static final class OI {
         public static final int driverPort = 0;
@@ -85,7 +85,7 @@ public final class Constants {
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 85000;
-            public static final int HighPosition = 211100; //204000
+            public static final int HighPosition = 206500; //204000
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
             public static final int BirdPosition = 1400;
