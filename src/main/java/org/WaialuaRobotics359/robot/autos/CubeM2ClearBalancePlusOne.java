@@ -17,7 +17,7 @@ public class CubeM2ClearBalancePlusOne extends SequentialCommandGroup {
 
     public CubeM2ClearBalancePlusOne (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        List<PathPlannerTrajectory> CubeM2ClearBalance = PathPlanner.loadPathGroup("CubeM2ClearBalancePlusOne", new PathConstraints(4, 1.5), new PathConstraints (3, 2));
+        List<PathPlannerTrajectory> CubeM2ClearBalance = PathPlanner.loadPathGroup("CubeM2PlusOne", new PathConstraints(4, 1.5), new PathConstraints (3, 2));
         Pose2d startpose = CubeM2ClearBalance.get(0).getInitialHolonomicPose();
         //PathPlannerTrajectory.transformTrajectoryForAlliance
         addCommands(new SequentialCommandGroup(

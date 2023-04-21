@@ -23,8 +23,8 @@ public class RedCubeM2ClearBalancePlusOne extends SequentialCommandGroup {
 
         List<PathPlannerTrajectory> RedCubeM2ClearBalance = new ArrayList<>();
 
-        RedCubeM2ClearBalance.add(PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPathGroup("CubeM2ClearBalancePlusOne", new PathConstraints(4, 1.5), new PathConstraints(3,2)).get(0), Alliance.Red));
-        RedCubeM2ClearBalance.add(PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPathGroup("CubeM2ClearBalancePlusOne", new PathConstraints(4, 1.5), new PathConstraints(3,2)).get(1), Alliance.Red));
+        RedCubeM2ClearBalance.add(PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPathGroup("CubeM2PlusOne", new PathConstraints(4, 1.5), new PathConstraints(3,2)).get(0), Alliance.Red));
+        RedCubeM2ClearBalance.add(PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPathGroup("CubeM2PlusOne", new PathConstraints(4, 1.5), new PathConstraints(3,2)).get(1), Alliance.Red));
         Pose2d startpose = RedCubeM2ClearBalance.get(0).getInitialHolonomicPose();
 
         //PathPlannerTrajectory RedCubeM2ClearBalance = PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPathGroup("RedCubeM2ClearBalance", new PathConstraints(1, 1), new PathConstraints(3,2)).get(0), Alliance.Red);
