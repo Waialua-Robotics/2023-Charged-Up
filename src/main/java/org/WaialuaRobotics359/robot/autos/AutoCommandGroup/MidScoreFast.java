@@ -52,7 +52,7 @@ public class MidScoreFast extends CommandBase {
     @Override
     public void execute(){
 
-        s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
+        s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
 
         if (Timer.hasElapsed(0.1)){
@@ -60,16 +60,33 @@ public class MidScoreFast extends CommandBase {
             s_Elevator.goToPosition();
         }
 
-        if (s_Elevator.GetPosition() >12000){
+        if (Timer.hasElapsed(0.1)){
+            s_Slide.setDesiredPosition(SlidePosition);
+            s_Slide.goToPosition();
+            finished = true;
+        }
+
+        /*if (Timer.hasElapsed(0.1)){
+        s_Wrist.setDesiredPosition(WristPosition);
+        s_Wrist.goToPosition();
+        finished = true;
+        }*/
+
+        /* if (Timer.hasElapsed(0.1)){
+            s_Elevator.setDesiredPosition(ElevatorPosition);
+            s_Elevator.goToPosition();
+        }
+
+        if (s_Elevator.GetPosition() >7200){
             s_Slide.setDesiredPosition(SlidePosition);
         s_Slide.goToPosition();
         }
 
-        if (s_Slide.GetPosition() >50000 ){
+        if (s_Slide.GetPosition() >30000 ){
         s_Wrist.setDesiredPosition(WristPosition);
         s_Wrist.goToPosition();
         finished = true;
-        }
+        } */
 
     }
     

@@ -1,5 +1,7 @@
 package org.WaialuaRobotics359.robot.autos;
 
+import java.util.List;
+
 import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 
 import com.pathplanner.lib.PathConstraints;
@@ -11,18 +13,16 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class ConeL1DualCube extends SequentialCommandGroup {
+public class CubeM2ClearBalancePlusOne extends SequentialCommandGroup {
 
-    public ConeL1DualCube (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
+    public CubeM2ClearBalancePlusOne (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory ConeL1Dual = PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(4.5, 3.5)); 
-        PathPlannerTrajectory ConeL1DualLinkOut = PathPlanner.loadPath("ConeL1DualLinkOut", new PathConstraints(4.5, 4));
-        Pose2d startpose = ConeL1Dual.getInitialHolonomicPose();
-
+        List<PathPlannerTrajectory> CubeM2ClearBalance = PathPlanner.loadPathGroup("CubeM2PlusOne", new PathConstraints(4, 1.5), new PathConstraints (3, 2));
+        Pose2d startpose = CubeM2ClearBalance.get(0).getInitialHolonomicPose();
+        //PathPlannerTrajectory.transformTrajectoryForAlliance
         addCommands(new SequentialCommandGroup(
             new InstantCommand(()-> s_poseEstimator.resetPose(startpose)),
-            autoBuilder.fullAuto(ConeL1Dual),
-            autoBuilder.fullAuto(ConeL1DualLinkOut)
+            autoBuilder.fullAuto(CubeM2ClearBalance)
         ));
     }
 }

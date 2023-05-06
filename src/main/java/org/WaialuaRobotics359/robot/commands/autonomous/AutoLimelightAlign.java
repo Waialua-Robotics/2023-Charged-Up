@@ -10,7 +10,7 @@ import org.WaialuaRobotics359.robot.subsystems.Swerve;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoLimelightAlign extends CommandBase {
@@ -95,8 +95,8 @@ public class AutoLimelightAlign extends CommandBase {
        //Translation2d translation = new Translation2d(txPid.calculate(-tx, 0), tyPid.calculate(-ty, 0));
        //Translation2d translation = new Translation2d(tyPid.calculate(-ty, 0), 0);
        Translation2d translation = new Translation2d(Yerr*(KPY), Xerr*(KPX));
-       SmartDashboard.putNumber("txPid",  Xerr*(KPX));
-       SmartDashboard.putNumber("tyPid", Yerr*(KPY));
+       //SmartDashboard.putNumber("txPid",  Xerr*(KPX));
+       //SmartDashboard.putNumber("tyPid", Yerr*(KPY));
 
         if (teleop && timer.hasElapsed(.2)){
             s_Swerve.drive(

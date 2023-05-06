@@ -79,21 +79,21 @@ public final class Constants {
             public static final int HighPosition = 200000; //200000
             public static final int FeederPosition = 1400;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 0;
+            public static final int BirdPosition = 1400;
         }
 
         public static final class Cone {
             public static final int LowPosition = 3000;
             public static final int MidPosition = 85000;
-            public static final int HighPosition = 211100; //204000
+            public static final int HighPosition = 206500; //204000
             public static final int FeederPosition = 9500;
             public static final int standPosition = 4300;
-            public static final int BirdPosition = 0;
+            public static final int BirdPosition = 1400;
         }
        
         /* soft limits */
         public static final int forwardSoftLimit = 211170; //208000 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = 0;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -102,8 +102,8 @@ public final class Constants {
         public static final boolean enableCurrentLimit = true;
 
         /*Motion Magic */
-        public static final int velocity = 40000;
-        public static final int acceleration = 40000;
+        public static final int velocity = 70000;
+        public static final int acceleration = 90000;
         public static final int smoothing = 0; // 0-8
 
         /* PID */
@@ -124,31 +124,31 @@ public final class Constants {
 
         public static final int MagElevatorID = 0;
         
-        public static final int Ratio = 30;
+        public static final int Ratio = 12;
 
         public static final int threshold = 500;
 
         public static final class Cube {
-            public static final int LowPosition = 3000;
-            public static final int MidPosition = 80000;
-            public static final int HighPosition = 145000;
-            public static final int FeederPosition = 138000;
-            public static final int standPosition = 21600;
-            public static final int BirdPosition = 49000;
+            public static final int LowPosition = 1800;
+            public static final int MidPosition = 48000;
+            public static final int HighPosition = 87000;
+            public static final int FeederPosition = 82800;
+            public static final int standPosition = 12960;
+            public static final int BirdPosition = 29400;
         }
 
         public static final class Cone {
-            public static final int LowPosition = 3000;
-            public static final int MidPosition = 136000;
-            public static final int HighPosition = 185000;
-            public static final int FeederPosition = 135500;
-            public static final int standPosition = 51240;
-            public static final int BirdPosition = 49000;
+            public static final int LowPosition = 1800;
+            public static final int MidPosition = 81600;
+            public static final int HighPosition = 111000;
+            public static final int FeederPosition = 81300;
+            public static final int standPosition = 30744;
+            public static final int BirdPosition = 29400;
         }
 
         /* soft limits */
-        public static final int forwardSoftLimit = 187700; 
-        public static final int reverseSoftLimit = 1000;//1000
+        public static final int forwardSoftLimit = 112620; //187700 
+        public static final int reverseSoftLimit = 0;//1000
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -204,7 +204,7 @@ public final class Constants {
 
         /* soft limits */
         public static final int forwardSoftLimit = 16500; 
-        public static final int reverseSoftLimit = 1000;
+        public static final int reverseSoftLimit = 0;
 
         /* current limiting */
         public static final int continuousCurrentLimit = 25;
@@ -362,7 +362,7 @@ public final class Constants {
 
         /* Swerve Profiling Values */
         /** Meters per Second */
-        public static final double maxSpeed = 4.5; 
+        public static final double maxSpeed = 4.8; //4.5
         /** Radians per Second */
         public static final double maxAngularVelocity = 10; 
 

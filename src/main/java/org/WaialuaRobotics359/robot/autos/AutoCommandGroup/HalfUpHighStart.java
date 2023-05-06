@@ -55,17 +55,17 @@ public class HalfUpHighStart extends CommandBase {
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
 
-        if (Timer.hasElapsed(0.3)){
+        if (Timer.hasElapsed(0.2)){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (RobotContainer.isCube ? s_Elevator.GetPosition() >50000 : s_Elevator.GetPosition() > 70000){
+        if (RobotContainer.isCube ? s_Elevator.GetPosition() >30000 : s_Elevator.GetPosition() > 50000){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
         }
 
-        if (RobotContainer.isCube ? s_Slide.GetPosition() >10000 : s_Slide.GetPosition() >20000 ){
+        if (RobotContainer.isCube ? s_Slide.GetPosition() >10000 : s_Slide.GetPosition() >10000 ){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;

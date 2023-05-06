@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
       LEDs.reportWarning = false; 
     }
 
-    m_robotContainer.getWrist().Stop();;
+    m_robotContainer.getWrist().Stop();
     m_robotContainer.getElevator(). Stop();
     m_robotContainer.getSlide().Stop();
     m_robotContainer.getWrist().setDesiredPosition(m_robotContainer.getWrist().GetPosition());
@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_robotContainer.getSwerve().zeroGyro();
     m_robotContainer.getLimelight().ConfigStart();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     

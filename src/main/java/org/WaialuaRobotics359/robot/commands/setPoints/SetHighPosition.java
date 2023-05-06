@@ -35,7 +35,7 @@ public class SetHighPosition extends CommandBase {
         if (RobotContainer.isCube){
             ElevatorPosition = Constants.Elevator.Cube.HighPosition;
             SlidePosition = Constants.Slide.Cube.HighPosition;
-            WristPosition = Constants.Wrist.Cube.HighPosition;
+            WristPosition = Constants.Wrist.Cube.MidPosition;
         }else{
             ElevatorPosition = Constants.Elevator.Cone.HighPosition;
             SlidePosition = Constants.Slide.Cone.HighPosition;
@@ -56,20 +56,20 @@ public class SetHighPosition extends CommandBase {
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
 
-        if (Timer.hasElapsed(0.5)){
+        if (s_Wrist.inSafe()){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (Timer.hasElapsed(.8)){
+        if (Timer.hasElapsed(.55)){
             s_Slide.setDesiredPosition(SlidePosition);
-        s_Slide.goToPosition();
+            s_Slide.goToPosition();
         }
 
-        if (Timer.hasElapsed(1.2)){
-        s_Wrist.setDesiredPosition(WristPosition);
-        s_Wrist.goToPosition();
-        finished = true;
+        if (Timer.hasElapsed(.8)){
+            s_Wrist.setDesiredPosition(WristPosition);
+            s_Wrist.goToPosition();
+            finished = true;
         }
 
     }

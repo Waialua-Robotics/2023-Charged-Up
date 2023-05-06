@@ -28,6 +28,7 @@ public class SetStandPosition extends CommandBase {
     }
 
     boolean finished = false; 
+    boolean SlideSafe = false;
 
     private Timer Timer = new Timer();
 
@@ -43,6 +44,8 @@ public class SetStandPosition extends CommandBase {
         }
 
         finished = false;
+        SlideSafe = false;
+
         Timer.reset();
         Timer.start();
     }
@@ -52,23 +55,25 @@ public class SetStandPosition extends CommandBase {
 
         s_Wrist.setDesiredPosition(Constants.Wrist.SafePosition);
         s_Wrist.goToPosition();
+
+        SlideSafe = s_Slide.GetPosition() < 20000;
     
-        if (Timer.hasElapsed(0.1)){
+        if (Timer.hasElapsed(.1)){
             s_Slide.setDesiredPosition(SlidePosition);
             s_Slide.goToPosition();
+
         }
 
-        if (s_Slide.GetPosition() < 40000 || Timer.hasElapsed(.3)){
+        if (Timer.hasElapsed(.4) || SlideSafe){
             s_Elevator.setDesiredPosition(ElevatorPosition);
             s_Elevator.goToPosition();
         }
 
-        if (s_Elevator.GetPosition() > 20000 && Timer.hasElapsed(.4)|| Timer.hasElapsed(.8)){
+        if (s_Elevator.GetPosition() > 2000 && Timer.hasElapsed(.4)){
             s_Wrist.setDesiredPosition(WristPosition);
             s_Wrist.goToPosition();
             finished = true;
         }
-
 
     }
     

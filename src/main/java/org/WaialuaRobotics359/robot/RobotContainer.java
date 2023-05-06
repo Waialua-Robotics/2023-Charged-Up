@@ -25,7 +25,7 @@ import org.WaialuaRobotics359.robot.commands.AutoZero.*;
 import org.WaialuaRobotics359.robot.commands.autonomous.*;
 import org.WaialuaRobotics359.robot.commands.manual.*;
 import org.WaialuaRobotics359.robot.commands.setPoints.*;
-import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignXApril;
+import org.WaialuaRobotics359.robot.commands.swerve.AutoAlignRetro;
 import org.WaialuaRobotics359.robot.commands.swerve.PoseEstimator;
 import org.WaialuaRobotics359.robot.commands.swerve.TeleopSwerve;
 import org.WaialuaRobotics359.robot.subsystems.*;
@@ -70,8 +70,8 @@ public class RobotContainer {
      /*POV Buttons */
     private final POVButton ForkDeploy = new POVButton(driver, 90);
     private final POVButton AutoZeroAll = new POVButton(driver, 180);
-    private final POVButton robotCentric = new POVButton(driver, 270);//AutoAlign
-    private final POVButton toggleCam = new POVButton(driver, 0);
+    private final POVButton robotCentric = new POVButton(driver, 270);
+    private final POVButton ThrowCube = new POVButton(driver, 0);
 
     /* Operator Controls */
     private final int elevatorAxis = Constants.OI.elevatorAxis;
@@ -117,6 +117,7 @@ public class RobotContainer {
     private final ConeL1DualCube m_ConeL1DualCube;
     private final ConeL1DualBalance m_ConeL1DualBalance;
     private final ConeL1DualCubeBalance m_ConeL1DualCubeBalance;
+    private final ConeL1Tri m_ConeL1Tri;
     private final ConeM1Balance m_ConeM1Balance;
     private final CubeM2Balance m_CubeM2Balance;
     private final ConeM3Balance m_ConeM3Balance;
@@ -124,7 +125,9 @@ public class RobotContainer {
     private final ConeM1ClearBalance m_ConeM1ClearBalance;
     private final CubeM2ClearBalance m_CubeM2ClearBalance;
     private final ConeM3ClearBalance m_ConeM3ClearBalance;
+    private final CubeM2ClearBalancePlusOne m_CubeM2ClearBalancePlusOne;
     private final ConeR3Dual m_ConeR3Dual;
+    private final ConeR3DualCube m_ConeR3DualCube;
     private final ConeR3DualBalance m_ConeR3DualBalance;
     private final DriveBack m_DriveBack;
 
@@ -135,6 +138,7 @@ public class RobotContainer {
     private final RedConeL1Dual m_RedConeL1Dual;
     private final RedConeL1DualBalance m_RedConeL1DualBalance;
     private final RedConeL1DualCubeBalance m_RedConeL1DualCubeBalance;
+    private final RedConeL1Tri m_RedConeL1Tri;
     private final RedConeL1DualCube m_RedConeL1DualCube;
     private final RedConeM1Balance m_RedConeM1Balance;
     private final RedCubeM2Balance m_RedCubeM2Balance;
@@ -143,7 +147,9 @@ public class RobotContainer {
     private final RedConeM1ClearBalance m_RedConeM1ClearBalance;
     private final RedCubeM2ClearBalance m_RedCubeM2ClearBalance;
     private final RedConeM3ClearBalance m_RedConeM3ClearBalance;
+    private final RedCubeM2ClearBalancePlusOne m_RedCubeM2ClearBalancePlusOne;
     private final RedConeR3Dual m_RedConeR3Dual;
+    private final RedConeR3DualCube m_RedConeR3DualCube;
     private final RedConeR3DualBalance m_RedConeR3DualBalance;
     private final RedDriveBack m_RedDriveBack;
 
@@ -223,14 +229,17 @@ public class RobotContainer {
         m_ConeL1DualCube = new ConeL1DualCube(autoBuilder, s_PoseEstimator);
         m_ConeL1DualBalance = new ConeL1DualBalance(autoBuilder, s_PoseEstimator);
         m_ConeL1DualCubeBalance = new ConeL1DualCubeBalance(autoBuilder, s_PoseEstimator);
+        m_ConeL1Tri =new ConeL1Tri(autoBuilder, s_PoseEstimator);
         m_ConeM1Balance = new ConeM1Balance(autoBuilder, s_PoseEstimator);
         m_CubeM2Balance = new CubeM2Balance(autoBuilder, s_PoseEstimator);
         m_ConeM3Balance = new ConeM3Balance(autoBuilder, s_PoseEstimator);
         m_ConeM1ClearBalance = new ConeM1ClearBalance(autoBuilder, s_PoseEstimator);
         m_CubeM2ClearBalance = new CubeM2ClearBalance(autoBuilder, s_PoseEstimator);
         m_ConeM3ClearBalance = new ConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_CubeM2ClearBalancePlusOne = new CubeM2ClearBalancePlusOne(autoBuilder, s_PoseEstimator);
         m_ConeR3Balance = new ConeR3Balance(autoBuilder, s_PoseEstimator);
         m_ConeR3Dual = new ConeR3Dual(autoBuilder, s_PoseEstimator);
+        m_ConeR3DualCube = new ConeR3DualCube(autoBuilder, s_PoseEstimator);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder, s_PoseEstimator);
         m_DriveBack = new DriveBack(autoBuilder);
 
@@ -242,14 +251,17 @@ public class RobotContainer {
         m_RedConeL1DualBalance = new RedConeL1DualBalance(autoBuilder, s_PoseEstimator);
         m_RedConeL1DualCube = new RedConeL1DualCube(autoBuilder, s_PoseEstimator);
         m_RedConeL1DualCubeBalance =new RedConeL1DualCubeBalance(autoBuilder, s_PoseEstimator);
+        m_RedConeL1Tri = new RedConeL1Tri(autoBuilder, s_PoseEstimator);
         m_RedConeM1Balance = new RedConeM1Balance(autoBuilder, s_PoseEstimator);
         m_RedCubeM2Balance = new RedCubeM2Balance(autoBuilder, s_PoseEstimator);
         m_RedConeM3Balance = new RedConeM3Balance(autoBuilder, s_PoseEstimator);
         m_RedConeM1ClearBalance = new RedConeM1ClearBalance(autoBuilder, s_PoseEstimator);
         m_RedCubeM2ClearBalance = new RedCubeM2ClearBalance(autoBuilder, s_PoseEstimator);
         m_RedConeM3ClearBalance = new RedConeM3ClearBalance(autoBuilder, s_PoseEstimator);
+        m_RedCubeM2ClearBalancePlusOne = new RedCubeM2ClearBalancePlusOne(autoBuilder, s_PoseEstimator);
         m_RedConeR3Balance = new RedConeR3Balance(autoBuilder, s_PoseEstimator);
         m_RedConeR3Dual = new RedConeR3Dual(autoBuilder, s_PoseEstimator);
+        m_RedConeR3DualCube = new RedConeR3DualCube(autoBuilder, s_PoseEstimator);
         m_RedConeR3DualBalance = new RedConeR3DualBalance(autoBuilder, s_PoseEstimator);
         m_RedDriveBack = new RedDriveBack(autoBuilder, s_PoseEstimator);
 
@@ -278,8 +290,8 @@ public class RobotContainer {
             Angle270.onTrue(new InstantCommand(() -> s_Swerve.setDesired(90)));
             /*Misc Driver Binds */
             AutoZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
-            AutoAlign.onTrue(new AutoAlignXApril(s_PoseEstimator, s_Swerve, ()-> AutoAlign.getAsBoolean())); //#FIXME change to use different command POV 270
-            toggleCam.onTrue( new InstantCommand(() -> s_LimeLight.toggleDriver()));
+            AutoAlign.onTrue(new AutoAlignRetro(s_Swerve, ()-> AutoAlign.getAsBoolean(), s_Wrist, s_Elevator, s_Slide, s_LEDs)); 
+            ThrowCube.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
         /* Operator Buttons */
             /* Elevator System Positions */
@@ -304,7 +316,7 @@ public class RobotContainer {
             ZeroSlide.onTrue(new AutoZeroSlide(s_Slide));
             ZeroAll.onTrue(new AutoZeroAll(s_Wrist, s_Elevator, s_Slide));
 
-            autoBalance.onTrue(new AutoBalanceForward(s_Swerve));
+            autoBalance.onTrue(new ThrowCube(s_Wrist, s_Intake));
 
             /*DashboardCommand */
             SmartDashboard.putData("AutoBallance", new AutoBalance(s_Swerve));
@@ -336,14 +348,17 @@ public class RobotContainer {
         m_chooser.addOption("ConeL1DualCube", "ConeL1DualCube");
         m_chooser.addOption("ConeL1DualBalance", "ConeL1DualBalance");
         m_chooser.addOption("ConeL1DualCubeBalance", "ConeL1DualCubeBalance");
+        m_chooser.addOption("ConeL1Tri", "ConeL1Tri");
         m_chooser.addOption("ConeM1Balance", "ConeM1Balance");
         m_chooser.addOption("CubeM2Balance", "CubeM2Balance");
         m_chooser.addOption("ConeM3Balance", "ConeM3Balance");
         m_chooser.addOption("ConeM1ClearBalance", "ConeM1ClearBalance");
         m_chooser.addOption("ConeM3ClearBalance", "ConeM3ClearBalance");
         m_chooser.addOption("CubeM2ClearBalance", "CubeM2ClearBalance");
+        m_chooser.addOption("CubeM2ClearBalancePlusOne", "CubeM2ClearBalancePlusOne");
         m_chooser.addOption("ConeR3Balance", "ConeR3Balance");
         m_chooser.addOption("ConeR3Dual", "ConeR3Dual");
+        m_chooser.addOption("ConeR3DualCube", "ConeR3DualCube");
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
         m_chooser.addOption("DriveBack", "DriveBack");
         m_chooser.addOption("DoNothing", "DoNothing");
@@ -362,7 +377,10 @@ public class RobotContainer {
         eventMap.put("IntakeCone", new AutoIntakeCone(s_Intake));
         eventMap.put("IntakeCube", new AutoIntakeCube(s_Intake));
         eventMap.put("IntakeStop", new InstantCommand(()-> s_Intake.stop()));
+        eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
+        eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("IntakeConeTime", new AutoIntakeConeTime(s_Intake));
+        eventMap.put("ThrowCube", new ThrowCube(s_Wrist, s_Intake));
 
         eventMap.put("MidPosition",new SetMidPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("HighPosition", new SetHighPosition(s_Wrist, s_Elevator, s_Slide));
@@ -370,15 +388,13 @@ public class RobotContainer {
         eventMap.put("BirdPosition", new SetBirdPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("FeedPosition", new SetFeederPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("LowPosition", new SetLowPosition(s_Wrist, s_Elevator, s_Slide));
+        eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("HalfUpHigh", new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("AutoBalance",new AutoBalance(s_Swerve));
         eventMap.put("AutoBalanceNewForward", new AutoBalanceForward(s_Swerve));
         eventMap.put("AutoBalanceNewBackward", new AutoBalanceNewPID(s_Swerve, false));
         eventMap.put("AutoBalanceForward",new AutoBalanceForward(s_Swerve));
-        eventMap.put("OuttakeCone", new AutoOuttakeCone(s_Intake));
-        eventMap.put("OuttakeCube", new AutoOuttakeCube(s_Intake));
         eventMap.put("StopSwerve", new InstantCommand( () -> s_Swerve.stop()));
-        eventMap.put("StandPosition", new SetStandPosition(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("MidScoreFast", new MidScoreFast(s_Wrist, s_Elevator, s_Slide));
         eventMap.put("ConeSlideIntake",new AutoIntakeConeSlide(s_Intake, s_Slide));
         eventMap.put("AutoBalanceInstant", new AutoBalanceInstant(s_Swerve));
@@ -388,6 +404,7 @@ public class RobotContainer {
 
         /*Comand Group */
         eventMap.put("ConeScoreMid",new ConeScoreMid(s_Wrist, s_Elevator, s_Slide, s_Intake));
+        eventMap.put("ConeScoreMidStart", new ConeScoreMidStart(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHigh", new ConeScoreHigh(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighStow", new ConeScoreHighStow(s_Wrist, s_Elevator, s_Slide, s_Intake));
         eventMap.put("ConeScoreHighHalfCube", new ConeScoreHighHalfCube(s_Wrist, s_Elevator, s_Slide, s_Intake));
@@ -505,11 +522,16 @@ public class RobotContainer {
             case "ConeM3ClearBalance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeM3ClearBalance : m_RedConeM3ClearBalance;
                 break;
+            case "CubeM2ClearBalancePlusOne":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_CubeM2ClearBalancePlusOne : m_RedCubeM2ClearBalancePlusOne;
             case "ConeR3Balance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Balance : m_RedConeR3Balance;
                 break;
             case "ConeR3Dual":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3Dual : m_RedConeR3Dual;
+                break;
+            case "ConeR3DualCube":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3DualCube : m_RedConeR3DualCube;
                 break;
             case "ConeR3DualBalance":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeR3DualBalance : m_RedConeR3DualBalance;
@@ -517,9 +539,11 @@ public class RobotContainer {
             case "ConeScoreHighStow":
                 selected = m_ConeScoreHighStow;
                 break;
+            case "ConeL1Tri":
+                selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_ConeL1Tri : m_RedConeL1Tri;
+                break;
             case "DriveBack":
                 selected = (DriverStation.getAlliance() == DriverStation.Alliance.Blue) ? m_DriveBack : m_RedDriveBack;
-                //selected = m_RedDriveBack;
                 break;
             case "DoNothing":
                 selected = m_DoNothing;

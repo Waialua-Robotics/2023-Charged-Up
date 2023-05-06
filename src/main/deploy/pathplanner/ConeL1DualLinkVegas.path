@@ -121,7 +121,7 @@
       "isStopPoint": false,
       "stopEvent": {
         "names": [
-          "OuttakeCube"
+          "CubeScoreHighStow"
         ],
         "executionBehavior": "sequential",
         "waitBehavior": "none",
@@ -140,21 +140,9 @@
       ]
     },
     {
-      "position": 2.8363636363636333,
-      "names": [
-        "event"
-      ]
-    },
-    {
-      "position": 2.2181818181818183,
+      "position": 2.181818181818182,
       "names": [
         "StowPosition"
-      ]
-    },
-    {
-      "position": 2.7,
-      "names": [
-        "HighPosition"
       ]
     }
   ]

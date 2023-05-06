@@ -41,6 +41,6 @@ public class AutoZeroWrist extends CommandBase {
     @Override 
     public void end(boolean interupted) {
         s_Wrist.Stop();
-        s_Wrist.SetPosition(-1000);
+        s_Wrist.SetPosition(-1900); //-1000
     }
 }

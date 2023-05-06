@@ -5,7 +5,7 @@ import org.WaialuaRobotics359.robot.subsystems.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoBalanceForward extends CommandBase {
@@ -29,7 +29,7 @@ public class AutoBalanceForward extends CommandBase {
     balancing = false;
     finished = false;
     pitchOffset = s_Swerve.GetGyroPitch();
-    SmartDashboard.putNumber("angle1", 0);
+    //SmartDashboard.putNumber("angle1", 0);
   }
 
   @Override
@@ -76,6 +76,9 @@ public class AutoBalanceForward extends CommandBase {
         timebalaced =0;
 
         drivePower = -.04 * error; //-Constants.AutoConstants.BalanceKp //.04
+
+        //if(error> -12 && error< 0) drivePower = 0;
+        if (Math.abs(error)< 10) drivePower = 0;
 
         // Our robot needed an extra push to drive up in reverse, probably due to weight imbalances
         if (drivePower < 0) {

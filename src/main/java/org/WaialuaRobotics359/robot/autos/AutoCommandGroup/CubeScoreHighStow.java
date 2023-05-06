@@ -12,7 +12,7 @@ public class CubeScoreHighStow extends SequentialCommandGroup {
 
 
         addCommands(new SequentialCommandGroup(
-            new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide),
+            new SetHighPosition(s_Wrist, s_Elevator, s_Slide), //HalfUpHighStart
             new AutoWait(.8),
             new AutoOuttakeCube(s_Intake),
             new SetStowPosition(s_Wrist, s_Elevator, s_Slide)

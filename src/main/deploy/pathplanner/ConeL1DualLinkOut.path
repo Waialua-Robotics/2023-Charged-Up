@@ -7,11 +7,38 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9758336659530467,
-        "y": 4.766809390761639
+        "x": 5.3357342428970576,
+        "y": 5.410972821945644
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
+      "velOverride": null,
+      "isLocked": false,
+      "isStopPoint": false,
+      "stopEvent": {
+        "names": [
+          "StandPosition"
+        ],
+        "executionBehavior": "parallel",
+        "waitBehavior": "none",
+        "waitTime": 0
+      }
+    },
+    {
+      "anchorPoint": {
+        "x": 7.2,
+        "y": 3.4641677854784283
+      },
+      "prevControl": {
+        "x": 4.835937443303458,
+        "y": 4.952901048659241
+      },
+      "nextControl": {
+        "x": 4.835937443303458,
+        "y": 4.952901048659241
+      },
+      "holonomicAngle": -45.0,
+      "isReversal": true,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
@@ -24,12 +51,12 @@
     },
     {
       "anchorPoint": {
-        "x": 6.237563046554665,
-        "y": 4.909956819913639
+        "x": 1.65,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 4.577052868391451,
-        "y": 5.2248811640480435
+        "x": 4.512941325882651,
+        "y": 5.0020320040640085
       },
       "nextControl": null,
       "holonomicAngle": 180.0,
@@ -38,12 +65,45 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
+        "names": [
+          "StowPosition"
+        ],
         "executionBehavior": "parallel",
         "waitBehavior": "none",
         "waitTime": 0
       }
     }
   ],
-  "markers": []
+  "markers": [
+    {
+      "position": 0.5363636363636364,
+      "names": [
+        "IntakeCube"
+      ]
+    },
+    {
+      "position": 1.454545454545457,
+      "names": [
+        "MidPosition"
+      ]
+    },
+    {
+      "position": 1.99,
+      "names": [
+        "OuttakeCube"
+      ]
+    },
+    {
+      "position": 1.1,
+      "names": [
+        "MidPosition"
+      ]
+    },
+    {
+      "position": 0.03636363636363636,
+      "names": [
+        "StandPosition"
+      ]
+    }
+  ]
 }

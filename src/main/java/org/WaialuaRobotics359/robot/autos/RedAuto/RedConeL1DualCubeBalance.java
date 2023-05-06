@@ -16,8 +16,8 @@ public class RedConeL1DualCubeBalance extends SequentialCommandGroup {
 
     public RedConeL1DualCubeBalance (SwerveAutoBuilder autoBuilder, PoseEstimator s_poseEstimator) {
 
-        PathPlannerTrajectory RedConeL1Dual= PathPlannerTrajectory.transformTrajectoryForAlliance((PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(5, 3.5))), Alliance.Red);
-        PathPlannerTrajectory RedConeL1DualLinkBridge= PathPlannerTrajectory.transformTrajectoryForAlliance((PathPlanner.loadPath("ConeL1DualLinkBridge", new PathConstraints(5, 3))), Alliance.Red);
+        PathPlannerTrajectory RedConeL1Dual= PathPlannerTrajectory.transformTrajectoryForAlliance((PathPlanner.loadPath("ConeL1DualLink", new PathConstraints(4.5, 3.5))), Alliance.Red);
+        PathPlannerTrajectory RedConeL1DualLinkBridge= PathPlannerTrajectory.transformTrajectoryForAlliance((PathPlanner.loadPath("ConeL1DualLinkBridge", new PathConstraints(5, 5))), Alliance.Red);
         Pose2d startpose = RedConeL1Dual.getInitialHolonomicPose();
 
         addCommands(new SequentialCommandGroup(

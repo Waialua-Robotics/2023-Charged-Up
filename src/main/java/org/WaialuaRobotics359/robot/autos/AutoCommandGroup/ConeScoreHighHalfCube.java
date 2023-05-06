@@ -14,8 +14,8 @@ public class ConeScoreHighHalfCube extends SequentialCommandGroup {
 
 
         addCommands(new SequentialCommandGroup(
-            new HalfUpHighStart(s_Wrist, s_Elevator, s_Slide),
-            new AutoWait(2),
+            new SetHighPosition(s_Wrist, s_Elevator, s_Slide),
+            new AutoWait(1.3),
             new AutoOuttakeCone(s_Intake),
             new InstantCommand(() -> RobotContainer.isCube = true),
             new SetStandPosition(s_Wrist, s_Elevator, s_Slide)
