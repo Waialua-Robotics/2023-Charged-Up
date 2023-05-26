@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -19,6 +20,9 @@ public class Elevator extends SubsystemBase {
     private int desiredPosition = 0;
 
     public boolean HasSwitched = false; 
+
+    /*Logging*/
+    private DataLog logger;
 
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);

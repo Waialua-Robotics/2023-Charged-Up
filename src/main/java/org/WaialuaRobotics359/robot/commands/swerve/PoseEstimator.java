@@ -1,6 +1,7 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
 
+import org.WaialuaRobotics359.lib.util.LoggablePose;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
@@ -15,6 +16,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -42,6 +45,14 @@ public class PoseEstimator extends SubsystemBase {
 
   private final Field2d field2d = new Field2d();
 
+  /* Logging */
+  private DataLog logger;
+
+  /*Log Pose*/
+  private LoggablePose current;
+  private LoggablePose targetpose;
+  private LoggablePose limelightPose;
+
   public PoseEstimator(LimeLight s_LimeLight, Swerve s_Swerve) {
     this.s_LimeLight = s_LimeLight;
     this.s_Swerve = s_Swerve;
@@ -55,6 +66,14 @@ public class PoseEstimator extends SubsystemBase {
       new Pose2d(),
       stateStdDevs,
       visionMeasurementStdDevs);
+
+      // Create logger object 
+      logger = DataLogManager.getLog();
+
+      //pose Log Entry
+      current = new LoggablePose("PoseEst/pose", new Pose2d(0,0, new Rotation2d(0)));
+      targetpose = new LoggablePose("poseEst/target", new Pose2d(0,0, new Rotation2d(0)));
+      limelightPose = new LoggablePose("poseEst/limelight", new Pose2d(0,0, new Rotation2d(0)));
   }
 
   /*PoseEst */
@@ -99,6 +118,12 @@ public class PoseEstimator extends SubsystemBase {
     return LimelightHelpers.getTX("limelight")* .15;
   }
 
+  private void logData(){
+    current.set(CurrentPose);
+    targetpose.set(ClosestSelectedNode());
+    limelightPose.set(s_LimeLight.getPose2d());
+  }
+
 
   public void periodic(){
     SwerveposeEstimator.updateWithTime(Timer.getFPGATimestamp(),s_Swerve.getYawflip(), s_Swerve.getModulePositions());
@@ -109,6 +134,8 @@ public class PoseEstimator extends SubsystemBase {
     SmartDashboard.putNumber("X", CurrentPose.getX());
     SmartDashboard.putNumber("y", CurrentPose.getY());
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
+
+    logData();
     //SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
     //SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
   }
