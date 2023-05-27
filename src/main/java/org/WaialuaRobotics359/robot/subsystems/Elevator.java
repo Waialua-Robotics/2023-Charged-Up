@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,6 +25,15 @@ public class Elevator extends SubsystemBase {
 
     /*Logging*/
     private DataLog logger;
+
+    /*elevator logs*/
+    private DoubleLogEntry elevatorMotorDesiredPosition;
+    private DoubleLogEntry elevatorMotorCurrentPosition;
+    private DoubleLogEntry elevatorMotorVelocity;
+    private DoubleLogEntry elevatorMotorLBusVoltage;
+    private DoubleLogEntry elevatorMotorRBusVoltage;
+    private DoubleLogEntry elevatorMotorLTemperature;
+    private DoubleLogEntry elevatorMotorRTemperature;
 
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);
@@ -39,6 +50,21 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorR.setSelectedSensorPosition(0);
 
         mMagSwitch = new DigitalInput(Constants.Elevator.MagElevatorID);
+
+        logger = DataLogManager.getLog();
+
+        elevatorMotorDesiredPosition = new DoubleLogEntry(logger, "elevatorMotor/desiredPosition");
+        elevatorMotorCurrentPosition = new DoubleLogEntry(logger, "elevatorMotor/currentPosition");
+        elevatorMotorVelocity = new DoubleLogEntry(logger, "elevatorMotor/velocity");
+        elevatorMotorLTemperature = new DoubleLogEntry(logger, "elevatorMotorL/temperature");
+        elevatorMotorRTemperature = new DoubleLogEntry(logger, "elevatorMotorR/temperature");
+        elevatorMotorLBusVoltage = new DoubleLogEntry(logger, "elevatorMotorL/busVoltage");
+        elevatorMotorRBusVoltage = new DoubleLogEntry(logger, "elevatorMotorR/busVoltage");
+    }
+
+    @Override
+    public void periodic(){
+        LogData();
     }
 
     public void setDesiredPosition(int position) {
@@ -109,4 +135,13 @@ public class Elevator extends SubsystemBase {
         return desiredPosition;
     }
 
+    private void LogData(){
+        elevatorMotorDesiredPosition.append(desiredPosition);
+        elevatorMotorCurrentPosition.append(mElevatorMotorR.getSelectedSensorPosition());
+        elevatorMotorVelocity.append(mElevatorMotorL.getSelectedSensorVelocity());
+        elevatorMotorLTemperature.append(mElevatorMotorL.getTemperature());
+        elevatorMotorRTemperature.append(mElevatorMotorR.getTemperature());
+        elevatorMotorLBusVoltage.append(mElevatorMotorL.getBusVoltage());
+        elevatorMotorRBusVoltage.append(mElevatorMotorR.getBusVoltage());
+    }
 }
