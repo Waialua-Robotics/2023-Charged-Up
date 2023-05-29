@@ -8,10 +8,12 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -34,6 +36,8 @@ public class Elevator extends SubsystemBase {
     private DoubleLogEntry elevatorMotorRBusVoltage;
     private DoubleLogEntry elevatorMotorLTemperature;
     private DoubleLogEntry elevatorMotorRTemperature;
+    private BooleanLogEntry elevatorMagSwitch;
+    private BooleanLogEntry elevatorInRange;
 
     public Elevator () {
         mElevatorMotorL = new TalonFX(Constants.Elevator.lElevatorID);
@@ -51,20 +55,18 @@ public class Elevator extends SubsystemBase {
 
         mMagSwitch = new DigitalInput(Constants.Elevator.MagElevatorID);
 
+        /*Logging */
         logger = DataLogManager.getLog();
 
-        elevatorMotorDesiredPosition = new DoubleLogEntry(logger, "elevatorMotor/desiredPosition");
-        elevatorMotorCurrentPosition = new DoubleLogEntry(logger, "elevatorMotor/currentPosition");
-        elevatorMotorVelocity = new DoubleLogEntry(logger, "elevatorMotor/velocity");
-        elevatorMotorLTemperature = new DoubleLogEntry(logger, "elevatorMotorL/temperature");
-        elevatorMotorRTemperature = new DoubleLogEntry(logger, "elevatorMotorR/temperature");
-        elevatorMotorLBusVoltage = new DoubleLogEntry(logger, "elevatorMotorL/busVoltage");
-        elevatorMotorRBusVoltage = new DoubleLogEntry(logger, "elevatorMotorR/busVoltage");
-    }
-
-    @Override
-    public void periodic(){
-        LogData();
+        elevatorMotorDesiredPosition = new DoubleLogEntry(logger, "elevator/desiredPosition");
+        elevatorMotorCurrentPosition = new DoubleLogEntry(logger, "elevator/currentPosition");
+        elevatorMotorVelocity = new DoubleLogEntry(logger, "elevator/velocity");
+        elevatorMotorLTemperature = new DoubleLogEntry(logger, "elevator/MotorL/temperature");
+        elevatorMotorRTemperature = new DoubleLogEntry(logger, "elevator/MotorR/temperature");
+        elevatorMotorLBusVoltage = new DoubleLogEntry(logger, "elevator/MotorL/busVoltage");
+        elevatorMotorRBusVoltage = new DoubleLogEntry(logger, "elevator/MotorR/busVoltage");
+        elevatorMagSwitch = new BooleanLogEntry(logger, "elevator/magSwitch");
+        elevatorInRange = new BooleanLogEntry(logger, "elevator/inRange");
     }
 
     public void setDesiredPosition(int position) {
@@ -135,13 +137,19 @@ public class Elevator extends SubsystemBase {
         return desiredPosition;
     }
 
-    private void LogData(){
-        elevatorMotorDesiredPosition.append(desiredPosition);
-        elevatorMotorCurrentPosition.append(mElevatorMotorR.getSelectedSensorPosition());
-        elevatorMotorVelocity.append(mElevatorMotorL.getSelectedSensorVelocity());
-        elevatorMotorLTemperature.append(mElevatorMotorL.getTemperature());
-        elevatorMotorRTemperature.append(mElevatorMotorR.getTemperature());
-        elevatorMotorLBusVoltage.append(mElevatorMotorL.getBusVoltage());
-        elevatorMotorRBusVoltage.append(mElevatorMotorR.getBusVoltage());
+    private void LogData(long time){
+        elevatorMotorDesiredPosition.append(desiredPosition, time);
+        elevatorMotorCurrentPosition.append(mElevatorMotorR.getSelectedSensorPosition(), time);
+        elevatorMotorVelocity.append(mElevatorMotorR.getSelectedSensorVelocity(), time);
+        elevatorMotorLTemperature.append(mElevatorMotorL.getTemperature(), time);
+        elevatorMotorRTemperature.append(mElevatorMotorR.getTemperature(), time);
+        elevatorMotorLBusVoltage.append(mElevatorMotorL.getBusVoltage(), time);
+        elevatorMotorRBusVoltage.append(mElevatorMotorR.getBusVoltage(), time);
+        elevatorMagSwitch.append(mMagSwitch.get(), time);
+        elevatorInRange.append(inRange(), time);
+    }
+
+    public void periodic(){
+        LogData(RobotController.getFPGATime());
     }
 }

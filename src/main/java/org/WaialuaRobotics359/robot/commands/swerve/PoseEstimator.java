@@ -16,8 +16,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.util.datalog.DataLog;
-import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -46,7 +44,6 @@ public class PoseEstimator extends SubsystemBase {
   private final Field2d field2d = new Field2d();
 
   /* Logging */
-  private DataLog logger;
 
   /*Log Pose*/
   private LoggablePose current;
@@ -66,9 +63,6 @@ public class PoseEstimator extends SubsystemBase {
       new Pose2d(),
       stateStdDevs,
       visionMeasurementStdDevs);
-
-      // Create logger object 
-      logger = DataLogManager.getLog();
 
       //pose Log Entry
       current = new LoggablePose("PoseEst/pose", new Pose2d(0,0, new Rotation2d(0)));

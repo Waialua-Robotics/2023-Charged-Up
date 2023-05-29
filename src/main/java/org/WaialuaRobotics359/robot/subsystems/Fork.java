@@ -5,6 +5,10 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -14,6 +18,15 @@ public class Fork extends SubsystemBase {
     private TalonFX mForkMotor;
     Servo leftServo;
     Servo rightServo;
+
+     /*Logging*/
+     private DataLog logger;
+
+     /*elevator logs*/
+     private DoubleLogEntry forkMotorCurrent;
+     private DoubleLogEntry forkMotorTemperature;
+     private DoubleLogEntry forkLeftServoPosition;
+     private DoubleLogEntry forkRightServoPosition;
 
     public Fork() {
         mForkMotor = new TalonFX(Constants.Fork.forkMotorID);
@@ -28,6 +41,13 @@ public class Fork extends SubsystemBase {
 
         leftServo.set(1);
         rightServo.set(0);
+
+        /*Logging*/
+        logger = DataLogManager.getLog();
+        forkMotorCurrent = new DoubleLogEntry(logger, "fork/motorCurrent");
+        forkMotorTemperature = new DoubleLogEntry(logger, "fork/motorTemperature");
+        forkLeftServoPosition = new DoubleLogEntry(logger, "fork/leftServoPosition");
+        forkRightServoPosition = new DoubleLogEntry(logger, "fork/rightServoPosition");
     }
 
     public void openLatch() {
@@ -46,6 +66,17 @@ public class Fork extends SubsystemBase {
 
     public void Stop(){
         SetPrecentOut(0);
+    }
+
+    private void LogData(long time){
+        forkMotorCurrent.append(mForkMotor.getSupplyCurrent(), time);
+        forkMotorTemperature.append(mForkMotor.getTemperature(), time);
+        forkLeftServoPosition.append(leftServo.get(), time);
+        forkRightServoPosition.append(rightServo.get(), time);
+    }
+
+    public void periodic(){
+        LogData(RobotController.getFPGATime());
     }
 }
 
