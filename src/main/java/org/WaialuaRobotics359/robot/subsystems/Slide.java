@@ -1,16 +1,31 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
+import javax.management.ConstructorParameters;
+
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.DoubleLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
     private int desiredPosition = 0;
+
+    /*Logging*/
+    private DataLog logger;
+    /*elevator logs*/
+    private DoubleLogEntry slideDesiredPosition;
+    private DoubleLogEntry slideCurrentPosition;
+    private DoubleLogEntry slideMotorCurrent;
+    private DoubleLogEntry slideMotorVelocity;
+    private DoubleLogEntry slideMotorTemperature;
 
     public Slide () {
         mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
@@ -20,6 +35,14 @@ public class Slide extends SubsystemBase{
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
         mSlideMotor.setSelectedSensorPosition(0);
+
+        /*Logging*/
+        logger = DataLogManager.getLog();
+        slideDesiredPosition = new DoubleLogEntry(logger, "slide/desiredPosition");
+        slideCurrentPosition = new DoubleLogEntry(logger, "slide/currentPosition");
+        slideMotorCurrent = new DoubleLogEntry(logger, "slide/motorCurrent");
+        slideMotorVelocity = new DoubleLogEntry(logger, "slide/motorVelocity");
+        slideMotorTemperature = new DoubleLogEntry(logger, "slide/motorTemperature");
     }
 
     public void setDesiredPosition(int position) {
@@ -74,8 +97,6 @@ public class Slide extends SubsystemBase{
         return mSlideMotor.getStatorCurrent();
     }
 
-
-
     public void SetPosition(double position){
         mSlideMotor.setSelectedSensorPosition(position);
     }
@@ -88,5 +109,17 @@ public class Slide extends SubsystemBase{
         desiredPosition = Math.min(position, Constants.Slide.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Slide.reverseSoftLimit);
         return desiredPosition;
+    }
+
+    private void LogData(long time){
+        slideDesiredPosition.append(desiredPosition, time);
+        slideCurrentPosition.append(GetPosition(), time);
+        slideMotorCurrent.append(mSlideMotor.getStatorCurrent(), time);
+        slideMotorVelocity.append(mSlideMotor.getSelectedSensorVelocity(), time);
+        slideMotorTemperature.append(mSlideMotor.getTemperature(), time);
+    }
+
+    public void periodic(){
+        LogData(RobotController.getFPGATime());
     }
 }

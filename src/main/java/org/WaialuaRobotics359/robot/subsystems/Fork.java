@@ -19,14 +19,13 @@ public class Fork extends SubsystemBase {
     Servo leftServo;
     Servo rightServo;
 
-     /*Logging*/
-     private DataLog logger;
-
-     /*elevator logs*/
-     private DoubleLogEntry forkMotorCurrent;
-     private DoubleLogEntry forkMotorTemperature;
-     private DoubleLogEntry forkLeftServoPosition;
-     private DoubleLogEntry forkRightServoPosition;
+    /*Logging*/
+    private DataLog logger;
+    /*elevator logs*/
+    private DoubleLogEntry forkMotorCurrent;
+    private DoubleLogEntry forkMotorTemperature;
+    private DoubleLogEntry forkLeftServoPosition;
+    private DoubleLogEntry forkRightServoPosition;
 
     public Fork() {
         mForkMotor = new TalonFX(Constants.Fork.forkMotorID);
