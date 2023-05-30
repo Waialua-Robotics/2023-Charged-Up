@@ -46,9 +46,9 @@ public class PoseEstimator extends SubsystemBase {
   /* Logging */
 
   /*Log Pose*/
-  private LoggablePose current;
-  private LoggablePose targetpose;
-  private LoggablePose limelightPose;
+  //private LoggablePose current;
+  //private LoggablePose targetpose;
+  //private LoggablePose limelightPose;
 
   public PoseEstimator(LimeLight s_LimeLight, Swerve s_Swerve) {
     this.s_LimeLight = s_LimeLight;
@@ -65,9 +65,9 @@ public class PoseEstimator extends SubsystemBase {
       visionMeasurementStdDevs);
 
       //pose Log Entry
-      current = new LoggablePose("PoseEst/pose", new Pose2d(0,0, new Rotation2d(0)));
-      targetpose = new LoggablePose("poseEst/target", new Pose2d(0,0, new Rotation2d(0)));
-      limelightPose = new LoggablePose("poseEst/limelight", new Pose2d(0,0, new Rotation2d(0)));
+      //current = new LoggablePose("PoseEst/pose", new Pose2d(0,0, new Rotation2d(0)));
+      //targetpose = new LoggablePose("poseEst/target", new Pose2d(0,0, new Rotation2d(0)));
+      //limelightPose = new LoggablePose("poseEst/limelight", new Pose2d(0,0, new Rotation2d(0)));
   }
 
   /*PoseEst */
@@ -113,9 +113,9 @@ public class PoseEstimator extends SubsystemBase {
   }
 
   private void logData(){
-    current.set(CurrentPose);
-    targetpose.set(ClosestSelectedNode());
-    limelightPose.set(s_LimeLight.getPose2d());
+    //current.set(CurrentPose);
+    //targetpose.set(ClosestSelectedNode());
+    //limelightPose.set(s_LimeLight.getPose2d());
   }
 
 
@@ -129,7 +129,7 @@ public class PoseEstimator extends SubsystemBase {
     SmartDashboard.putNumber("y", CurrentPose.getY());
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
 
-    logData();
+    //logData();
     //SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
     //SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
   }

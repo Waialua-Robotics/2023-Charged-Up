@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
-import edu.wpi.first.util.datalog.StringLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
     private TalonFX mIntakeMotor;
-    private StringLogEntry myStringLog;
 
     /*Logging*/
     private DataLog logger;
@@ -46,7 +44,6 @@ public class Intake extends SubsystemBase {
 
     public void intake(double intakeSpeed) {
         mIntakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
-        myStringLog.append("intakeSpeed: " + intakeSpeed);
     }
 
     public void outake(double intakeSpeed) {
