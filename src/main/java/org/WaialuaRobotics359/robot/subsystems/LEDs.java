@@ -1,6 +1,11 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
+import edu.wpi.first.util.datalog.BooleanLogEntry;
+import edu.wpi.first.util.datalog.DataLog;
+import edu.wpi.first.util.datalog.StringLogEntry;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import org.WaialuaRobotics359.robot.Constants;
@@ -28,6 +33,15 @@ public class LEDs extends SubsystemBase {
     public static enum State {off,purple,yellow,Blue,Red,Green}
     public State state = State.off;
 
+    /*Logging*/
+    private DataLog logger;
+    /*LED logs*/
+    private StringLogEntry LEDState;
+    private BooleanLogEntry LEDHasObject;
+    private BooleanLogEntry LEDAutoStartPose;
+    private BooleanLogEntry LEDReportWarning;
+
+
     public LEDs() {
         candle = new CANdle(Constants.LEDs.CANdleID, "rio");
 
@@ -44,6 +58,13 @@ public class LEDs extends SubsystemBase {
         config.brightnessScalar = 1; 
 
         candle.configAllSettings(config);
+
+        /*Logging*/
+        logger = DataLogManager.getLog();
+        LEDState = new StringLogEntry(logger, "LEDs/LEDState");
+        LEDHasObject = new BooleanLogEntry(logger, "LEDs/LEDHasObject");
+        LEDAutoStartPose = new BooleanLogEntry(logger, "LEDs/LEDAutoStartPose");
+        LEDReportWarning = new BooleanLogEntry(logger, "LEDs/LEDReportWarning");
     }
 
     @Override
@@ -97,6 +118,7 @@ public class LEDs extends SubsystemBase {
                 candle.setLEDs(0,0,0);
                 break;
         }
+        LogData(RobotController.getFPGATime());
     }
 
     public void setLEDs(int i, int j, int k) {
@@ -108,6 +130,13 @@ public class LEDs extends SubsystemBase {
         } else {
             state = State.Red;
         }
+    }
+
+    private void LogData(long time){
+        LEDState.append(state.toString(), time);
+        LEDHasObject.append(hasObject, time);
+        LEDAutoStartPose.append(autoStartPose, time);
+        LEDReportWarning.append(reportWarning, time);
     }
 
 }

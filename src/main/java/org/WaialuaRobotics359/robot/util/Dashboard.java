@@ -28,8 +28,6 @@ public class Dashboard {
         tab.addNumber("velocityChangeElevator",()-> container.getElevator().GetVelocity());
         tab.addNumber("getCurrentelevator",()-> container.getElevator().getCurrent());
         tab.addNumber("pitch", ()-> container.getSwerve().GetGyroPitch());
-        //tab.addNumber("posex", ()-> container.getSwerve().getPose().getX());
-        //tab.addNumber("posey", ()-> container.getSwerve().getPose().getY());
         tab.addNumber("Distace to pull",()-> container.getLimelight().getDistance());
         tab.addNumber("tx", ()-> container.getLimelight().getTX());
         tab.addNumber("ty", ()-> container.getLimelight().getTY());
@@ -37,16 +35,6 @@ public class Dashboard {
         tab.addNumber("yaw360", ()-> container.getSwerve().getYaw360());
         tab.addNumber("Pitch", ()-> container.getSwerve().GetGyroPitch());
         tab.addBoolean("HasSwitched", ()-> container.getElevator().HasSwitched);
-        
-
-        //tab.addCamera("LimeLight", "Limelight", "http://10.3.59.11:5800");
-
-
-
-        /*tab.add("Autonomous Mode", container.getAutonomousChooser().getModeChooser()).withSize(2, 1).withPosition(2, 0);
-        tab.add("Climb Mode", container.getClimbChooser().getClimbChooser()).withSize(2, 1).withPosition(0, 2);
-        tab.addCamera("Camera", "Camera", "http://limelight.local:5800", "http://10.29.10.11:5800").withSize(3, 3)
-                .withPosition(4, 0);*/
     }
     
 }

@@ -11,6 +11,8 @@ import org.WaialuaRobotics359.robot.util.LimelightHelpers;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,6 +23,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+
+
+
 public class Robot extends TimedRobot {
   public static CTREConfigs ctreConfigs;
 
@@ -37,6 +42,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
+
     ctreConfigs = new CTREConfigs();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
