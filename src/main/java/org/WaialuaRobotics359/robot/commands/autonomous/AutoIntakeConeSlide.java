@@ -11,7 +11,7 @@ public class AutoIntakeConeSlide extends CommandBase {
     private Slide s_slide;
 
     private double currentLimit = 30;
-    private int slidePose;
+    private double slidePose;
 
     public AutoIntakeConeSlide(Intake s_intake, Slide s_slide) {
         this.s_intake = s_intake;
