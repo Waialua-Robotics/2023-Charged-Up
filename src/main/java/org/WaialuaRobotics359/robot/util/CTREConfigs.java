@@ -2,18 +2,23 @@ package org.WaialuaRobotics359.robot.util;
 
 import org.WaialuaRobotics359.robot.Constants;
 
+import com.ctre.phoenixpro.configs.CANcoderConfiguration;
+/*
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.sensors.AbsoluteSensorRange;
 import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.ctre.phoenix.sensors.SensorTimeBase;
+import com.ctre.phoenix.sensors.SensorTimeBase; */
+import com.ctre.phoenixpro.configs.CANcoderConfigurator;
+import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 
 public final class CTREConfigs {
     /* Swerve */
     public TalonFXConfiguration swerveAngleFXConfig;
     public TalonFXConfiguration swerveDriveFXConfig;
-    public CANCoderConfiguration swerveCanCoderConfig;
+    public CANcoderConfiguration swerveCanCoderConfig;
     /* Slide */
     public TalonFXConfiguration slideFXConfig;
     /* Elevator */
@@ -30,7 +35,7 @@ public final class CTREConfigs {
         /* Swerve */
         swerveAngleFXConfig = new TalonFXConfiguration();
         swerveDriveFXConfig = new TalonFXConfiguration();
-        swerveCanCoderConfig = new CANCoderConfiguration();
+        swerveCanCoderConfig = new CANcoderConfiguration();
         /* Slide */
         slideFXConfig = new TalonFXConfiguration();
         /* Elevator */

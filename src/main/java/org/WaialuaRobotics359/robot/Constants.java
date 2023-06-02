@@ -1,7 +1,7 @@
 package org.WaialuaRobotics359.robot;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.PIDConstants;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -59,7 +59,7 @@ public final class Constants {
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
 
         public static final Boolean forkMotorInvert = false;
-        public static final NeutralMode forkNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue forkNeutralMode = NeutralModeValue.Brake;
 
     }
     
@@ -67,7 +67,7 @@ public final class Constants {
         public static final int slideMotorID = 20; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
         public static final Boolean slideMotorInvert = false;
-        public static final NeutralMode slideNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue slideNeutralMode = NeutralModeValue.Brake;
 
         public static final int Ratio = 15;
 
@@ -120,7 +120,7 @@ public final class Constants {
         public static final int rElevatorID = 10; 
         public static final int lElevatorID = 11; 
         public static final TalonFXConfiguration config = new TalonFXConfiguration();
-        public static final NeutralMode elevatorNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue elevatorNeutralMode = NeutralModeValue.Brake;
 
         public static final int MagElevatorID = 0;
         
@@ -175,7 +175,7 @@ public final class Constants {
         public static final int wristID = 40;
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean wristMotorInvert = true;
-        public static final NeutralMode wristNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue wristNeutralMode = NeutralModeValue.Brake;
 
         public static final int Ratio = 15;
 
@@ -232,7 +232,7 @@ public final class Constants {
         public static final int intakeID = 30; // do not revert : 20
         public static final TalonFXConfiguration cofig = new TalonFXConfiguration();
         public static final Boolean intakeMotorInvert = false;
-        public static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue intakeNeutralMode = NeutralModeValue.Brake;
 
         public static final double speedIn = .8;//.5
         public static final double speedOut = .5;//.3
@@ -367,8 +367,8 @@ public final class Constants {
         public static final double maxAngularVelocity = 10; 
 
         /* Neutral Modes */
-        public static final NeutralMode angleNeutralMode = NeutralMode.Coast;
-        public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
+        public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
+        public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
 
         /* Module Specific Constants */
 

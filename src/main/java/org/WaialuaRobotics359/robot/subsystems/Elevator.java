@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
     private TalonFX mElevatorMotorR;
-    private DutyCycleOut elevatormotor;
     private DigitalInput mMagSwitch;
 
     private int desiredPosition = 0;
@@ -49,15 +48,11 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorL.getConfigurator().apply(new TalonFXConfiguration());
         
         mElevatorMotorR.configAllSettings(Robot.ctreConfigs.elevatorFXConfig);
-
-        mElevatorMotorL.setControl(Follower)//(ControlMode.Follower, Constants.Elevator.rElevatorID);
-        mElevatorMotorL.setInverted(TalonFXInvertType.OpposeMaster);
+        mElevatorMotorL.setControl(new Follower(Constants.Elevator.rElevatorID, true));
 
         mElevatorMotorR.setRotorPosition(0);
 
         mMagSwitch = new DigitalInput(Constants.Elevator.MagElevatorID);
-
-        elevatormotor = new DutyCycleOut(0.0);
 
         /*Logging */
         logger = DataLogManager.getLog();
@@ -94,12 +89,12 @@ public class Elevator extends SubsystemBase {
     }
 
     public boolean inRange() {
-        double encoder = mElevatorMotorR.getPosition().getValue();
+        double encoder = mElevatorMotorR.getRotorPosition().getValue();
         return (encoder > (desiredPosition - Constants.Elevator.threshold)) && (encoder < (desiredPosition + Constants.Elevator.threshold));
     }
 
     public double GetPosition() {
-        return mElevatorMotorR.getPosition().getValue();
+        return mElevatorMotorR.getRotorPosition().getValue();
     }
 
     public double GetPositionInches(){
@@ -107,7 +102,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public double GetVelocity(){
-        return mElevatorMotorR.getVelocity().getValue();
+        return mElevatorMotorR.getRotorVelocity().getValue();
     }
 
     public double getCurrent(){
@@ -127,9 +122,8 @@ public class Elevator extends SubsystemBase {
     }
 
     public void SetPrecentOut(double percent){
-        mElevatorMotorR.setControl(elevatormotor.withOutput(percent));
+        mElevatorMotorR.set(TalonFXControlMode.PercentOutput, percent);
     }
-
     public boolean getSwitch(){
         return !mMagSwitch.get();
     }
@@ -143,10 +137,10 @@ public class Elevator extends SubsystemBase {
 
     private void LogData(long time){
         elevatorMotorDesiredPosition.append(desiredPosition, time);
-        elevatorMotorCurrentPosition.append(mElevatorMotorR.getPosition().getValue(), time);
+        elevatorMotorCurrentPosition.append(mElevatorMotorR.getRotorPosition().getValue(), time);
         elevatorMotorVelocity.append(mElevatorMotorR.getVelocity().getValue(), time);
-        elevatorMotorLTemperature.append(mElevatorMotorL.getTemperature(), time);
-        elevatorMotorRTemperature.append(mElevatorMotorR.getTemperature(), time);
+        elevatorMotorLTemperature.append(mElevatorMotorL.getDeviceTemp().getValue(), time);
+        elevatorMotorRTemperature.append(mElevatorMotorR.getDeviceTemp().getValue(), time);
         elevatorMotorLBusVoltage.append(mElevatorMotorL.getSupplyVoltage().getValue(), time);
         elevatorMotorRBusVoltage.append(mElevatorMotorR.getSupplyVoltage().getValue(), time);
         elevatorMagSwitch.append(mMagSwitch.get(), time);

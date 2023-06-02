@@ -4,8 +4,7 @@ package org.WaialuaRobotics359.robot.subsystems;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
@@ -51,7 +50,7 @@ public class Intake extends SubsystemBase {
     }
 
     public double getCurrent() {
-        return mIntakeMotor.getStatorCurrent();
+        return mIntakeMotor.getStatorCurrent().getValue();
     }
 
     public double getPercentOutput() {
@@ -64,9 +63,9 @@ public class Intake extends SubsystemBase {
 
     private void logData(long time){
         intakeMotorCurrent.append(getCurrent(), time);
-        intakeMotorTemperature.append(mIntakeMotor.getTemperature(), time);
+        intakeMotorTemperature.append(mIntakeMotor.getDeviceTemp().getValue(), time);
         intakeMotorOutputPercent.append(getPercentOutput(), time);
-        intakeMotorVelocity.append(mIntakeMotor.getSelectedSensorVelocity(), time);
+        intakeMotorVelocity.append(mIntakeMotor.getRotorVelocity().getValue(), time);
     }
 
     public void periodic() {

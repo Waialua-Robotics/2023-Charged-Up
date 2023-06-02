@@ -68,8 +68,8 @@ public class Fork extends SubsystemBase {
     }
 
     private void LogData(long time){
-        forkMotorCurrent.append(mForkMotor.getSupplyCurrent(), time);
-        forkMotorTemperature.append(mForkMotor.getTemperature(), time);
+        forkMotorCurrent.append(mForkMotor.getSupplyCurrent().getValue(), time);
+        forkMotorTemperature.append(mForkMotor.getDeviceTemp().getValue(), time);
         forkLeftServoPosition.append(leftServo.get(), time);
         forkRightServoPosition.append(rightServo.get(), time);
     }

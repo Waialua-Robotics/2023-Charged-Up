@@ -2,11 +2,12 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 
+import com.ctre.phoenixpro.configs.Pigeon2Configuration;
+import com.ctre.phoenixpro.hardware.Pigeon2;
+
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-
-import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -27,7 +28,7 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         gyro = new Pigeon2(Constants.Swerve.pigeonID, "Drivetrain");
-        gyro.configFactoryDefault();
+        gyro.getConfigurator().apply(new Pigeon2Configuration());
 
         zeroGyro();
 
@@ -125,7 +126,7 @@ public class Swerve extends SubsystemBase {
     }
 
     public double GetGyroPitch(){
-        return gyro.getRoll();
+        return gyro.getRoll().getValue();
     }
 
     public boolean gyroPitchHasChanged(){
@@ -138,7 +139,7 @@ public class Swerve extends SubsystemBase {
     //Boolean function if pitch value has changed since last call
 
     public Rotation2d getYaw() {
-        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
+        return (Constants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw().getValue()) : Rotation2d.fromDegrees(gyro.getYaw().getValue());
     }
 
     public Rotation2d getYawflip(){

@@ -18,8 +18,6 @@ public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
     private int desiredPosition = 0;
 
-    private DutyCycleOut slidemotor;
-
     /*Logging*/
     private DataLog logger;
     /*elevator logs*/
@@ -38,8 +36,6 @@ public class Slide extends SubsystemBase{
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
         mSlideMotor.setRotorPosition(0);
 
-        slidemotor = new DutyCycleOut(0.0);
-
         /*Logging*/
         logger = DataLogManager.getLog();
         slideDesiredPosition = new DoubleLogEntry(logger, "slide/desiredPosition");
@@ -49,7 +45,7 @@ public class Slide extends SubsystemBase{
         slideMotorTemperature = new DoubleLogEntry(logger, "slide/motorTemperature");
     }
 
-    public void setDesiredPosition(int position) {
+    public void setDesiredPosition(double position) {
         desiredPosition = fitToRange(position);
     }
 
@@ -80,7 +76,7 @@ public class Slide extends SubsystemBase{
     }
 
     public void SetPrecentOut(double percent){
-        mSlideMotor.setControl(slidemotor.withOutput(percent));
+        mSlideMotorset(TalonFXControlMode.PercentOutput, percent);
     }
 
     public void Stop(){
@@ -93,7 +89,7 @@ public class Slide extends SubsystemBase{
             SetHomePosition();
             return;
         }else{
-        mSlideMotor.setControl(slidemotor.withOutput(-.1));//-.1
+        mSlideMotor.set(TalonFXControlMode.PercentOutput, -.1);
         }   
     } 
 
@@ -120,7 +116,7 @@ public class Slide extends SubsystemBase{
         slideCurrentPosition.append(GetPosition(), time);
         slideMotorCurrent.append(mSlideMotor.getStatorCurrent().getValue(), time);
         slideMotorVelocity.append(mSlideMotor.getVelocity().getValue(), time);
-        slideMotorTemperature.append(mSlideMotor.getTemperature(), time);
+        slideMotorTemperature.append(mSlideMotor.getDeviceTemp().getValue(), time);
     }
 
     public void periodic(){
