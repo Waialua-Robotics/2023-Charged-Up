@@ -4,8 +4,8 @@ package org.WaialuaRobotics359.robot.subsystems;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.BooleanLogEntry;
 import edu.wpi.first.util.datalog.DataLog;
@@ -31,11 +31,11 @@ public class Wrist extends SubsystemBase {
     public Wrist() {
         mWristMotor = new TalonFX(Constants.Wrist.wristID);
 
-        mWristMotor.configFactoryDefault();
+        mWristMotor.getConfigurator().apply(new TalonFXConfiguration());
         mWristMotor.configAllSettings(Robot.ctreConfigs.wristFXConfig);
         mWristMotor.setInverted(Constants.Wrist.wristMotorInvert);
         mWristMotor.setNeutralMode(Constants.Wrist.wristNeutralMode);
-        mWristMotor.setSelectedSensorPosition(0);
+        mWristMotor.setRotorPosition(0);
 
         /*Logging*/
         logger = DataLogManager.getLog();
@@ -48,8 +48,8 @@ public class Wrist extends SubsystemBase {
     }
 
  
-    public void setDesiredPosition(int position) {
-        desiredPosition = fitToRange(position);
+    public void setDesiredPosition(double d) {
+        desiredPosition = fitToRange(d);
     }
 
     public int getDesiredPosition() {
@@ -66,17 +66,17 @@ public class Wrist extends SubsystemBase {
     }
 
     public boolean inRange() {
-        int encoder = (int) mWristMotor.getSelectedSensorPosition();
+        double encoder = mWristMotor.getRotorPosition().getValue();
         return (encoder > (desiredPosition - Constants.Wrist.threshold)) && (encoder < (desiredPosition + Constants.Wrist.threshold));
     }
 
     public boolean inSafe(){
-        int encoder = (int) mWristMotor.getSelectedSensorPosition();
+        double encoder = mWristMotor.getRotorPosition().getValue();
         return (encoder > (Constants.Wrist.SafePosition - Constants.Wrist.threshold)) && (encoder < (desiredPosition + Constants.Wrist.threshold));
     }
 
-    public int GetPosition() {
-        return  (int)mWristMotor.getSelectedSensorPosition();
+    public double GetPosition() {
+        return mWristMotor.getRotorPosition().getValue();
      }
 
      public double GetPositionInches(){
@@ -84,11 +84,11 @@ public class Wrist extends SubsystemBase {
      }
 
      public double GetVelocity(){
-        return mWristMotor.getSelectedSensorVelocity();
+        return mWristMotor.getRotorVelocity().getValue();
     }
 
      public void SetPosition(double position){
-        mWristMotor.setSelectedSensorPosition(position);
+        mWristMotor.setRotorPosition(position);
      }
 
      public void Stop(){
@@ -96,7 +96,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public double getCurrent(){
-        return mWristMotor.getStatorCurrent();
+        return mWristMotor.getStatorCurrent().getValue();
     }
 
 
@@ -105,7 +105,7 @@ public class Wrist extends SubsystemBase {
     }
 
     public void SetHomePosition(){
-        mWristMotor.setSelectedSensorPosition(0);
+        mWristMotor.setRotorPosition(0);
     }
 
     private int fitToRange(int position) {
@@ -119,7 +119,7 @@ public class Wrist extends SubsystemBase {
         wristCurrentPosition.append(GetPosition(), time);
         wristMotorCurrent.append(getCurrent(), time);
         wristMotorVelocity.append(GetVelocity(), time);
-        wristMotorTemperature.append(mWristMotor.getTemperature(), time);
+        wristMotorTemperature.append(mWristMotor.getDeviceTemp().getValue(), time);
         wristInSafe.append(inSafe(), time);
     }
 
