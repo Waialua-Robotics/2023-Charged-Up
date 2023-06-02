@@ -3,8 +3,10 @@ package org.WaialuaRobotics359.robot.subsystems;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
+import com.ctre.phoenixpro.hardware.TalonFX;
+import com.ctre.phoenixpro.signals.ControlModeValue;
 
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
@@ -15,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
     private int desiredPosition = 0;
+
+    private DutyCycleOut slidemotor;
 
     /*Logging*/
     private DataLog logger;
@@ -28,11 +32,13 @@ public class Slide extends SubsystemBase{
     public Slide () {
         mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
 
-        mSlideMotor.configFactoryDefault();
+        mSlideMotor.getConfigurator().apply(new TalonFXConfiguration());
         mSlideMotor.configAllSettings(Robot.ctreConfigs.slideFXConfig);
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
         mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
-        mSlideMotor.setSelectedSensorPosition(0);
+        mSlideMotor.setRotorPosition(0);
+
+        slidemotor = new DutyCycleOut(0.0);
 
         /*Logging*/
         logger = DataLogManager.getLog();
@@ -61,12 +67,12 @@ public class Slide extends SubsystemBase{
     }
 
     public boolean inRange() {
-        int encoder = (int) mSlideMotor.getSelectedSensorPosition();
+        double encoder = mSlideMotor.getPosition().getValue();
         return (encoder > (desiredPosition - Constants.Slide.threshold)) && (encoder < (desiredPosition + Constants.Slide.threshold));
     }
 
-    public int GetPosition() {
-        return (int) mSlideMotor.getSelectedSensorPosition();
+    public double GetPosition() {
+        return mSlideMotor.getPosition().getValue();
     }
 
     public double GetPositionInches(){
@@ -74,7 +80,7 @@ public class Slide extends SubsystemBase{
     }
 
     public void SetPrecentOut(double percent){
-        mSlideMotor.set(TalonFXControlMode.PercentOutput, percent);
+        mSlideMotor.setControl(slidemotor.withOutput(percent));
     }
 
     public void Stop(){
@@ -83,24 +89,24 @@ public class Slide extends SubsystemBase{
 
     public void AutoZero() {
         final double ZeroCurrent = .1;
-        if (mSlideMotor.getStatorCurrent() > ZeroCurrent){
+        if (mSlideMotor.getStatorCurrent().getValue() > ZeroCurrent){
             SetHomePosition();
             return;
         }else{
-        mSlideMotor.set(TalonFXControlMode.PercentOutput, -.1);
+        mSlideMotor.setControl(slidemotor.withOutput(-.1));//-.1
         }   
     } 
 
     public double getCurrent(){
-        return mSlideMotor.getStatorCurrent();
+        return mSlideMotor.getStatorCurrent().getValue();
     }
 
     public void SetPosition(double position){
-        mSlideMotor.setSelectedSensorPosition(position);
+        mSlideMotor.setRotorPosition(position);
     }
 
     public void SetHomePosition(){
-        mSlideMotor.setSelectedSensorPosition(0);
+        mSlideMotor.setRotorPosition(0);
     }
 
     private int fitToRange(int position) {
@@ -112,8 +118,8 @@ public class Slide extends SubsystemBase{
     private void LogData(long time){
         slideDesiredPosition.append(desiredPosition, time);
         slideCurrentPosition.append(GetPosition(), time);
-        slideMotorCurrent.append(mSlideMotor.getStatorCurrent(), time);
-        slideMotorVelocity.append(mSlideMotor.getSelectedSensorVelocity(), time);
+        slideMotorCurrent.append(mSlideMotor.getStatorCurrent().getValue(), time);
+        slideMotorVelocity.append(mSlideMotor.getVelocity().getValue(), time);
         slideMotorTemperature.append(mSlideMotor.getTemperature(), time);
     }
 
