@@ -1,18 +1,22 @@
 package org.WaialuaRobotics359.robot.util;
 
 import org.WaialuaRobotics359.robot.Constants;
+import org.WaialuaRobotics359.robot.autos.swerveBuilderAuto;
 
 import com.ctre.phoenixpro.configs.CANcoderConfiguration;
-/*
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoderConfiguration;
-import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.ctre.phoenix.sensors.SensorTimeBase; */
 import com.ctre.phoenixpro.configs.CANcoderConfigurator;
+import com.ctre.phoenixpro.configs.CurrentLimitsConfigs;
+import com.ctre.phoenixpro.configs.MotionMagicConfigs;
+import com.ctre.phoenixpro.configs.MotorOutputConfigs;
+import com.ctre.phoenixpro.configs.OpenLoopRampsConfigs;
+import com.ctre.phoenixpro.configs.Slot0Configs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
+import com.ctre.phoenixpro.hardware.CANcoder;
+import com.ctre.phoenixpro.configs.HardwareLimitSwitchConfigs;
+import com.ctre.phoenixpro.configs.MagnetSensorConfigs;
+
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 
 public final class CTREConfigs {
     /* Swerve */
@@ -48,117 +52,162 @@ public final class CTREConfigs {
         forkFXConfig = new TalonFXConfiguration();
 
         /* Swerve Angle Motor Configurations */
-            SupplyCurrentLimitConfiguration angleSupplyLimit = new SupplyCurrentLimitConfiguration(
-                Constants.Swerve.angleEnableCurrentLimit, 
-                Constants.Swerve.angleContinuousCurrentLimit, 
-                Constants.Swerve.anglePeakCurrentLimit, 
-                Constants.Swerve.anglePeakCurrentDuration);
+            /* Current Limit Configurations */
+            CurrentLimitsConfigs swerveAngleCurrentLimitConfig = new CurrentLimitsConfigs();
+                swerveAngleCurrentLimitConfig.SupplyCurrentLimitEnable = Constants.Swerve.angleEnableCurrentLimit; 
+                swerveAngleCurrentLimitConfig.SupplyCurrentLimit = Constants.Swerve.angleContinuousCurrentLimit;
+                swerveAngleCurrentLimitConfig.SupplyCurrentThreshold = Constants.Swerve.anglePeakCurrentLimit;
+                swerveAngleCurrentLimitConfig.SupplyTimeThreshold = Constants.Swerve.anglePeakCurrentDuration;
+                swerveAngleFXConfig.CurrentLimits = swerveAngleCurrentLimitConfig;
 
-            swerveAngleFXConfig.slot0.kP = Constants.Swerve.angleKP;
-            swerveAngleFXConfig.slot0.kI = Constants.Swerve.angleKI;
-            swerveAngleFXConfig.slot0.kD = Constants.Swerve.angleKD;
-            swerveAngleFXConfig.slot0.kF = Constants.Swerve.angleKF;
-            swerveAngleFXConfig.supplyCurrLimit = angleSupplyLimit;
+            /* Slot0 Configurations */
+            Slot0Configs swerveAngleSlot0Config = new Slot0Configs();
+                swerveAngleSlot0Config.kP = Constants.Swerve.angleKP;
+                swerveAngleSlot0Config.kI = Constants.Swerve.angleKI;
+                swerveAngleSlot0Config.kD = Constants.Swerve.angleKD;
+                swerveAngleSlot0Config.kF = Constants.Swerve.angleKF;
+                swerveAngleFXConfig.Slot0 = swerveAngleSlot0Config;
+
         /* Swerve Drive Motor Configuration */
-            SupplyCurrentLimitConfiguration driveSupplyLimit = new SupplyCurrentLimitConfiguration(
-                Constants.Swerve.driveEnableCurrentLimit, 
-                Constants.Swerve.driveContinuousCurrentLimit, 
-                Constants.Swerve.drivePeakCurrentLimit, 
-                Constants.Swerve.drivePeakCurrentDuration);
+            /* Current Limit Configuration */
+            CurrentLimitsConfigs swerveDriveCurrentLimitConfig = new CurrentLimitsConfigs();
+                swerveDriveCurrentLimitConfig.SupplyCurrentLimitEnable = Constants.Swerve.driveEnableCurrentLimit;
+                swerveDriveCurrentLimitConfig.SupplyCurrentLimit = Constants.Swerve.driveContinuousCurrentLimit;
+                swerveDriveCurrentLimitConfig.SupplyCurrentThreshold = Constants.Swerve.drivePeakCurrentLimit;
+                swerveDriveCurrentLimitConfig.SupplyTimeThreshold = Constants.Swerve.drivePeakCurrentDuration;
+                swerveDriveFXConfig.CurrentLimits = swerveDriveCurrentLimitConfig;
+                
+            /* Slot0 Configuration */
+            Slot0Configs swerveDriveSlot0Config = new Slot0Configs();
+                swerveDriveSlot0Config.kP = Constants.Swerve.driveKP;
+                swerveDriveSlot0Config.kI = Constants.Swerve.driveKI;
+                swerveDriveSlot0Config.kD = Constants.Swerve.driveKD;
+                swerveDriveSlot0Config.kF = Constants.Swerve.driveKF;  
+                swerveAngleFXConfig.Slot0 = swerveDriveSlot0Config;      
+            
+            /* Open Loop Ramp Configuration */
+            OpenLoopRampsConfigs swerveDriveOLRConfig = new OpenLoopRampsConfigs();
+                swerveDriveOLRConfig.openloopRamp = Constants.Swerve.openLoopRamp;
+                swerveDriveOLRConfig.closedloopRamp = Constants.Swerve.closedLoopRamp;//multiple types can be used, ask about it
+                swerveAngleFXConfig.OpenLoopRamps = swerveDriveOLRConfig;
 
-            swerveDriveFXConfig.slot0.kP = Constants.Swerve.driveKP;
-            swerveDriveFXConfig.slot0.kI = Constants.Swerve.driveKI;
-            swerveDriveFXConfig.slot0.kD = Constants.Swerve.driveKD;
-            swerveDriveFXConfig.slot0.kF = Constants.Swerve.driveKF;        
-            swerveDriveFXConfig.supplyCurrLimit = driveSupplyLimit;
-            swerveDriveFXConfig.openloopRamp = Constants.Swerve.openLoopRamp;
-            swerveDriveFXConfig.closedloopRamp = Constants.Swerve.closedLoopRamp;
         /* Swerve CANCoder Configuration */
-            swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-            swerveCanCoderConfig.sensorDirection = Constants.Swerve.canCoderInvert;
-            swerveCanCoderConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-            swerveCanCoderConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+            MagnetSensorConfigs swerveCanCoderMSConfig = new MagnetSensorConfigs();
+                swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
+                swerveCanCoderMSConfig.sensorDirection = Constants.Swerve.canCoderInvert;
+                swerveCanCoderMSConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+                swerveCanCoderMSConfig.sensorTimeBase = SensorTimeBase.PerSecond;
 
         /* Slide Motor Configuration */
-            SupplyCurrentLimitConfiguration slideSupplyLimit = new SupplyCurrentLimitConfiguration(
-                Constants.Slide.enableCurrentLimit, 
-                Constants.Slide.continuousCurrentLimit, 
-                Constants.Slide.peakCurrentLimit, 
-                Constants.Slide.peakCurrentDuration);
+            /* Current Limit Configuration */
+            CurrentLimitsConfigs slideCurrentLimitConfig = new CurrentLimitsConfigs();
+                slideCurrentLimitConfig.SupplyCurrentLimitEnable = Constants.Slide.enableCurrentLimit;
+                slideCurrentLimitConfig.SupplyCurrentLimit = Constants.Slide.continuousCurrentLimit;
+                slideCurrentLimitConfig.SupplyCurrentThreshold = Constants.Slide.peakCurrentLimit;
+                slideCurrentLimitConfig.SupplyTimeThreshold = Constants.Slide.peakCurrentDuration;
+                slideFXConfig.CurrentLimits = slideCurrentLimitConfig;
+            
+            /* Soft Limit Configuration */
+            HardwareLimitSwitchConfigs slideSoftLimitConfig = new HardwareLimitSwitchConfigs();
+                slideSoftLimitConfig.ForwardLimitEnable = true;
+                slideSoftLimitConfig.ForwardLimitThreshold = Constants.Slide.forwardSoftLimit;
+                slideSoftLimitConfig.ReverseLimitEnable = true;
+                slideSoftLimitConfig.ReverseLimitThreshold = Constants.Slide.reverseSoftLimit;
+                slideFXConfig.HardwareLimitSwitch = slideSoftLimitConfig;
 
-            slideFXConfig.forwardSoftLimitEnable = true;
-            slideFXConfig.forwardSoftLimitThreshold = Constants.Slide.forwardSoftLimit;
-            slideFXConfig.reverseSoftLimitEnable = true;
-            slideFXConfig.reverseSoftLimitThreshold = Constants.Slide.reverseSoftLimit;
+            /* Slot0 Configuration */
+            Slot0Configs slideSlot0Config = new Slot0Configs();
+                slideSlot0Config.kP = Constants.Slide.slideKP;
+                slideSlot0Config.kI = Constants.Slide.slideKD;
+                slideSlot0Config.kD = Constants.Slide.slideKI;
+                slideSlot0Config.kF = Constants.Slide.slideKF;        
+                slideSlot0Config.closedLoopPeakOutput = Constants.Slide.closedLoopPeakOutput;
+                slideFXConfig.Slot0 = slideSlot0Config;
 
-            slideFXConfig.slot0.kP = Constants.Slide.slideKP;
-            slideFXConfig.slot0.kI = Constants.Slide.slideKD;
-            slideFXConfig.slot0.kD = Constants.Slide.slideKI;
-            slideFXConfig.slot0.kF = Constants.Slide.slideKF;        
-            slideFXConfig.supplyCurrLimit = slideSupplyLimit;
-            slideFXConfig.slot0.closedLoopPeakOutput = Constants.Slide.closedLoopPeakOutput;
-            /*PID */
+            /* PID Configuration */
             //slideFXConfig.openloopRamp = Constants.Slide.openLoopRamp;
             //slideFXConfig.closedloopRamp = Constants.Slide.closedLoopRamp;
 
-            /*Magic*/
-            slideFXConfig.motionCruiseVelocity = Constants.Slide.velocity;
-            slideFXConfig.motionAcceleration = Constants.Slide.acceleration;
-            slideFXConfig.motionCurveStrength = Constants.Slide.smoothing;
+            /* Motion Magic Configuration */
+            MotionMagicConfigs slideMotionMagicConfig = new MotionMagicConfigs();
+            slideMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Slide.velocity;
+            slideMotionMagicConfig.MotionMagicAcceleration = Constants.Slide.acceleration;
+            slideMotionMagicConfig.MotionMagicCurveStrength = Constants.Slide.smoothing;
+            slideFXConfig.MotionMagic = slideMotionMagicConfig;
 
         /* Elevator Motor Configuration */
-            SupplyCurrentLimitConfiguration elevatorSupplyLimit = new SupplyCurrentLimitConfiguration(
-                Constants.Elevator.enableCurrentLimit, 
-                Constants.Elevator.continuousCurrentLimit, 
-                Constants.Elevator.peakCurrentLimit, 
-                Constants.Elevator.peakCurrentDuration);
-
-            elevatorFXConfig.forwardSoftLimitEnable = true;
-            elevatorFXConfig.forwardSoftLimitThreshold = Constants.Elevator.forwardSoftLimit;
-            elevatorFXConfig.reverseSoftLimitEnable = true;
-            elevatorFXConfig.reverseSoftLimitThreshold = Constants.Elevator.reverseSoftLimit;
-
-            elevatorFXConfig.slot0.kP = Constants.Elevator.elevatorKP;
-            //elevatorFXConfig.slot0.kI = Constants.Elevator.elevatorKD;
-            //elevatorFXConfig.slot0.kD = Constants.Elevator.elevatorKI;
-            //elevatorFXConfig.slot0.kF = Constants.Elevator.elevatorKF;      
-            elevatorFXConfig.supplyCurrLimit = elevatorSupplyLimit;
-            elevatorFXConfig.slot0.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
+            /* Current Limit Configuration */
+            CurrentLimitsConfigs elevatorCurrentLimitConfig = new CurrentLimitsConfigs();
+                elevatorCurrentLimitConfig.SupplyCurrentLimitEnable = Constants.Elevator.enableCurrentLimit;
+                elevatorCurrentLimitConfig.SupplyCurrentLimit = Constants.Elevator.continuousCurrentLimit;
+                elevatorCurrentLimitConfig.SupplyCurrentThreshold = Constants.Elevator.peakCurrentLimit;
+                elevatorCurrentLimitConfig.SupplyTimeThreshold = Constants.Elevator.peakCurrentDuration;
+                elevatorFXConfig.CurrentLimits = elevatorCurrentLimitConfig;
             
-            /*PID*/
-            //elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
-            //elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
+            /* Soft Limit Configuration */
+            HardwareLimitSwitchConfigs elevatorSoftLimitConfig = new HardwareLimitSwitchConfigs();
+                elevatorSoftLimitConfig.ForwardLimitEnable = true;
+                elevatorSoftLimitConfig.ForwardLimitThreshold = Constants.Elevator.forwardSoftLimit;
+                elevatorSoftLimitConfig.ReverseLimitEnable = true;
+                elevatorSoftLimitConfig.ReverseLimitThreshold = Constants.Elevator.reverseSoftLimit;
+                elevatorFXConfig.HardwareLimitSwitch = elevatorSoftLimitConfig;
 
-            /*Magic*/
-            elevatorFXConfig.motionCruiseVelocity = Constants.Elevator.velocity;
-            elevatorFXConfig.motionAcceleration = Constants.Elevator.acceleration;
-            elevatorFXConfig.motionCurveStrength = Constants.Elevator.smoothing;
+            /* Slot0 Configuration */
+            Slot0Configs elevatorSlot0Config = new Slot0Configs();
+                elevatorSlot0Config.kP = Constants.Elevator.elevatorKP;
+                //elevatorSlot0Config.kI = Constants.Elevator.elevatorKD;
+                //elevatorSlot0Config.kD = Constants.Elevator.elevatorKI;
+                //elevatorSlot0Config.kF = Constants.Elevator.elevatorKF;      
+                elevatorSlot0Config.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
+                elevatorFXConfig.Slot0 = elevatorSlot0Config;
+            
+            /* PID Configuration*/
+                //elevatorFXConfig.openloopRamp = Constants.Elevator.openLoopRamp;
+                //elevatorFXConfig.closedloopRamp = Constants.Elevator.closedLoopRamp;
+
+            /* Motion Magic Configuration*/
+            MotionMagicConfigs elevatorMotionMagicConfig = new MotionMagicConfigs();
+                elevatorMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.velocity;
+                elevatorMotionMagicConfig.MotionMagicAcceleration = Constants.Elevator.acceleration;
+                elevatorMotionMagicConfig.MotionMagicCurveStrength = Constants.Elevator.smoothing;
+                elevatorFXConfig.MotionMagic = elevatorMotionMagicConfig;
+
         /* Wrist Motor Configuration */
-            SupplyCurrentLimitConfiguration wristSupplyLimit = new SupplyCurrentLimitConfiguration(
-                Constants.Wrist.enableCurrentLimit, 
-                Constants.Wrist.continuousCurrentLimit, 
-                Constants.Wrist.peakCurrentLimit, 
-                Constants.Wrist.peakCurrentDuration);
+            /* Current Limit Configuration */
+            CurrentLimitsConfigs wristCurrentLimitConfig = new CurrentLimitsConfigs();
+                wristCurrentLimitConfig.SupplyCurrentLimitEnable = Constants.Wrist.enableCurrentLimit;
+                wristCurrentLimitConfig.SupplyCurrentLimit = Constants.Wrist.continuousCurrentLimit;
+                wristCurrentLimitConfig.SupplyCurrentThreshold = Constants.Wrist.peakCurrentLimit;
+                wristCurrentLimitConfig.SupplyTimeThreshold = Constants.Wrist.peakCurrentDuration;
+                wristFXConfig.CurrentLimits = wristCurrentLimitConfig;
 
-            wristFXConfig.forwardSoftLimitEnable = true;
-            wristFXConfig.forwardSoftLimitThreshold = Constants.Wrist.forwardSoftLimit;
-            wristFXConfig.reverseSoftLimitEnable = true;
-            wristFXConfig.reverseSoftLimitThreshold = Constants.Wrist.reverseSoftLimit;
+            /* Soft limit Configuration */
+            HardwareLimitSwitchConfigs wristSoftLimitConfig = new HardwareLimitSwitchConfigs();
+                wristSoftLimitConfig.ForwardLimitEnable = true;
+                wristSoftLimitConfig.ForwardLimitThreshold = Constants.Wrist.forwardSoftLimit;//not quite sure
+                wristSoftLimitConfig.ReverseLimitEnable = true;
+                wristSoftLimitConfig.ReverseLimitThreshold = Constants.Wrist.reverseSoftLimit;//same here
+                wristFXConfig.HardwareLimitSwitch = wristSoftLimitConfig;
+            
+            /* Slot0 Configuration */
+            Slot0Configs wristSlot0Config = new Slot0Configs();
+                wristSlot0Config.kP = Constants.Wrist.wristKP;
+                wristSlot0Config.kI = Constants.Wrist.wristKD;
+                wristSlot0Config.kD = Constants.Wrist.wristKI;
+                wristSlot0Config.kF = Constants.Wrist.wristKF;//replaced with kV (velocity i believe), have to add kS for static friction
+                wristSlot0Config.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput; 
+                wristFXConfig.Slot0 = wristSlot0Config;
 
-            wristFXConfig.slot0.kP = Constants.Wrist.wristKP;
-            wristFXConfig.slot0.kI = Constants.Wrist.wristKD;
-            wristFXConfig.slot0.kD = Constants.Wrist.wristKI;
-            wristFXConfig.slot0.kF = Constants.Wrist.wristKF;        
-            wristFXConfig.supplyCurrLimit = wristSupplyLimit;
-            wristFXConfig.slot0.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput; 
-            /*PID */
+            /* PID Configuration */
             //wristFXConfig.openloopRamp = Constants.Wrist.openLoopRamp;
             //wristFXConfig.closedloopRamp = Constants.Wrist.closedLoopRamp;     
 
-            /*Magic*/
-            wristFXConfig.motionCruiseVelocity = Constants.Wrist.velocity;
-            wristFXConfig.motionAcceleration = Constants.Wrist.acceleration;
-            wristFXConfig.motionCurveStrength = Constants.Wrist.smoothing;
+            /*Motion Magic Configuration*/
+            MotionMagicConfigs wristMotionMagicConfig = new MotionMagicConfigs();
+                wristMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Wrist.velocity;
+                wristMotionMagicConfig.MotionMagicAcceleration = Constants.Wrist.acceleration;
+                wristMotionMagicConfig.motionCurveStrength = Constants.Wrist.smoothing; //replaced with jerk smoothing
+                wristFXConfig.MotionMagic = wristMotionMagicConfig;
 
             
     }
