@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.Timer;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
+import com.ctre.phoenixpro.configs.CANcoderConfigurator;
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
+import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenixpro.controls.PositionVoltage;
 import com.ctre.phoenixpro.hardware.CANcoder;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
@@ -24,6 +29,14 @@ public class SwerveModule {
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
     private CANcoder angleEncoder;
+
+    public TalonFXConfigurator swerveAngleFXConfigurator = mAngleMotor.getConfigurator();
+    public TalonFXConfigurator swerveDriveFXConfigurator = mDriveMotor.getConfigurator();
+    public CANcoderConfigurator swerveCANCoderConfigurator = angleEncoder.getConfigurator();
+
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private PositionTorqueCurrentFOC torqueposition = new PositionTorqueCurrentFOC(0.0);
+    private PositionVoltage voltageposition = new PositionVoltage(0.0);
 
     public double CANcoderInitTime = 0.0;
 
@@ -56,13 +69,13 @@ public class SwerveModule {
     }
 
     public void ForceAngle(int angle){
-        mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio));
-    }
+        mAngleMotor.setControl(torqueposition.withPosition(Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio)));
+    }//check if we want torque position or voltage position---------------------------------------------------------------------------------------!!
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
         if(isOpenLoop){
             double percentOutput = desiredState.speedMetersPerSecond / Constants.Swerve.maxSpeed;
-            mDriveMotor.set(ControlMode.PercentOutput, percentOutput);
+            mDriveMotor.setControl(cyclerequest.withOutput(percentOutput));
         }
         else {
             double velocity = Conversions.MPSToFalcon(desiredState.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio);
@@ -73,8 +86,8 @@ public class SwerveModule {
     private void setAngle(SwerveModuleState desiredState){
         Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         
-        mAngleMotor.set(ControlMode.Position, Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio));
-        lastAngle = angle;
+        mAngleMotor.setControl(torqueposition.withPosition(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio)));
+        lastAngle = angle;//check if we want torque position vs voltage position----------------------------------------------------------------------!!!!
     }
 
     private Rotation2d getAngle(){
@@ -112,24 +125,19 @@ public class SwerveModule {
     }
 
     private void configAngleEncoder(){        
-        angleEncoder.configFactoryDefault();
-        angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
+        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configAngleMotor(){
-        mAngleMotor.configFactoryDefault();
-        mAngleMotor.configAllSettings(Robot.ctreConfigs.swerveAngleFXConfig);
+        mAngleMotor.getConfigurator().apply(Robot.ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(Constants.Swerve.angleMotorInvert);
-        mAngleMotor.setNeutralMode(Constants.Swerve.angleNeutralMode);
         Timer.delay(.1);
         resetToAbsolute();
     }
 
     private void configDriveMotor(){        
-        mDriveMotor.configFactoryDefault();
-        mDriveMotor.configAllSettings(Robot.ctreConfigs.swerveDriveFXConfig);
+        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
         mDriveMotor.setInverted(Constants.Swerve.driveMotorInvert);
-        mDriveMotor.setNeutralMode(Constants.Swerve.driveNeutralMode);
         mDriveMotor.setRotorPosition(0);
     }
 

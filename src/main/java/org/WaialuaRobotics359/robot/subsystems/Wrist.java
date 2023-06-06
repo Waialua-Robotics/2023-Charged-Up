@@ -3,10 +3,10 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
-import org.WaialuaRobotics359.robot.util.CTREConfigs;
 
-import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
+import com.ctre.phoenixpro.controls.MotionMagicVoltage;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.BooleanLogEntry;
@@ -21,8 +21,13 @@ public class Wrist extends SubsystemBase {
     private int desiredPosition = 0;
     public TalonFXConfigurator wristFXConfigurator = mWristMotor.getConfigurator();
 
+    /* Motion Magic & Percent Output */
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0.0);
+
     /*Logging*/
     private DataLog logger;
+
     /*elevator logs*/
     private DoubleLogEntry wristDesiredPosition;
     private DoubleLogEntry wristCurrentPosition;
@@ -36,7 +41,6 @@ public class Wrist extends SubsystemBase {
 
         mWristMotor.getConfigurator().apply(Robot.ctreConfigs.wristFXConfig);
         mWristMotor.setInverted(Constants.Wrist.wristMotorInvert);
-        mWristMotor.NeutralModeValue(Constants.Wrist.wristNeutralMode);
         mWristMotor.setRotorPosition(0);
 
         /*Logging*/
@@ -50,8 +54,8 @@ public class Wrist extends SubsystemBase {
     }
 
  
-    public void setDesiredPosition(double d) {
-        desiredPosition = fitToRange(d);
+    public void setDesiredPosition(int position) {
+        desiredPosition = fitToRange(position);
     }
     
     public int getDesiredPosition() {
@@ -64,7 +68,7 @@ public class Wrist extends SubsystemBase {
 
 
     public void goToPosition() {
-        mWristMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
+        mWristMotor.setControl(MotionMagic.withPosition(desiredPosition).withSlot(0));
     }
 
     public boolean inRange() {
@@ -103,7 +107,7 @@ public class Wrist extends SubsystemBase {
 
 
     public void SetPrecentOut(double percent){
-        mWristMotor.set(TalonFXControlMode.PercentOutput, percent);
+        mWristMotor.setControl(cyclerequest.withOutput(percent));
     }
 
     public void SetHomePosition(){

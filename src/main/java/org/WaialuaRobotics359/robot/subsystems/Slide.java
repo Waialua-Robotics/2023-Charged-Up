@@ -2,9 +2,12 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
+import org.WaialuaRobotics359.robot.util.CTREConfigs;
 
+import com.ctre.phoenixpro.configs.MotionMagicConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
+import com.ctre.phoenixpro.controls.MotionMagicVoltage;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import com.ctre.phoenixpro.signals.ControlModeValue;
 
@@ -18,6 +21,9 @@ public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
     private int desiredPosition = 0;
 
+    /* Motion Magic & Percent Output */
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0.0);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
     /*Logging*/
     private DataLog logger;
     /*elevator logs*/
@@ -30,10 +36,8 @@ public class Slide extends SubsystemBase{
     public Slide () {
         mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
 
-        mSlideMotor.getConfigurator().apply(new TalonFXConfiguration());
-        mSlideMotor.configAllSettings(Robot.ctreConfigs.slideFXConfig);
+        mSlideMotor.getConfigurator().apply(Robot.ctreConfigs.slideFXConfig);
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
-        mSlideMotor.setNeutralMode(Constants.Slide.slideNeutralMode);
         mSlideMotor.setRotorPosition(0);
 
         /*Logging*/
@@ -45,7 +49,7 @@ public class Slide extends SubsystemBase{
         slideMotorTemperature = new DoubleLogEntry(logger, "slide/motorTemperature");
     }
 
-    public void setDesiredPosition(double position) {
+    public void setDesiredPosition(int position) {
         desiredPosition = fitToRange(position);
     }
 
@@ -59,7 +63,7 @@ public class Slide extends SubsystemBase{
 
 
     public void goToPosition() {
-        mSlideMotor.set(TalonFXControlMode.MotionMagic, desiredPosition);
+        mSlideMotor.setControl(MotionMagic.withPosition(desiredPosition).withSlot(0));
     }
 
     public boolean inRange() {
@@ -76,7 +80,7 @@ public class Slide extends SubsystemBase{
     }
 
     public void SetPrecentOut(double percent){
-        mSlideMotorset(TalonFXControlMode.PercentOutput, percent);
+        mSlideMotor.setControl(cyclerequest.withOutput(percent));
     }
 
     public void Stop(){
@@ -89,7 +93,7 @@ public class Slide extends SubsystemBase{
             SetHomePosition();
             return;
         }else{
-        mSlideMotor.set(TalonFXControlMode.PercentOutput, -.1);
+            mSlideMotor.setControl(cyclerequest.withOutput(-.1));
         }   
     } 
 

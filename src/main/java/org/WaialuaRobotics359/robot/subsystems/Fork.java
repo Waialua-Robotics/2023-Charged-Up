@@ -3,8 +3,8 @@ package org.WaialuaRobotics359.robot.subsystems;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
-import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
@@ -19,11 +19,14 @@ public class Fork extends SubsystemBase {
     private TalonFX mForkMotor;
     Servo leftServo;
     Servo rightServo;
-
     public TalonFXConfigurator ForkFXConfigurator = mForkMotor.getConfigurator();
+    
+    /* Percent Output */
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
 
     /*Logging*/
     private DataLog logger;
+
     /*elevator logs*/
     private DoubleLogEntry forkMotorCurrent;
     private DoubleLogEntry forkMotorTemperature;
@@ -35,7 +38,6 @@ public class Fork extends SubsystemBase {
 
         mForkMotor.getConfigurator().apply(Robot.ctreConfigs.forkFXConfig);
         mForkMotor.setInverted(Constants.Fork.forkMotorInvert);
-        mForkMotor.setNeutralMode(Constants.Fork.forkNeutralMode);
 
         leftServo = new Servo(0);
         rightServo = new Servo(1);
@@ -62,7 +64,7 @@ public class Fork extends SubsystemBase {
     }
 
     public void SetPrecentOut(double percent){
-        mForkMotor.set(TalonFXControlMode.PercentOutput, percent);
+        mForkMotor.setControl(cyclerequest.withOutput(percent));
     }
 
     public void Stop(){

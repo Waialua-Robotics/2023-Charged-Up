@@ -13,6 +13,7 @@ import com.ctre.phoenixpro.configs.Slot0Configs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.hardware.CANcoder;
+import com.ctre.phoenixpro.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenixpro.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenixpro.configs.MagnetSensorConfigs;
 
@@ -68,6 +69,11 @@ public final class CTREConfigs {
                 swerveAngleSlot0Config.kF = Constants.Swerve.angleKF;
                 swerveAngleFXConfig.Slot0 = swerveAngleSlot0Config;
 
+            /* Neutral Mode Configuration */
+            MotorOutputConfigs swerveAngleMotorOutputConfig = new MotorOutputConfigs();
+                swerveAngleMotorOutputConfig.NeutralMode = Constants.Swerve.angleNeutralMode;
+                swerveAngleFXConfig.MotorOutput = swerveAngleMotorOutputConfig;
+
         /* Swerve Drive Motor Configuration */
             /* Current Limit Configuration */
             CurrentLimitsConfigs swerveDriveCurrentLimitConfig = new CurrentLimitsConfigs();
@@ -91,12 +97,19 @@ public final class CTREConfigs {
                 swerveDriveOLRConfig.closedloopRamp = Constants.Swerve.closedLoopRamp;//multiple types can be used, ask about it
                 swerveAngleFXConfig.OpenLoopRamps = swerveDriveOLRConfig;
 
+            /* Neutral Mode Configuration */
+            MotorOutputConfigs swerveDriveMotorOutputConfig = new MotorOutputConfigs();
+                swerveDriveMotorOutputConfig.NeutralMode = Constants.Swerve.driveNeutralMode;
+                swerveDriveFXConfig.MotorOutput = swerveDriveMotorOutputConfig;
+
         /* Swerve CANCoder Configuration */
             MagnetSensorConfigs swerveCanCoderMSConfig = new MagnetSensorConfigs();
-                swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-                swerveCanCoderMSConfig.sensorDirection = Constants.Swerve.canCoderInvert;
-                swerveCanCoderMSConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+                swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0_to_360;//doesnt exist?
+                swerveCanCoderMSConfig.SensorDirection = Constants.Swerve.canCoderInvert;//ask about
+                //swerveCanCoderMSConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+                //Initialization strategy was removed, "Talon FX and CANcoder sensors always initialize to their absolute position in Phoenix Pro."
                 swerveCanCoderMSConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+            swerveCanCoderConfig.MagnetSensor = swerveCanCoderMSConfig;
 
         /* Slide Motor Configuration */
             /* Current Limit Configuration */
@@ -130,10 +143,15 @@ public final class CTREConfigs {
 
             /* Motion Magic Configuration */
             MotionMagicConfigs slideMotionMagicConfig = new MotionMagicConfigs();
-            slideMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Slide.velocity;
-            slideMotionMagicConfig.MotionMagicAcceleration = Constants.Slide.acceleration;
-            slideMotionMagicConfig.MotionMagicCurveStrength = Constants.Slide.smoothing;
-            slideFXConfig.MotionMagic = slideMotionMagicConfig;
+                slideMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Slide.velocity;
+                slideMotionMagicConfig.MotionMagicAcceleration = Constants.Slide.acceleration;
+                slideMotionMagicConfig.MotionMagicCurveStrength = Constants.Slide.smoothing;
+                slideFXConfig.MotionMagic = slideMotionMagicConfig;
+
+            /* Neutral Mode Configuration */
+            MotorOutputConfigs slideMotorOutputConfig = new MotorOutputConfigs();
+                slideMotorOutputConfig.NeutralMode = Constants.Slide.slideNeutralMode;
+                slideFXConfig.MotorOutput = slideMotorOutputConfig;
 
         /* Elevator Motor Configuration */
             /* Current Limit Configuration */
@@ -172,6 +190,11 @@ public final class CTREConfigs {
                 elevatorMotionMagicConfig.MotionMagicCurveStrength = Constants.Elevator.smoothing;
                 elevatorFXConfig.MotionMagic = elevatorMotionMagicConfig;
 
+            /* Neutral Mode Configuration */
+            MotorOutputConfigs elevatorMotorOutputConfig = new MotorOutputConfigs();
+                elevatorMotorOutputConfig.NeutralMode = Constants.Elevator.elevatorNeutralMode;
+                elevatorFXConfig.MotorOutput = elevatorMotorOutputConfig;
+
         /* Wrist Motor Configuration */
             /* Current Limit Configuration */
             CurrentLimitsConfigs wristCurrentLimitConfig = new CurrentLimitsConfigs();
@@ -208,6 +231,12 @@ public final class CTREConfigs {
                 wristMotionMagicConfig.MotionMagicAcceleration = Constants.Wrist.acceleration;
                 wristMotionMagicConfig.motionCurveStrength = Constants.Wrist.smoothing; //replaced with jerk smoothing
                 wristFXConfig.MotionMagic = wristMotionMagicConfig;
+
+            /* Neutral Mode Configuration */
+            MotorOutputConfigs wristMotorOutputConfig = new MotorOutputConfigs();
+                wristMotorOutputConfig.NeutralMode = Constants.Wrist.wristNeutralMode;
+                wristFXConfig.MotorOutput = wristMotorOutputConfig;
+
 
             
     }

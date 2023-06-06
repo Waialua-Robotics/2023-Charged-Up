@@ -8,6 +8,7 @@ import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.Follower;
+import com.ctre.phoenixpro.controls.MotionMagicVoltage;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.BooleanLogEntry;
@@ -22,12 +23,15 @@ public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
     private TalonFX mElevatorMotorR;
     private DigitalInput mMagSwitch;
+    public TalonFXConfigurator elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
 
     private int desiredPosition = 0;
 
     public boolean HasSwitched = false; 
 
-    public TalonFXConfigurator elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
+    /* Motion Magic & Percent Output */
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0);
 
     /*Logging*/
     private DataLog logger;
@@ -84,11 +88,11 @@ public class Elevator extends SubsystemBase {
     }
 
     public void goToPosition() {
-        mElevatorMotorR.set(TalonFXControlMode.MotionMagic, desiredPosition);
+        mElevatorMotorR.setControl(MotionMagic.withPosition(desiredPosition).withSlot(0));
     }
 
     public void CurrentDisired(){
-        mElevatorMotorR.set(TalonFXControlMode.MotionMagic, mElevatorMotorR.getRotorPosition());
+        mElevatorMotorR.setControl(MotionMagic.withPosition(mElevatorMotorR.getRotorPosition().getValue()).withSlot(0));
     }
 
     public boolean inRange() {
@@ -125,7 +129,7 @@ public class Elevator extends SubsystemBase {
     }
 
     public void SetPrecentOut(double percent){
-        mElevatorMotorR.set(TalonFXControlMode.PercentOutput, percent);
+        mElevatorMotorR.setControl(cyclerequest.withOutput(percent));
     }
     public boolean getSwitch(){
         return !mMagSwitch.get();

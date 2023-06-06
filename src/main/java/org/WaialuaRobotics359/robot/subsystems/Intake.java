@@ -5,6 +5,7 @@ import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
+import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.DataLog;
@@ -17,6 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
     private TalonFX mIntakeMotor;
     public TalonFXConfigurator intakeFXConfigurator = mIntakeMotor.getConfigurator();
+    
+    /* Percent Output */
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
 
     /*Logging*/
     private DataLog logger;
@@ -32,7 +36,6 @@ public class Intake extends SubsystemBase {
 
         mIntakeMotor.getConfigurator().apply(Robot.ctreConfigs.intakeFXConfig);
         mIntakeMotor.setInverted(Constants.Intake.intakeMotorInvert);
-        mIntakeMotor.setNeutralMode(Constants.Intake.intakeNeutralMode);
 
         /*Logging*/
         logger = DataLogManager.getLog();
@@ -43,11 +46,11 @@ public class Intake extends SubsystemBase {
     }
 
     public void intake(double intakeSpeed) {
-        mIntakeMotor.set(ControlMode.PercentOutput, intakeSpeed);
+        mIntakeMotor.setControl(cyclerequest.withOutput(intakeSpeed));
     }
 
     public void outake(double intakeSpeed) {
-        mIntakeMotor.set(ControlMode.PercentOutput, -intakeSpeed);
+        mIntakeMotor.setControl(cyclerequest.withOutput(-intakeSpeed));
     }
 
     public double getCurrent() {
@@ -55,11 +58,11 @@ public class Intake extends SubsystemBase {
     }
 
     public double getPercentOutput() {
-        return mIntakeMotor.getMotorOutputPercent();
+        return mIntakeMotor.getDutyCycle().getValue();
     }
 
     public void stop() {
-        mIntakeMotor.set(ControlMode.PercentOutput, 0);
+        mIntakeMotor.setControl(cyclerequest.withOutput(0));
     }
 
     private void logData(long time){
