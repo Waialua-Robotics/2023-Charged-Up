@@ -5,6 +5,7 @@ import org.WaialuaRobotics359.robot.Robot;
 
 
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.Follower;
 import com.ctre.phoenixpro.hardware.TalonFX;
@@ -25,6 +26,8 @@ public class Elevator extends SubsystemBase {
     private int desiredPosition = 0;
 
     public boolean HasSwitched = false; 
+
+    public TalonFXConfigurator elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
 
     /*Logging*/
     private DataLog logger;
@@ -47,7 +50,7 @@ public class Elevator extends SubsystemBase {
         mElevatorMotorR.getConfigurator().apply(new TalonFXConfiguration());
         mElevatorMotorL.getConfigurator().apply(new TalonFXConfiguration());
         
-        mElevatorMotorR.configAllSettings(Robot.ctreConfigs.elevatorFXConfig);
+        mElevatorMotorR.getConfigurator().apply(Robot.ctreConfigs.elevatorFXConfig);
         mElevatorMotorL.setControl(new Follower(Constants.Elevator.rElevatorID, true));
 
         mElevatorMotorR.setRotorPosition(0);
@@ -68,7 +71,7 @@ public class Elevator extends SubsystemBase {
         elevatorInRange = new BooleanLogEntry(logger, "elevator/inRange");
     }
 
-    public void setDesiredPosition(int position) {
+    public void setDesiredPosition(double position) {
         desiredPosition = fitToRange(position);
     }
 

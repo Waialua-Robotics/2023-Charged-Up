@@ -4,6 +4,7 @@ package org.WaialuaRobotics359.robot.subsystems;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.DataLog;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
     private TalonFX mIntakeMotor;
+    public TalonFXConfigurator intakeFXConfigurator = mIntakeMotor.getConfigurator();
 
     /*Logging*/
     private DataLog logger;
@@ -28,8 +30,7 @@ public class Intake extends SubsystemBase {
     public Intake() {
         mIntakeMotor = new TalonFX(Constants.Intake.intakeID);
 
-        mIntakeMotor.configFactoryDefault();
-        mIntakeMotor.configAllSettings(Robot.ctreConfigs.intakeFXConfig);
+        mIntakeMotor.getConfigurator().apply(Robot.ctreConfigs.intakeFXConfig);
         mIntakeMotor.setInverted(Constants.Intake.intakeMotorInvert);
         mIntakeMotor.setNeutralMode(Constants.Intake.intakeNeutralMode);
 

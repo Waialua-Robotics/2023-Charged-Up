@@ -3,8 +3,10 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
+import org.WaialuaRobotics359.robot.util.CTREConfigs;
 
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
 import edu.wpi.first.util.datalog.BooleanLogEntry;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
     private int desiredPosition = 0;
+    public TalonFXConfigurator wristFXConfigurator = mWristMotor.getConfigurator();
 
     /*Logging*/
     private DataLog logger;
@@ -31,10 +34,9 @@ public class Wrist extends SubsystemBase {
     public Wrist() {
         mWristMotor = new TalonFX(Constants.Wrist.wristID);
 
-        mWristMotor.getConfigurator().apply(new TalonFXConfiguration());
-        mWristMotor.configAllSettings(Robot.ctreConfigs.wristFXConfig);
+        mWristMotor.getConfigurator().apply(Robot.ctreConfigs.wristFXConfig);
         mWristMotor.setInverted(Constants.Wrist.wristMotorInvert);
-        mWristMotor.setNeutralMode(Constants.Wrist.wristNeutralMode);
+        mWristMotor.NeutralModeValue(Constants.Wrist.wristNeutralMode);
         mWristMotor.setRotorPosition(0);
 
         /*Logging*/
@@ -51,7 +53,7 @@ public class Wrist extends SubsystemBase {
     public void setDesiredPosition(double d) {
         desiredPosition = fitToRange(d);
     }
-
+    
     public int getDesiredPosition() {
         return desiredPosition;
     }

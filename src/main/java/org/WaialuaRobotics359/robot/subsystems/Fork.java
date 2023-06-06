@@ -4,6 +4,7 @@ import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.hardware.TalonFX;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
@@ -19,6 +20,8 @@ public class Fork extends SubsystemBase {
     Servo leftServo;
     Servo rightServo;
 
+    public TalonFXConfigurator ForkFXConfigurator = mForkMotor.getConfigurator();
+
     /*Logging*/
     private DataLog logger;
     /*elevator logs*/
@@ -30,8 +33,7 @@ public class Fork extends SubsystemBase {
     public Fork() {
         mForkMotor = new TalonFX(Constants.Fork.forkMotorID);
 
-        mForkMotor.getConfigurator().apply(new TalonFXConfiguration());
-        mForkMotor.configAllSettings(Robot.ctreConfigs.forkFXConfig);
+        mForkMotor.getConfigurator().apply(Robot.ctreConfigs.forkFXConfig);
         mForkMotor.setInverted(Constants.Fork.forkMotorInvert);
         mForkMotor.setNeutralMode(Constants.Fork.forkNeutralMode);
 
