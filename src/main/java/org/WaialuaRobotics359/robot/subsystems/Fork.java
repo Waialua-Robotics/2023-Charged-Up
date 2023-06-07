@@ -19,10 +19,10 @@ public class Fork extends SubsystemBase {
     private TalonFX mForkMotor;
     Servo leftServo;
     Servo rightServo;
-    public TalonFXConfigurator ForkFXConfigurator = mForkMotor.getConfigurator();
+    public TalonFXConfigurator forkFXConfigurator;
     
     /* Percent Output */
-    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(1);
 
     /*Logging*/
     private DataLog logger;
@@ -36,7 +36,8 @@ public class Fork extends SubsystemBase {
     public Fork() {
         mForkMotor = new TalonFX(Constants.Fork.forkMotorID);
 
-        mForkMotor.getConfigurator().apply(Robot.ctreConfigs.forkFXConfig);
+        forkFXConfigurator = mForkMotor.getConfigurator();
+        forkFXConfigurator.apply(Robot.ctreConfigs.forkFXConfig);
         mForkMotor.setInverted(Constants.Fork.forkMotorInvert);
 
         leftServo = new Servo(0);

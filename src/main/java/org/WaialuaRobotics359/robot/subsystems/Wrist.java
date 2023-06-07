@@ -19,11 +19,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
     private double desiredPosition = 0;
-    public TalonFXConfigurator wristFXConfigurator = mWristMotor.getConfigurator();
+    public TalonFXConfigurator wristFXConfigurator;
 
     /* Motion Magic & Percent Output */
-    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
-    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0.0);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(0);
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0);
 
     /*Logging*/
     private DataLog logger;
@@ -39,7 +39,8 @@ public class Wrist extends SubsystemBase {
     public Wrist() {
         mWristMotor = new TalonFX(Constants.Wrist.wristID);
 
-        mWristMotor.getConfigurator().apply(Robot.ctreConfigs.wristFXConfig);
+        wristFXConfigurator = mWristMotor.getConfigurator();
+        wristFXConfigurator.apply(Robot.ctreConfigs.wristFXConfig);
         mWristMotor.setInverted(Constants.Wrist.wristMotorInvert);
         mWristMotor.setRotorPosition(0);
 

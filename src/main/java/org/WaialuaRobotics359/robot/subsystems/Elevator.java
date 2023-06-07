@@ -23,15 +23,15 @@ public class Elevator extends SubsystemBase {
     private TalonFX mElevatorMotorL;
     private TalonFX mElevatorMotorR;
     private DigitalInput mMagSwitch;
-    public TalonFXConfigurator elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
+    public TalonFXConfigurator elevatorFXConfigurator;
 
     private double desiredPosition = 0;
 
     public boolean HasSwitched = false; 
 
     /* Motion Magic & Percent Output */
-    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
-    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(1);
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(1);
 
     /*Logging*/
     private DataLog logger;
@@ -53,8 +53,10 @@ public class Elevator extends SubsystemBase {
 
         mElevatorMotorR.getConfigurator().apply(new TalonFXConfiguration());
         mElevatorMotorL.getConfigurator().apply(new TalonFXConfiguration());
+
+        elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
         
-        mElevatorMotorR.getConfigurator().apply(Robot.ctreConfigs.elevatorFXConfig);
+        elevatorFXConfigurator.apply(Robot.ctreConfigs.elevatorFXConfig);
         mElevatorMotorL.setControl(new Follower(Constants.Elevator.rElevatorID, true));
 
         mElevatorMotorR.setRotorPosition(0);

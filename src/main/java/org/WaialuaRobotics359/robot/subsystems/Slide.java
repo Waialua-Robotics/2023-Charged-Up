@@ -2,6 +2,8 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
+
+import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.MotionMagicVoltage;
 import com.ctre.phoenixpro.hardware.TalonFX;
@@ -17,8 +19,10 @@ public class Slide extends SubsystemBase{
     private double desiredPosition = 0;
 
     /* Motion Magic & Percent Output */
-    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0.0);
-    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(1);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(1);
+    public TalonFXConfigurator slideFXConfigurator;
+
     /*Logging*/
     private DataLog logger;
     /*elevator logs*/
@@ -31,7 +35,8 @@ public class Slide extends SubsystemBase{
     public Slide () {
         mSlideMotor = new TalonFX(Constants.Slide.slideMotorID);
 
-        mSlideMotor.getConfigurator().apply(Robot.ctreConfigs.slideFXConfig);
+        slideFXConfigurator = mSlideMotor.getConfigurator();
+        slideFXConfigurator.apply(Robot.ctreConfigs.slideFXConfig);
         mSlideMotor.setInverted(Constants.Slide.slideMotorInvert);
         mSlideMotor.setRotorPosition(0);
 

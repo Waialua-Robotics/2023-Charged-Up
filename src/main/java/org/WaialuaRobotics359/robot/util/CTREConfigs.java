@@ -11,6 +11,7 @@ import com.ctre.phoenixpro.configs.Slot0Configs;
 import com.ctre.phoenixpro.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenixpro.signals.SensorDirectionValue;
 import com.ctre.phoenixpro.configs.MagnetSensorConfigs;
 import com.ctre.phoenixpro.configs.ClosedLoopRampsConfigs;
 
@@ -112,6 +113,7 @@ public final class CTREConfigs {
         /* Swerve CANCoder Configuration */
             MagnetSensorConfigs swerveCanCoderMSConfig = new MagnetSensorConfigs();
                 swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+                swerveCanCoderMSConfig.SensorDirection = Constants.Swerve.canCoderInvert ? SensorDirectionValue.Clockwise_Positive : SensorDirectionValue.CounterClockwise_Positive;
             swerveCanCoderConfig.MagnetSensor = swerveCanCoderMSConfig;
 
         /* Slide Motor Configuration */

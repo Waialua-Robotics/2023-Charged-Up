@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
     private TalonFX mIntakeMotor;
-    public TalonFXConfigurator intakeFXConfigurator = mIntakeMotor.getConfigurator();
+    public TalonFXConfigurator intakeFXConfigurator;
     
     /* Percent Output */
-    private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
+    private DutyCycleOut cyclerequest = new DutyCycleOut(1);
 
     /*Logging*/
     private DataLog logger;
@@ -34,7 +34,8 @@ public class Intake extends SubsystemBase {
     public Intake() {
         mIntakeMotor = new TalonFX(Constants.Intake.intakeID);
 
-        mIntakeMotor.getConfigurator().apply(Robot.ctreConfigs.intakeFXConfig);
+        intakeFXConfigurator = mIntakeMotor.getConfigurator();
+        intakeFXConfigurator.apply(Robot.ctreConfigs.intakeFXConfig);
         mIntakeMotor.setInverted(Constants.Intake.intakeMotorInvert);
 
         /*Logging*/
