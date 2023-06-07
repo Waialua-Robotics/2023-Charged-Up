@@ -2,14 +2,9 @@ package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
-import org.WaialuaRobotics359.robot.util.CTREConfigs;
-
-import com.ctre.phoenixpro.configs.MotionMagicConfigs;
-import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.MotionMagicVoltage;
 import com.ctre.phoenixpro.hardware.TalonFX;
-import com.ctre.phoenixpro.signals.ControlModeValue;
 
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
@@ -19,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Slide extends SubsystemBase{
     private TalonFX mSlideMotor;
-    private int desiredPosition = 0;
+    private double desiredPosition = 0;
 
     /* Motion Magic & Percent Output */
     private MotionMagicVoltage MotionMagic = new MotionMagicVoltage(0.0);
@@ -49,16 +44,17 @@ public class Slide extends SubsystemBase{
         slideMotorTemperature = new DoubleLogEntry(logger, "slide/motorTemperature");
     }
 
-    public void setDesiredPosition(int position) {
+    public void setDesiredPosition(double position) {
         desiredPosition = fitToRange(position);
+        desiredPosition /= 2048;
     }
 
-    public int getDesiredPosition() {
+    public double getDesiredPosition() {
         return desiredPosition;
     }
 
     public void currentToDisired(){
-        setDesiredPosition(GetPosition());
+        setDesiredPosition((int)GetPosition());
     }
 
 
@@ -109,7 +105,7 @@ public class Slide extends SubsystemBase{
         mSlideMotor.setRotorPosition(0);
     }
 
-    private int fitToRange(int position) {
+    private double fitToRange(double position) {
         desiredPosition = Math.min(position, Constants.Slide.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Slide.reverseSoftLimit);
         return desiredPosition;

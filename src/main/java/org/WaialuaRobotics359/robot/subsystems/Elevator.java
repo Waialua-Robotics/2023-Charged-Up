@@ -25,7 +25,7 @@ public class Elevator extends SubsystemBase {
     private DigitalInput mMagSwitch;
     public TalonFXConfigurator elevatorFXConfigurator = mElevatorMotorR.getConfigurator();
 
-    private int desiredPosition = 0;
+    private double desiredPosition = 0;
 
     public boolean HasSwitched = false; 
 
@@ -77,14 +77,15 @@ public class Elevator extends SubsystemBase {
 
     public void setDesiredPosition(double position) {
         desiredPosition = fitToRange(position);
+        desiredPosition /= 2048;
     }
 
-    public int getDesiredPosition() {
+    public double getDesiredPosition() {
         return desiredPosition;
     }
 
     public void currentToDisired(){
-        setDesiredPosition(GetPosition());
+        setDesiredPosition((int)GetPosition());
     }
 
     public void goToPosition() {
@@ -136,7 +137,7 @@ public class Elevator extends SubsystemBase {
     }
 
 
-    private int fitToRange(int position) {
+    private double fitToRange(double position) {
         desiredPosition = Math.min(position, Constants.Elevator.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Elevator.reverseSoftLimit);
         return desiredPosition;

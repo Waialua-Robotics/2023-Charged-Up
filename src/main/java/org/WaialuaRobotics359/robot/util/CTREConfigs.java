@@ -1,23 +1,18 @@
 package org.WaialuaRobotics359.robot.util;
 
 import org.WaialuaRobotics359.robot.Constants;
-import org.WaialuaRobotics359.robot.autos.swerveBuilderAuto;
-
 import com.ctre.phoenixpro.configs.CANcoderConfiguration;
-import com.ctre.phoenixpro.configs.CANcoderConfigurator;
 import com.ctre.phoenixpro.configs.CurrentLimitsConfigs;
+import com.ctre.phoenixpro.configs.FeedbackConfigs;
 import com.ctre.phoenixpro.configs.MotionMagicConfigs;
 import com.ctre.phoenixpro.configs.MotorOutputConfigs;
 import com.ctre.phoenixpro.configs.OpenLoopRampsConfigs;
 import com.ctre.phoenixpro.configs.Slot0Configs;
+import com.ctre.phoenixpro.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
-import com.ctre.phoenixpro.configs.TalonFXConfigurator;
-import com.ctre.phoenixpro.hardware.CANcoder;
 import com.ctre.phoenixpro.signals.AbsoluteSensorRangeValue;
-import com.ctre.phoenixpro.configs.HardwareLimitSwitchConfigs;
 import com.ctre.phoenixpro.configs.MagnetSensorConfigs;
-
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import com.ctre.phoenixpro.configs.ClosedLoopRampsConfigs;
 
 public final class CTREConfigs {
     /* Swerve */
@@ -66,13 +61,18 @@ public final class CTREConfigs {
                 swerveAngleSlot0Config.kP = Constants.Swerve.angleKP;
                 swerveAngleSlot0Config.kI = Constants.Swerve.angleKI;
                 swerveAngleSlot0Config.kD = Constants.Swerve.angleKD;
-                swerveAngleSlot0Config.kF = Constants.Swerve.angleKF;
+                swerveAngleSlot0Config.kV = Constants.Swerve.angleKF;
                 swerveAngleFXConfig.Slot0 = swerveAngleSlot0Config;
 
             /* Neutral Mode Configuration */
             MotorOutputConfigs swerveAngleMotorOutputConfig = new MotorOutputConfigs();
                 swerveAngleMotorOutputConfig.NeutralMode = Constants.Swerve.angleNeutralMode;
                 swerveAngleFXConfig.MotorOutput = swerveAngleMotorOutputConfig;
+
+            /* Feedback Configuration */
+            FeedbackConfigs swerveAngleMotorFeedbackConfig = new FeedbackConfigs();
+                swerveAngleMotorFeedbackConfig.SensorToMechanismRatio = Constants.Swerve.angleGearRatio;
+                swerveAngleFXConfig.Feedback = swerveAngleMotorFeedbackConfig;
 
         /* Swerve Drive Motor Configuration */
             /* Current Limit Configuration */
@@ -88,14 +88,21 @@ public final class CTREConfigs {
                 swerveDriveSlot0Config.kP = Constants.Swerve.driveKP;
                 swerveDriveSlot0Config.kI = Constants.Swerve.driveKI;
                 swerveDriveSlot0Config.kD = Constants.Swerve.driveKD;
-                swerveDriveSlot0Config.kF = Constants.Swerve.driveKF;  
+                swerveDriveSlot0Config.kV = Constants.Swerve.driveKF;  
                 swerveAngleFXConfig.Slot0 = swerveDriveSlot0Config;      
             
             /* Open Loop Ramp Configuration */
             OpenLoopRampsConfigs swerveDriveOLRConfig = new OpenLoopRampsConfigs();
-                swerveDriveOLRConfig.openloopRamp = Constants.Swerve.openLoopRamp;
-                swerveDriveOLRConfig.closedloopRamp = Constants.Swerve.closedLoopRamp;//multiple types can be used, ask about it
+                swerveDriveOLRConfig.DutyCycleOpenLoopRampPeriod = Constants.Swerve.openLoopRamp;
+                swerveDriveOLRConfig.TorqueOpenLoopRampPeriod = Constants.Swerve.openLoopRamp;
+                swerveDriveOLRConfig.VoltageOpenLoopRampPeriod = Constants.Swerve.openLoopRamp;
                 swerveAngleFXConfig.OpenLoopRamps = swerveDriveOLRConfig;
+
+            ClosedLoopRampsConfigs swerveDriveCLRConfig = new ClosedLoopRampsConfigs();
+                swerveDriveCLRConfig.DutyCycleClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
+                swerveDriveCLRConfig.TorqueClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
+                swerveDriveCLRConfig.VoltageClosedLoopRampPeriod = Constants.Swerve.closedLoopRamp;
+                swerveDriveFXConfig.ClosedLoopRamps = swerveDriveCLRConfig;
 
             /* Neutral Mode Configuration */
             MotorOutputConfigs swerveDriveMotorOutputConfig = new MotorOutputConfigs();
@@ -104,11 +111,7 @@ public final class CTREConfigs {
 
         /* Swerve CANCoder Configuration */
             MagnetSensorConfigs swerveCanCoderMSConfig = new MagnetSensorConfigs();
-                swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0_to_360;//doesnt exist?
-                swerveCanCoderMSConfig.SensorDirection = Constants.Swerve.canCoderInvert;//ask about
-                //swerveCanCoderMSConfig.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-                //Initialization strategy was removed, "Talon FX and CANcoder sensors always initialize to their absolute position in Phoenix Pro."
-                swerveCanCoderMSConfig.sensorTimeBase = SensorTimeBase.PerSecond;
+                swerveCanCoderMSConfig.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
             swerveCanCoderConfig.MagnetSensor = swerveCanCoderMSConfig;
 
         /* Slide Motor Configuration */
@@ -121,20 +124,19 @@ public final class CTREConfigs {
                 slideFXConfig.CurrentLimits = slideCurrentLimitConfig;
             
             /* Soft Limit Configuration */
-            HardwareLimitSwitchConfigs slideSoftLimitConfig = new HardwareLimitSwitchConfigs();
-                slideSoftLimitConfig.ForwardLimitEnable = true;
-                slideSoftLimitConfig.ForwardLimitThreshold = Constants.Slide.forwardSoftLimit;
-                slideSoftLimitConfig.ReverseLimitEnable = true;
-                slideSoftLimitConfig.ReverseLimitThreshold = Constants.Slide.reverseSoftLimit;
-                slideFXConfig.HardwareLimitSwitch = slideSoftLimitConfig;
+            SoftwareLimitSwitchConfigs slideSoftLimitConfig = new SoftwareLimitSwitchConfigs();
+                slideSoftLimitConfig.ForwardSoftLimitEnable = true;
+                slideSoftLimitConfig.ForwardSoftLimitThreshold = Constants.Slide.forwardSoftLimit;
+                slideSoftLimitConfig.ReverseSoftLimitEnable = true;
+                slideSoftLimitConfig.ReverseSoftLimitThreshold = Constants.Slide.reverseSoftLimit;
+                slideFXConfig.SoftwareLimitSwitch = slideSoftLimitConfig;
 
             /* Slot0 Configuration */
             Slot0Configs slideSlot0Config = new Slot0Configs();
                 slideSlot0Config.kP = Constants.Slide.slideKP;
                 slideSlot0Config.kI = Constants.Slide.slideKD;
                 slideSlot0Config.kD = Constants.Slide.slideKI;
-                slideSlot0Config.kF = Constants.Slide.slideKF;        
-                slideSlot0Config.closedLoopPeakOutput = Constants.Slide.closedLoopPeakOutput;
+                slideSlot0Config.kV = Constants.Slide.slideKF;        
                 slideFXConfig.Slot0 = slideSlot0Config;
 
             /* PID Configuration */
@@ -145,12 +147,14 @@ public final class CTREConfigs {
             MotionMagicConfigs slideMotionMagicConfig = new MotionMagicConfigs();
                 slideMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Slide.velocity;
                 slideMotionMagicConfig.MotionMagicAcceleration = Constants.Slide.acceleration;
-                slideMotionMagicConfig.MotionMagicCurveStrength = Constants.Slide.smoothing;
+                slideMotionMagicConfig.MotionMagicJerk = Constants.Slide.smoothing;
                 slideFXConfig.MotionMagic = slideMotionMagicConfig;
 
             /* Neutral Mode Configuration */
             MotorOutputConfigs slideMotorOutputConfig = new MotorOutputConfigs();
                 slideMotorOutputConfig.NeutralMode = Constants.Slide.slideNeutralMode;
+                slideMotorOutputConfig.PeakForwardDutyCycle = Constants.Slide.closedLoopPeakOutput;
+                slideMotorOutputConfig.PeakReverseDutyCycle = Constants.Slide.closedLoopReversePeakOutput;
                 slideFXConfig.MotorOutput = slideMotorOutputConfig;
 
         /* Elevator Motor Configuration */
@@ -163,12 +167,12 @@ public final class CTREConfigs {
                 elevatorFXConfig.CurrentLimits = elevatorCurrentLimitConfig;
             
             /* Soft Limit Configuration */
-            HardwareLimitSwitchConfigs elevatorSoftLimitConfig = new HardwareLimitSwitchConfigs();
-                elevatorSoftLimitConfig.ForwardLimitEnable = true;
-                elevatorSoftLimitConfig.ForwardLimitThreshold = Constants.Elevator.forwardSoftLimit;
-                elevatorSoftLimitConfig.ReverseLimitEnable = true;
-                elevatorSoftLimitConfig.ReverseLimitThreshold = Constants.Elevator.reverseSoftLimit;
-                elevatorFXConfig.HardwareLimitSwitch = elevatorSoftLimitConfig;
+            SoftwareLimitSwitchConfigs elevatorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
+                elevatorSoftLimitConfig.ForwardSoftLimitEnable = true;
+                elevatorSoftLimitConfig.ForwardSoftLimitThreshold = Constants.Elevator.forwardSoftLimit;
+                elevatorSoftLimitConfig.ReverseSoftLimitEnable = true;
+                elevatorSoftLimitConfig.ReverseSoftLimitThreshold = Constants.Elevator.reverseSoftLimit;
+                elevatorFXConfig.SoftwareLimitSwitch = elevatorSoftLimitConfig;
 
             /* Slot0 Configuration */
             Slot0Configs elevatorSlot0Config = new Slot0Configs();
@@ -176,7 +180,6 @@ public final class CTREConfigs {
                 //elevatorSlot0Config.kI = Constants.Elevator.elevatorKD;
                 //elevatorSlot0Config.kD = Constants.Elevator.elevatorKI;
                 //elevatorSlot0Config.kF = Constants.Elevator.elevatorKF;      
-                elevatorSlot0Config.closedLoopPeakOutput = Constants.Elevator.closedLoopPeakOutput;
                 elevatorFXConfig.Slot0 = elevatorSlot0Config;
             
             /* PID Configuration*/
@@ -187,12 +190,14 @@ public final class CTREConfigs {
             MotionMagicConfigs elevatorMotionMagicConfig = new MotionMagicConfigs();
                 elevatorMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Elevator.velocity;
                 elevatorMotionMagicConfig.MotionMagicAcceleration = Constants.Elevator.acceleration;
-                elevatorMotionMagicConfig.MotionMagicCurveStrength = Constants.Elevator.smoothing;
+                elevatorMotionMagicConfig.MotionMagicJerk = Constants.Elevator.smoothing;
                 elevatorFXConfig.MotionMagic = elevatorMotionMagicConfig;
 
             /* Neutral Mode Configuration */
             MotorOutputConfigs elevatorMotorOutputConfig = new MotorOutputConfigs();
                 elevatorMotorOutputConfig.NeutralMode = Constants.Elevator.elevatorNeutralMode;
+                elevatorMotorOutputConfig.PeakForwardDutyCycle = Constants.Elevator.closedLoopPeakOutput;
+                elevatorMotorOutputConfig.PeakReverseDutyCycle = Constants.Elevator.closedLoopReversePeakOutput;
                 elevatorFXConfig.MotorOutput = elevatorMotorOutputConfig;
 
         /* Wrist Motor Configuration */
@@ -205,20 +210,19 @@ public final class CTREConfigs {
                 wristFXConfig.CurrentLimits = wristCurrentLimitConfig;
 
             /* Soft limit Configuration */
-            HardwareLimitSwitchConfigs wristSoftLimitConfig = new HardwareLimitSwitchConfigs();
-                wristSoftLimitConfig.ForwardLimitEnable = true;
-                wristSoftLimitConfig.ForwardLimitThreshold = Constants.Wrist.forwardSoftLimit;//not quite sure
-                wristSoftLimitConfig.ReverseLimitEnable = true;
-                wristSoftLimitConfig.ReverseLimitThreshold = Constants.Wrist.reverseSoftLimit;//same here
-                wristFXConfig.HardwareLimitSwitch = wristSoftLimitConfig;
+            SoftwareLimitSwitchConfigs wristSoftLimitConfig = new SoftwareLimitSwitchConfigs();
+                wristSoftLimitConfig.ForwardSoftLimitEnable = true;
+                wristSoftLimitConfig.ForwardSoftLimitThreshold = Constants.Wrist.forwardSoftLimit;
+                wristSoftLimitConfig.ReverseSoftLimitEnable = true;
+                wristSoftLimitConfig.ReverseSoftLimitThreshold = Constants.Wrist.reverseSoftLimit;
+                wristFXConfig.SoftwareLimitSwitch = wristSoftLimitConfig;
             
             /* Slot0 Configuration */
             Slot0Configs wristSlot0Config = new Slot0Configs();
                 wristSlot0Config.kP = Constants.Wrist.wristKP;
                 wristSlot0Config.kI = Constants.Wrist.wristKD;
                 wristSlot0Config.kD = Constants.Wrist.wristKI;
-                wristSlot0Config.kF = Constants.Wrist.wristKF;//replaced with kV (velocity i believe), have to add kS for static friction
-                wristSlot0Config.closedLoopPeakOutput = Constants.Wrist.closedLoopPeakOutput; 
+                wristSlot0Config.kV = Constants.Wrist.wristKF; 
                 wristFXConfig.Slot0 = wristSlot0Config;
 
             /* PID Configuration */
@@ -229,12 +233,14 @@ public final class CTREConfigs {
             MotionMagicConfigs wristMotionMagicConfig = new MotionMagicConfigs();
                 wristMotionMagicConfig.MotionMagicCruiseVelocity = Constants.Wrist.velocity;
                 wristMotionMagicConfig.MotionMagicAcceleration = Constants.Wrist.acceleration;
-                wristMotionMagicConfig.motionCurveStrength = Constants.Wrist.smoothing; //replaced with jerk smoothing
+                wristMotionMagicConfig.MotionMagicJerk = Constants.Wrist.smoothing;
                 wristFXConfig.MotionMagic = wristMotionMagicConfig;
 
             /* Neutral Mode Configuration */
             MotorOutputConfigs wristMotorOutputConfig = new MotorOutputConfigs();
                 wristMotorOutputConfig.NeutralMode = Constants.Wrist.wristNeutralMode;
+                wristMotorOutputConfig.PeakForwardDutyCycle = Constants.Wrist.closedLoopPeakOutput;
+                wristMotorOutputConfig.PeakReverseDutyCycle = Constants.Wrist.closedLoopReversePeakOutput;
                 wristFXConfig.MotorOutput = wristMotorOutputConfig;
 
 

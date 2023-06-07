@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj.Timer;
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.Robot;
 
+import com.ctre.phoenixpro.StatusCode;
 import com.ctre.phoenixpro.configs.CANcoderConfigurator;
 import com.ctre.phoenixpro.configs.TalonFXConfigurator;
 import com.ctre.phoenixpro.controls.DutyCycleOut;
 import com.ctre.phoenixpro.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenixpro.controls.PositionVoltage;
+import com.ctre.phoenixpro.controls.VelocityDutyCycle;
 import com.ctre.phoenixpro.hardware.CANcoder;
 import com.ctre.phoenixpro.hardware.TalonFX;
 
@@ -37,6 +39,7 @@ public class SwerveModule {
     private DutyCycleOut cyclerequest = new DutyCycleOut(0.0);
     private PositionTorqueCurrentFOC torqueposition = new PositionTorqueCurrentFOC(0.0);
     private PositionVoltage voltageposition = new PositionVoltage(0.0);
+    private VelocityDutyCycle velocityrequest = new VelocityDutyCycle(0.0);
 
     public double CANcoderInitTime = 0.0;
 
@@ -69,8 +72,8 @@ public class SwerveModule {
     }
 
     public void ForceAngle(int angle){
-        mAngleMotor.setControl(torqueposition.withPosition(Conversions.degreesToFalcon(angle, Constants.Swerve.angleGearRatio)));
-    }//check if we want torque position or voltage position---------------------------------------------------------------------------------------!!
+        mAngleMotor.setControl(voltageposition.withPosition(Conversions.angleToOutput(angle)));
+    }
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
         if(isOpenLoop){
@@ -78,16 +81,16 @@ public class SwerveModule {
             mDriveMotor.setControl(cyclerequest.withOutput(percentOutput));
         }
         else {
-            double velocity = Conversions.MPSToFalcon(desiredState.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio);
-            mDriveMotor.set(ControlMode.Velocity, velocity, DemandType.ArbitraryFeedForward, feedforward.calculate(desiredState.speedMetersPerSecond));
+            double velocity = Conversions.MPSToRPS(desiredState.speedMetersPerSecond, Constants.Swerve.wheelCircumference, Constants.Swerve.driveGearRatio);
+            mDriveMotor.setControl(velocityrequest.withVelocity(velocity));
         }
     }
 
     private void setAngle(SwerveModuleState desiredState){
         Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) ? lastAngle : desiredState.angle; //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         
-        mAngleMotor.setControl(torqueposition.withPosition(Conversions.degreesToFalcon(angle.getDegrees(), Constants.Swerve.angleGearRatio)));
-        lastAngle = angle;//check if we want torque position vs voltage position----------------------------------------------------------------------!!!!
+        mAngleMotor.setControl(voltageposition.withPosition(Conversions.angleToOutput(angle.getDegrees())));
+        lastAngle = angle;
     }
 
     private Rotation2d getAngle(){
@@ -95,7 +98,7 @@ public class SwerveModule {
     }
 
     public Rotation2d getCanCoder(){
-        return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition().getValue());
+        return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition().getValue()*360);
     }
 
     private void waitForCanCoder(){
@@ -110,7 +113,7 @@ public class SwerveModule {
         //encodeTimer.start();
         for (int i = 0; i < 100; ++i) {
             angleEncoder.getAbsolutePosition();
-            if (angleEncoder.getLastError() == ErrorCode.OK && mAngleMotor.getLastError() == ErrorCode.OK) {
+            if (!angleEncoder.getFault_Hardware().getValue()&& !mAngleMotor.getFault_Hardware().getValue()){
                 break;
             }
             Timer.delay(0.010);            

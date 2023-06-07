@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
     private TalonFX mWristMotor;
-    private int desiredPosition = 0;
+    private double desiredPosition = 0;
     public TalonFXConfigurator wristFXConfigurator = mWristMotor.getConfigurator();
 
     /* Motion Magic & Percent Output */
@@ -54,11 +54,12 @@ public class Wrist extends SubsystemBase {
     }
 
  
-    public void setDesiredPosition(int position) {
+    public void setDesiredPosition(double position) {
         desiredPosition = fitToRange(position);
+        desiredPosition /= 2048;
     }
     
-    public int getDesiredPosition() {
+    public double getDesiredPosition() {
         return desiredPosition;
     }
 
@@ -114,7 +115,7 @@ public class Wrist extends SubsystemBase {
         mWristMotor.setRotorPosition(0);
     }
 
-    private int fitToRange(int position) {
+    private double fitToRange(double position) {
         desiredPosition = Math.min(position, Constants.Wrist.forwardSoftLimit);
         desiredPosition = Math.max(desiredPosition, Constants.Wrist.reverseSoftLimit);
         return desiredPosition;
