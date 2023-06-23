@@ -127,5 +127,4 @@ public class PoseEstimator extends SubsystemBase {
     photonField2d.getObject("Cam Est Pos").setPose(camPose.estimatedPose.toPose2d());
     photonField2d.setRobotPose(CurrentPose);
   }
-    
 }
