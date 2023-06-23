@@ -1,11 +1,15 @@
 package org.WaialuaRobotics359.robot.commands.swerve;
 
 
+import java.util.Optional;
+
 import org.WaialuaRobotics359.robot.Constants;
 import org.WaialuaRobotics359.robot.RobotContainer;
+import org.WaialuaRobotics359.robot.subsystems.PhotonVision;
 import org.WaialuaRobotics359.robot.subsystems.LimeLight;
 import org.WaialuaRobotics359.robot.subsystems.Swerve;
 import org.WaialuaRobotics359.robot.util.LimelightHelpers;
+import org.photonvision.EstimatedRobotPose;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -30,6 +34,7 @@ public class PoseEstimator extends SubsystemBase {
 
   private final Swerve s_Swerve;
   private final LimeLight s_LimeLight;
+  private final PhotonVision s_PhotonVision;
 
   // Kalman Filter Configuration. These can be "tuned-to-taste" based on how much
   // you trust your various sensors. Smaller numbers will cause the filter to
@@ -41,10 +46,12 @@ public class PoseEstimator extends SubsystemBase {
   private final SwerveDrivePoseEstimator SwerveposeEstimator;
 
   private final Field2d field2d = new Field2d();
+  private final Field2d photonField2d = new Field2d();
 
-  public PoseEstimator(LimeLight s_LimeLight, Swerve s_Swerve) {
+  public PoseEstimator(LimeLight s_LimeLight, Swerve s_Swerve, PhotonVision s_PhotonVision) {
     this.s_LimeLight = s_LimeLight;
     this.s_Swerve = s_Swerve;
+    this.s_PhotonVision = s_PhotonVision;
 
     ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
     tab.add(field2d);
@@ -55,6 +62,8 @@ public class PoseEstimator extends SubsystemBase {
       new Pose2d(),
       stateStdDevs,
       visionMeasurementStdDevs);
+    
+    tab.add(photonField2d);
   }
 
   /*PoseEst */
@@ -111,6 +120,12 @@ public class PoseEstimator extends SubsystemBase {
     SmartDashboard.putNumber("Rot", CurrentPose.getRotation().getDegrees());
     SmartDashboard.putNumber("X to Closest Node", getXtoClosestSelectedNode());
     SmartDashboard.putNumber ("latency", ((LimelightHelpers.getLatency_Pipeline("LimeLight")) + LimelightHelpers.getLatency_Capture("limelight")));
+    
+    Optional<EstimatedRobotPose> result = s_PhotonVision.getEstimatedPose(CurrentPose);
+    EstimatedRobotPose camPose = result.get();
+    SwerveposeEstimator.addVisionMeasurement(camPose.estimatedPose.toPose2d(), camPose.timestampSeconds);
+    photonField2d.getObject("Cam Est Pos").setPose(camPose.estimatedPose.toPose2d());
+    photonField2d.setRobotPose(CurrentPose);
   }
     
 }
