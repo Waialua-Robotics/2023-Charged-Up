@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 
+import java.nio.channels.spi.SelectorProvider;
 import java.util.HashMap;
 
 import org.WaialuaRobotics359.robot.autos.*;
@@ -130,6 +131,7 @@ public class RobotContainer {
     private final ConeR3DualCube m_ConeR3DualCube;
     private final ConeR3DualBalance m_ConeR3DualBalance;
     private final DriveBack m_DriveBack;
+    private final twoMLine m_twoMLine;
 
     /*RedAutos */
     private final RedSwerveBuilderAuto m_RedSwerveBuilderAuto;
@@ -242,6 +244,7 @@ public class RobotContainer {
         m_ConeR3DualCube = new ConeR3DualCube(autoBuilder, s_PoseEstimator);
         m_ConeR3DualBalance = new ConeR3DualBalance(autoBuilder, s_PoseEstimator);
         m_DriveBack = new DriveBack(autoBuilder);
+        m_twoMLine = new twoMLine(autoBuilder, s_PoseEstimator);
 
         /*Red AutoBuilder */
         m_RedSwerveBuilderAuto = new RedSwerveBuilderAuto(autoBuilder);
@@ -362,6 +365,7 @@ public class RobotContainer {
         m_chooser.addOption("ConeR3DualBalance", "ConeR3DualBalance");
         m_chooser.addOption("DriveBack", "DriveBack");
         m_chooser.addOption("DoNothing", "DoNothing");
+        m_chooser.addOption("twoMLine", "twoMLine");
 
         m_chooser.addOption("ConeScoreHighStow", "ConeScoreHighStow");
         Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -547,6 +551,9 @@ public class RobotContainer {
                 break;
             case "DoNothing":
                 selected = m_DoNothing;
+                break;
+            case "twoMLine":
+                selected = m_twoMLine;
                 break;
             default:
                 selected =  m_DoNothing;
