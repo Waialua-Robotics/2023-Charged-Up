@@ -1,13 +1,14 @@
 package org.WaialuaRobotics359.robot.subsystems;
 
 import org.WaialuaRobotics359.robot.Constants;
-
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Swerve extends SubsystemBase {
-    //public SwerveDriveOdometry swerveOdometry;
+    public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public Pigeon2 gyro;
 
@@ -41,7 +42,7 @@ public class Swerve extends SubsystemBase {
         Timer.delay(1.0);
         resetModulesToAbsolute();
 
-        //swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
+        swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getModulePositions());
 
         for(SwerveModule mod : mSwerveMods){
             System.out.println("CANcoder on Module " + mod.moduleNumber + " took " + mod.CANcoderInitTime + " ms to be ready.");
@@ -90,14 +91,14 @@ public class Swerve extends SubsystemBase {
         desiredAngle = getYaw().getDegrees();
     }
 
-    /*public Pose2d getPose() {
+    public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();
     }
 
     public void resetOdometry(Pose2d pose) {
         swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
     }
-    */
+    
 
     public SwerveModuleState[] getModuleStates(){
         SwerveModuleState[] states = new SwerveModuleState[4];
@@ -148,7 +149,7 @@ public class Swerve extends SubsystemBase {
     public double getYaw360() {
         return ( (getYaw().getDegrees() % 360) + 360 ) % 360;
     }
-
+    
     public void setDesired( double desired ) {
         desiredAngle = desired;
     }

@@ -12,7 +12,7 @@ public class DriveBack extends SequentialCommandGroup {
 
     public DriveBack (SwerveAutoBuilder autoBuilder) {
 
-        PathPlannerTrajectory DriveBack= PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(1, 1)), Alliance.Red);
+        PathPlannerTrajectory DriveBack= PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(0.5, 0.5)), Alliance.Red);
 
         //PathPlannerTrajectory.transformTrajectoryForAlliance(PathPlanner.loadPath("driveBack", new PathConstraints(1, 1)), Alliance.Blue);
         //PathPlanner.loadPath ("twomLine", new PathConstraints(1, 1));
