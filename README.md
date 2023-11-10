@@ -1,4 +1,6 @@
 # 2023-Charged-Up 
+359 First Ever Java Code :) 
+Code is not cleaned up or should be used as a guide on how to write FRC java code. -Bowen
 
 <h2> Controller Binding </h2>
 
